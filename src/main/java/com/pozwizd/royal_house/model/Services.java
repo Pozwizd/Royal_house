@@ -7,21 +7,26 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "about_company")
-public class AboutCompany {
-
+@Table(name = "service")
+public class Services {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "url_banner")
     private String urlBanner;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "url_preview")
+    private String urlPreview;
 
     @Column(name = "text")
     private String text;
+
+    @Column(name = "visible")
+    private String visible;
 
 }

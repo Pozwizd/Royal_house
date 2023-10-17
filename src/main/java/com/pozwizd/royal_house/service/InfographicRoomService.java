@@ -5,15 +5,15 @@ import com.pozwizd.royal_house.model.InfographicRoom;
 import java.util.List;
 
 public interface InfographicRoomService {
-    // crud
 
-    void create(InfographicRoom infographicRoom);
+    public void saveInfographicRoom(InfographicRoom infographicRoom);
 
-    void update(InfographicRoom infographicRoom);
+    public InfographicRoom getInfographicRoom(long id);
 
-    void delete(long id);
+    public void deleteInfographicRoom(long id);
 
-    List<InfographicRoom> findAll();
+    public void updateInfographicRoom(InfographicRoom infographicRoom);
 
-    InfographicRoom findById(long id);
+    public List<InfographicRoom> findAllInfographicRooms();
+
 }

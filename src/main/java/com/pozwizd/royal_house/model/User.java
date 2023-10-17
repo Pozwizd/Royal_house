@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "user")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -41,6 +44,9 @@ public class User {
     private String address;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-    private NewBuilding newBuilding;
+    private Building building;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<AdditionalEmail> additionalEmails;
 
 }

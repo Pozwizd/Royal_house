@@ -7,21 +7,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "about_company")
-public class AboutCompany {
-
+@Table(name = "additional_email")
+public class AdditionalEmail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "url_banner")
-    private String urlBanner;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "title")
-    private String title;
-
-    @Column(name = "text")
-    private String text;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id")
+    private User user;
 
 }

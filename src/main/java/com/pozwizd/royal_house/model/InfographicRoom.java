@@ -10,6 +10,7 @@ import lombok.Setter;
 @Table(name = "infographic_rooms")
 public class InfographicRoom {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -23,7 +24,7 @@ public class InfographicRoom {
     private String altImage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rooms_id")
-    private RoomNewBuilding roomNewBuilding;
+    @JoinColumn(name = "room_id")
+    private RoomBuilding roomBuilding;
 
 }

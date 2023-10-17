@@ -5,15 +5,11 @@ import com.pozwizd.royal_house.model.InfographicInfrastructure;
 import java.util.List;
 
 public interface InfographicInfrastructureService {
-    // Crud operations
 
-    void save(InfographicInfrastructure infographicInfrastructure);
+    public void saveInfographicInfrastructure(InfographicInfrastructure infographicInfrastructure);
+    public InfographicInfrastructure getInfographicInfrastructure(long id);
+    public void deleteInfographicInfrastructure(long id);
+    public void updateInfographicInfrastructure(InfographicInfrastructure infographicInfrastructure);
+    public List<InfographicInfrastructure> findAllInfographicInfrastructures();
 
-    void delete(long id);
-
-    void update(InfographicInfrastructure infographicInfrastructure);
-
-    List<InfographicInfrastructure> findAll();
-
-    InfographicInfrastructure findById(long id);
 }

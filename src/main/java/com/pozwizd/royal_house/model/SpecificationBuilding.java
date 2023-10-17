@@ -7,21 +7,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "about_company")
-public class AboutCompany {
-
+@Table(name = "specification_building")
+public class SpecificationBuilding {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "url_banner")
-    private String urlBanner;
-
-    @Column(name = "title")
-    private String title;
-
+    @Lob
     @Column(name = "text")
     private String text;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "building_id")
+    private Building building;
 
 }

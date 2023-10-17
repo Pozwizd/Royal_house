@@ -18,27 +18,22 @@ public class AboutCompanyServiceImp implements AboutCompanyService {
 
 
     @Override
-    public void save(AboutCompany aboutCompany) {
+    public void saveAboutCompany(AboutCompany aboutCompany) {
         aboutCompanyRepository.save(aboutCompany);
     }
 
     @Override
-    public void delete(long  id) {
+    public void deleteAboutCompany(long id) {
         aboutCompanyRepository.deleteById(id);
     }
 
     @Override
-    public void update(AboutCompany aboutCompany) {
-        aboutCompanyRepository.save(aboutCompany);
-    }
-
-    @Override
-    public List<AboutCompany> findAll() {
-        return aboutCompanyRepository.findAll();
-    }
-
-    @Override
-    public AboutCompany findById(long id) {
+    public AboutCompany findAboutCompanyById(long id) {
         return aboutCompanyRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<AboutCompany> findAllAboutCompanies() {
+        return aboutCompanyRepository.findAll();
     }
 }

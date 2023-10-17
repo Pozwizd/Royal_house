@@ -5,14 +5,11 @@ import com.pozwizd.royal_house.model.ServiceBanner;
 import java.util.List;
 
 public interface ServiceBannerService {
-    // Crud operations
-    void save(ServiceBanner serviceBanner);
 
-    void delete(ServiceBanner serviceBanner);
+    public void saveServiceBanner(ServiceBanner serviceBanner);
+    public ServiceBanner getServiceBanner(long id);
+    public void deleteServiceBanner(long id);
+    public void updateServiceBanner(ServiceBanner serviceBanner);
 
-    void deleteById(Long id);
-
-    List<ServiceBanner> findAll();
-
-    ServiceBanner findById(long id);
+    public List<ServiceBanner> getAllServiceBanners();
 }

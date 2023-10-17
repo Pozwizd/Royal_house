@@ -3,11 +3,9 @@ package com.pozwizd.royal_house.service.ServiceImp;
 import com.pozwizd.royal_house.model.ServiceBanner;
 import com.pozwizd.royal_house.repository.ServiceBannerRepository;
 import com.pozwizd.royal_house.service.ServiceBannerService;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public class ServiceBannerServiceImp implements ServiceBannerService {
 
     private final ServiceBannerRepository serviceBannerRepository;
@@ -17,27 +15,27 @@ public class ServiceBannerServiceImp implements ServiceBannerService {
     }
 
     @Override
-    public void save(ServiceBanner serviceBanner) {
+    public void saveServiceBanner(ServiceBanner serviceBanner) {
         serviceBannerRepository.save(serviceBanner);
     }
 
     @Override
-    public void delete(ServiceBanner serviceBanner) {
-        serviceBannerRepository.delete(serviceBanner);
+    public ServiceBanner getServiceBanner(long id) {
+        return serviceBannerRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteServiceBanner(long id) {
         serviceBannerRepository.deleteById(id);
     }
 
     @Override
-    public List<ServiceBanner> findAll() {
-        return serviceBannerRepository.findAll();
+    public void updateServiceBanner(ServiceBanner serviceBanner) {
+        serviceBannerRepository.save(serviceBanner);
     }
 
     @Override
-    public ServiceBanner findById(long id) {
-        return serviceBannerRepository.findById(id).orElse(null);
+    public List<ServiceBanner> getAllServiceBanners() {
+        return serviceBannerRepository.findAll();
     }
 }

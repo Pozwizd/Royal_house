@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "infographic_infrastructure")
-public class InfographicInfrastructure {
+@Table(name = "infographic_building")
+public class InfographicBuilding {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -20,11 +20,8 @@ public class InfographicInfrastructure {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "alt_image")
-    private String altImage;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "infrastructure_id")
-    private InfographicInfrastructure infographicInfrastructure;
+    @JoinColumn(name = "building_id")
+    private Building building;
 
 }

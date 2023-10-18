@@ -194,7 +194,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="inquiry : ${allInquiry}">
+                                <tr th:each="inquiry : ${requests}">
                                     <td th:text="${inquiry.name}"></td>
                                     <td th:text="${inquiry.phoneNumber}"></td>
                                     <td th:text="${inquiry.email}"></td>
@@ -204,6 +204,36 @@
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item prev">
+                                        <a class="page-link" href="javascript:void(0);"
+                                        ><i class="ti ti-chevrons-left ti-xs"></i
+                                        ></a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:void(0);">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:void(0);">2</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="javascript:void(0);">3</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:void(0);">4</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:void(0);">5</a>
+                                    </li>
+                                    <li class="page-item next">
+                                        <a class="page-link" href="javascript:void(0);"
+                                        ><i class="ti ti-chevrons-right ti-xs"></i
+                                        ></a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                     <!--/ Responsive Table -->

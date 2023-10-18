@@ -1,6 +1,8 @@
 package com.pozwizd.royal_house.service;
 
 import com.pozwizd.royal_house.model.Requests;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -14,6 +16,6 @@ public interface RequestsService {
 
     public void updateRequests(Requests requests);
 
-    public List<Requests> findAll();
+    public Page<Requests> findAll(Pageable pageable);
 
 }

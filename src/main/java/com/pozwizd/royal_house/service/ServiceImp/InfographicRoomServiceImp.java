@@ -3,9 +3,11 @@ package com.pozwizd.royal_house.service.ServiceImp;
 import com.pozwizd.royal_house.model.InfographicRoom;
 import com.pozwizd.royal_house.repository.InfographicRoomRepository;
 import com.pozwizd.royal_house.service.InfographicRoomService;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class InfographicRoomServiceImp implements InfographicRoomService {
 
     private final InfographicRoomRepository infographicRoomRepository;

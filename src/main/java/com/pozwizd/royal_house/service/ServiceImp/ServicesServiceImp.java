@@ -3,9 +3,11 @@ package com.pozwizd.royal_house.service.ServiceImp;
 import com.pozwizd.royal_house.model.Services;
 import com.pozwizd.royal_house.repository.ServicesRepository;
 import com.pozwizd.royal_house.service.ServicesService;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ServicesServiceImp implements ServicesService {
 
     private final ServicesRepository servicesRepository;

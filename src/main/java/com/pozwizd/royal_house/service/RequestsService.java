@@ -15,14 +15,6 @@ import java.util.Optional;
 
 public interface RequestsService {
 
-    public void saveRequests(Requests requests);
 
-    public Requests getRequests(long id);
-
-    public void deleteRequests(long id);
-
-    public void updateRequests(Requests requests);
-
-    public Page<Requests> findAll(Pageable pageable);
 
 }

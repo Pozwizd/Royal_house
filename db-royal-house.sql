@@ -3,7 +3,7 @@ create schema db_royal_house;
 USE db_royal_house;
 
 
-CREATE TABLE IF NOT EXISTS inquiry
+CREATE TABLE IF NOT EXISTS requests
 (
     id           BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name         VARCHAR(255),
@@ -184,4 +184,16 @@ CREATE TABLE IF NOT EXISTS about_company
     title      VARCHAR(100),
     text       LONGTEXT
 );
+
+INSERT INTO requests (name, phone_number, email, comment, date, status) VALUES
+                                                                            ('John Doe', '+380501234567', 'john@example.com', 'Need help with order', NOW(), 'Новый'),
+                                                                            ('Jane Smith', '+380509876543', 'jane@gmail.com', 'Shipping question', NOW(), 'Отвечено'),
+                                                                            ('Mike Johnson', '+380681234567', 'mike_johnson@yahoo.com', 'Payment didn''t go through', NOW(), 'Новый'),
+                                                                            ('Sarah Williams', '+380637891234', 'swilliams@icloud.com', 'Missing item in delivery', NOW(), 'Отвечено'),
+                                                                            ('Robert Brown', '+380505554444', 'rob@brown.com', 'Requesting refund', NOW(), 'Новый'),
+                                                                            ('Michael Miller', '+380507776666', 'millerm@company.com', 'Order confirmation', NOW(), 'Новый'),
+                                                                            ('David Jones', '+380671119999', 'djones@email.net', 'Inquiry about new product', NOW(), 'Новый'),
+                                                                            ('James Smith', '+380503335556', 'smithj@provider.org', 'Need replacement for damaged item', NOW(), 'Отвечено'),
+                                                                            ('Richard Williams', '+380501234567', 'rwilliams@website.edu', 'Check order status', NOW(), 'Новый'),
+                                                                            ('William Davis', '+380672234567', 'wdavis@isp.gov', 'Product recommendation', NOW(), 'Новый');
 

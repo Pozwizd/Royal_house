@@ -1,6 +1,7 @@
 package com.pozwizd.royal_house.repository;
 
 import com.pozwizd.royal_house.model.Requests;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

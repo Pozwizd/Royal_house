@@ -178,7 +178,7 @@
                     <!-- Responsive Table -->
                     <div class="card">
                         <h5 class="card-header">Responsive Table</h5>
-                        <div class="table-responsive text-nowrap">
+                        <div class=" table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
                                 <tr class="text-nowrap">
@@ -193,9 +193,10 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <form method="get" action="/inquiry">
+                                    <form method="get" action="/requests">
                                         <td>
                                             <input name="name"
+                                                   id="name"
                                                     type="text"
                                                     class="form-control"
                                                     placeholder="Name"
@@ -203,6 +204,7 @@
                                         </td>
                                         <td>
                                             <input name="phoneNumber"
+                                                   id="phoneNumber"
                                                     type="text"
                                                    class="form-control"
                                                    placeholder="phone"
@@ -231,42 +233,63 @@
                                     <td th:text="${inquiry.phoneNumber}"></td>
                                     <td th:text="${inquiry.email}"></td>
                                     <td th:text="${inquiry.comment}"></td>
-                                    <td th:text="${inquiry.date}"></td>
+                                    <td th:text="${#temporals.format(inquiry.date, 'dd.MM.yyyy - HH:mm')}"></td>
                                     <td th:text="${inquiry.status}"></td>
                                     <td></td>
                                 </tr>
                                 </tbody>
                             </table>
-
+                            <br/>
                             <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item first">
-                                        <a class="page-link" th:attr="href=@{/inquiry(currentPage=0, name=${name}, phoneNumber=${phoneNumber})}">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item first" th:with="name=${name}, phoneNumber=${phoneNumber}">
+                                        <a class="page-link" th:attr="href=@{/requests(page=0, name=${name}, phoneNumber=${phoneNumber})}">
                                             <i class="ti ti-chevrons-left ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item prev">
-                                        <a class="page-link" th:attr="href=@{/inquiry(page=${currentPage != null ? currentPage - 1 : 0}, name=${name}, phoneNumber=${phoneNumber})}">
+                                        <a class="page-link" th:attr="href=@{/requests(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, name=${name}, phoneNumber=${phoneNumber})}">
                                             <i class="ti ti-chevron-left ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
-                                        <a class="page-link" th:attr="href=@{/inquiry(page=${i}-1, name=${name}, phoneNumber=${phoneNumber})}">
+                                        <a class="page-link" th:attr="href=@{/requests(page=${i - 1}, name=${name}, phoneNumber=${phoneNumber})}">
                                             [[${i}]]
                                         </a>
                                     </li>
                                     <li class="page-item next">
-                                        <a class="page-link" th:attr="href=@{/inquiry(page=${currentPage}+1, name=${name}, phoneNumber=${phoneNumber})}">
+                                        <a class="page-link" th:attr="href=@{/requests(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, name=${name}, phoneNumber=${phoneNumber})}">
                                             <i class="ti ti-chevron-right ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item last">
-                                        <a class="page-link" th:attr="href=@{/inquiry(currentPage=${totalPages}-1, name=${name}, phoneNumber=${phoneNumber})}">
+                                        <a class="page-link" th:attr="href=@{/requests(page=${totalPages - 1 }, name=${name}, phoneNumber=${phoneNumber})}">
                                             <i class="ti ti-chevrons-right ti-xs"></i>
                                         </a>
                                     </li>
                                 </ul>
                             </nav>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h5 class="card-header">Bordered Table</h5>
+                        <div class="card-body">
+                            <div  class="table-responsive text-nowrap">
+                                <table  class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Project</th>
+                                        <th>Client</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Angular Project</td>
+                                        <td>Albert Cook</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <!--/ Responsive Table -->
@@ -357,6 +380,8 @@
 
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
+
+
 
 </body>
 </html>

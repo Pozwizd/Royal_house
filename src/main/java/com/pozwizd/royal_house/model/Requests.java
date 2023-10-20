@@ -2,8 +2,11 @@ package com.pozwizd.royal_house.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnTransformer;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,9 +33,9 @@ public class Requests {
     @Column(name = "comment")
     private String comment;
 
-    
+
     @Column(name = "date")
-    private Instant date;
+    private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

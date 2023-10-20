@@ -2,7 +2,6 @@ package com.pozwizd.royal_house.controller;
 
 
 import com.pozwizd.royal_house.model.Requests;
-import com.pozwizd.royal_house.service.RequestsService;
 import com.pozwizd.royal_house.service.ServiceImp.RequestsServiceImp;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ public class RequestsController {
         this.requestsService = requestsService;
     }
 
-    @GetMapping("/inquiry")
+    @GetMapping("/requests")
     public ModelAndView list(@RequestParam(defaultValue = "0") int page,
                              @RequestParam(required = false) String name,
                              @RequestParam(required = false) String email,
@@ -42,7 +41,7 @@ public class RequestsController {
         model.addAttribute("requests", requests);
         model.addAttribute("currentPage", page);
 
-        return new ModelAndView("inquiry");
+        return new ModelAndView("requests");
     }
 
 }

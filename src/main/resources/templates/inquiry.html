@@ -195,14 +195,15 @@
                                 <tr>
                                     <form method="get" action="/inquiry">
                                         <td>
-                                            <input
+                                            <input name="name"
                                                     type="text"
                                                     class="form-control"
                                                     placeholder="Name"
                                                     value=""/>
                                         </td>
                                         <td>
-                                            <input type="text"
+                                            <input name="phoneNumber"
+                                                    type="text"
                                                    class="form-control"
                                                    placeholder="phone"
                                                    value=""/>
@@ -211,7 +212,8 @@
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <select id="selectType" class="form-select color-dropdown">
+                                            <select name="status"
+                                                    class="form-select color-dropdown">
                                                 <option value="Новый">Новый</option>
                                                 <option value="Отвечено">Отвечено</option>
                                             </select>
@@ -239,30 +241,29 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item first">
-                                        <a class="page-link" th:href="@{/inquiry(page=0)}">
-                                            <i class="ti ti-chevrons-left ti-xs">
-                                            </i>
+                                        <a class="page-link" th:attr="href=@{/inquiry(currentPage=0, name=${name}, phoneNumber=${phoneNumber})}">
+                                            <i class="ti ti-chevrons-left ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item prev">
-                                        <a class="page-link" th:href="@{/inquiry(page=${currentPage}-1)}"
-                                        ><i class="ti ti-chevron-left ti-xs"></i
-                                        ></a>
+                                        <a class="page-link" th:attr="href=@{/inquiry(page=${currentPage != null ? currentPage - 1 : 0}, name=${name}, phoneNumber=${phoneNumber})}">
+                                            <i class="ti ti-chevron-left ti-xs"></i>
+                                        </a>
                                     </li>
-                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalElements/2)}">
-                                        <a class="page-link" th:href="@{/inquiry(page=${i}-1)}">
+                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                        <a class="page-link" th:attr="href=@{/inquiry(page=${i}-1, name=${name}, phoneNumber=${phoneNumber})}">
                                             [[${i}]]
                                         </a>
                                     </li>
                                     <li class="page-item next">
-                                        <a class="page-link" th:href="@{/inquiry(page=${currentPage}+1)}"
-                                        ><i class="ti ti-chevron-right ti-xs"></i
-                                        ></a>
+                                        <a class="page-link" th:attr="href=@{/inquiry(page=${currentPage}+1, name=${name}, phoneNumber=${phoneNumber})}">
+                                            <i class="ti ti-chevron-right ti-xs"></i>
+                                        </a>
                                     </li>
                                     <li class="page-item last">
-                                        <a class="page-link" th:href="@{/inquiry(page=${totalElements/2}-1)}"
-                                        ><i class="ti ti-chevrons-right ti-xs"></i
-                                        ></a>
+                                        <a class="page-link" th:attr="href=@{/inquiry(currentPage=${totalPages}-1, name=${name}, phoneNumber=${phoneNumber})}">
+                                            <i class="ti ti-chevrons-right ti-xs"></i>
+                                        </a>
                                     </li>
                                 </ul>
                             </nav>

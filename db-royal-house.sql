@@ -185,3 +185,40 @@ CREATE TABLE IF NOT EXISTS about_company
     text       LONGTEXT
 );
 
+use db_royal_house;
+select *
+from requests
+where name like '% %'
+  and phone_number like '% %'
+  and email like '% %'
+  and status = ' ';
+
+
+INSERT INTO requests (name, phone_number, email, comment, date, status)
+VALUES ('John Doe', '+380501234567', 'john@example.com', 'Need help with order', NOW(), 'Новый'),
+       ('Jane Smith', '+380509876543', 'jane@gmail.com', 'Shipping question', NOW(), 'Отвечено'),
+       ('Mike Johnson', '+380681234567', 'mike_johnson@yahoo.com', 'Payment didn''t go through', NOW(), 'Новый'),
+       ('Sarah Williams', '+380637891234', 'swilliams@icloud.com', 'Missing item in delivery', NOW(), 'Отвечено'),
+       ('Robert Brown', '+380505554444', 'rob@brown.com', 'Requesting refund', NOW(), 'Новый'),
+       ('Michael Miller', '+380507776666', 'millerm@company.com', 'Order confirmation', NOW(), 'Новый'),
+       ('David Jones', '+380671119999', 'djones@email.net', 'Inquiry about new product', NOW(), 'Новый'),
+       ('James Smith', '+380503335556', 'smithj@provider.org', 'Need replacement for damaged item', NOW(), 'Отвечено'),
+       ('Richard Williams', '+380501234567', 'rwilliams@website.edu', 'Check order status', NOW(), 'Новый'),
+       ('William Davis', '+380672234567', 'wdavis@isp.gov', 'Product recommendation', NOW(), 'Новый');
+
+INSERT INTO subjects (property_type, area, price, price_per_meter, rooms, floor, floor_area, date_addition)
+VALUES ('Квартира', '80 кв. м', '1000000', '12500', '3', '2', '60 кв. м', '2023-10-21 10:00:00'),
+       ('Участок', '1000 кв. м', '500000', '500', NULL, NULL, NULL, '2023-10-20 14:30:00'),
+       ('Дом', '200 кв. м', '1500000', '7500', '5', '1', '150 кв. м', '2023-10-19 09:45:00'),
+       ('Квартира', '65 кв. м', '800000', '12308', '2', '3', '50 кв. м', '2023-10-18 16:20:00'),
+       ('Участок', '500 кв. м', '300000', '600', NULL, NULL, NULL, '2023-10-17 11:15:00'),
+       ('Дом', '150 кв. м', '1200000', '8000', '4', '2', '120 кв. м', '2023-10-16 08:30:00'),
+       ('Квартира', '90 кв. м', '1100000', '12222', '3', '4', '70 кв. м', '2023-10-15 13:40:00'),
+       ('Участок', '800 кв. м', '600000', '750', NULL, NULL, NULL, '2023-10-14 17:50:00'),
+       ('Дом', '180 кв. м', '1400000', '7778', '6', '3', '150 кв. м', '2023-10-13 09:10:00'),
+       ('Квартира', '75 кв. м', '900000', '12000', '2', '1', '55 кв. м', '2023-10-12 14:25:00'),
+       ('Участок', '1200 кв. м', '800000', '667', NULL, NULL, NULL, '2023-10-11 10:35:00'),
+       ('Дом', '250 кв. м', '1800000', '7200', '7', '2', '200 кв. м', '2023-10-10 11:55:00'),
+       ('Квартира', '70 кв. м', '850000', '12143', '3', '5', '55 кв. м', '2023-10-09 15:05:00'),
+       ('Участок', '600 кв. м', '400000', '667', NULL, NULL, NULL, '2023-10-08 18:15:00'),
+       ('Дом', '220 кв. м', '1600000', '7273', '5', '1', '180 кв. м', '2023-10-07 09:30:00');

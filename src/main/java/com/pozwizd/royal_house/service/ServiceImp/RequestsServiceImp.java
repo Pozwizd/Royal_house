@@ -1,15 +1,11 @@
 package com.pozwizd.royal_house.service.ServiceImp;
 
 import com.pozwizd.royal_house.model.Requests;
-import com.pozwizd.royal_house.model.Status;
 import com.pozwizd.royal_house.repository.RequestsRepository;
 import com.pozwizd.royal_house.service.RequestsService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class RequestsServiceImp implements RequestsService {
@@ -45,6 +41,7 @@ public class RequestsServiceImp implements RequestsService {
         return requestsRepository.findAll(pageable);
     }
 
+    @Override
     public Page<Requests> findByRequest(String name, String phoneNumber, String email, Pageable pageable) {
 
         return requestsRepository.findByCriteria(name, phoneNumber, email, pageable);

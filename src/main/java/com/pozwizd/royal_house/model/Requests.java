@@ -33,7 +33,6 @@ public class Requests {
     @Column(name = "comment")
     private String comment;
 
-
     @Column(name = "date")
     private LocalDateTime date;
 

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -38,6 +39,6 @@ public class Subjects {
     private String floorArea;
 
     @Column(name = "date_addition")
-    private Instant dateAddition;
+    private LocalDateTime dateAddition;
 
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,5 +49,17 @@ public class SubjectsController {
         model.addAttribute("currentPage", page);
 
         return new ModelAndView("subjects");
+    }
+
+    @GetMapping("/get/{id}")
+    public ModelAndView getSubject(@PathVariable("id") Long subjectsId, Model model) {
+        model.addAttribute("subjects", subjectsService.getSubjects(subjectsId));
+        return new ModelAndView("subjectsCard");
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteRequestId(@PathVariable("id") Long subjectsId) {
+        subjectsService.deleteSubjects(subjectsId);
+        return "redirect:/subjects";
     }
 }

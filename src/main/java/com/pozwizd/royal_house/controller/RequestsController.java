@@ -5,6 +5,7 @@ import com.pozwizd.royal_house.model.Requests;
 import com.pozwizd.royal_house.model.Status;
 import com.pozwizd.royal_house.service.RequestsService;
 import com.pozwizd.royal_house.service.ServiceImp.RequestsServiceImp;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,7 +51,7 @@ public class RequestsController {
     }
 
     @GetMapping("/changeStatus/{id}")
-    public String changeStatusRequestId(@PathVariable("id") Long requestsId) {
+    public String changeStatusRequestId(@PathVariable("id") Long requestsId, HttpServletRequest request) {
         Requests requests = requestsService.getRequests(requestsId);
         if (requests.getStatus().toString().equals("Новый")) {
             requests.setStatus(Status.Отвечено);
@@ -58,7 +59,12 @@ public class RequestsController {
             requests.setStatus(Status.Новый);
         }
         requestsService.updateRequests(requests);
-        return "redirect:/requests";
+        String referer = request.getHeader("Referer");
+        if (referer != null) {
+            return "redirect:" + referer;
+        } else {
+            return "redirect:/";
+        }
     }
 
 
@@ -73,6 +79,7 @@ public class RequestsController {
         requestsService.deleteRequests(requestsId);
         return "redirect:/requests";
     }
+
 
 }
 

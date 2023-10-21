@@ -182,13 +182,14 @@
                                     <th>Этаж</th>
                                     <th>Этажность</th>
                                     <th>Дата добавления</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <form method="get" action="/requests">
+                                    <form method="get" action="/subjects">
                                         <td>
-                                            <input name="name"
+                                            <input name="id"
                                                    id="id"
                                                    type="text"
                                                    class="form-control"
@@ -196,28 +197,26 @@
                                                    value=""/>
                                         </td>
                                         <td>
-                                            <select name="Тип недвижимости"
+                                            <select name="propertyType"
                                                     class="form-select color-dropdown">
+                                                <option value=""></option>
                                                 <option value="Квартира">Квартира</option>
                                                 <option value="Дом">Дом</option>
                                                 <option value="Участок">Участок</option>
                                             </select>
                                         </td>
-                                        <td>
-
-                                        </td>
                                         <td></td>
                                         <td></td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
 
                                     </form>
                                 </tr>
-                                <tr th:each="subjectElement : ${subjectsList}">
+                                <tr  th:each="subjectElement : ${subjectsList}">
                                     <td th:text="${subjectElement.id}"></td>
                                     <td th:text="${subjectElement.propertyType}"></td>
                                     <td th:text="${subjectElement.area}"></td>
@@ -227,6 +226,11 @@
                                     <td th:text="${subjectElement.floor}"></td>
                                     <td th:text="${subjectElement.floorArea}"></td>
                                     <td th:text="${#temporals.format(subjectElement.dateAddition, 'dd.MM.yyyy - HH:mm')}"></td>
+                                    <td>
+                                        <a style="max-width: 24px; " th:href="@{/subjects/get/{id}(id=${subjectElement.id})}" class="btn btn-primary">
+                                            <i class="ti ti-eye"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

@@ -180,7 +180,7 @@
                                     <th>Комментарий</th>
                                     <th>Дата</th>
                                     <th>Статус</th>
-                                    <th>Действия</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -250,10 +250,10 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a th:href="@{/requests/get/{id}(id=${inquiry.id})}" class="btn btn-primary">
+                                        <a style="max-width: 24px; " th:href="@{/requests/get/{id}(id=${inquiry.id})}" class="btn btn-primary">
                                             <i class="ti ti-eye"></i>
                                         </a>
-                                        <a th:href="@{/requests/delete/{id}(id=${inquiry.id})}" class="btn btn-danger">
+                                        <a style="max-width: 24px; " th:href="@{/requests/delete/{id}(id=${inquiry.id})}" class="btn btn-danger">
                                             <i class="ti ti-trash"></i>
                                         </a>
                                     </td>

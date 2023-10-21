@@ -26,7 +26,8 @@ public class Services {
     @Column(name = "text")
     private String text;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "visible")
-    private String visible;
+    private Visible visible;
 
 }

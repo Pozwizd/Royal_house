@@ -164,7 +164,7 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h2 class="mb-0">Просмотр заявки</h2>
+                    <h2 class="mb-0">Просмотр объекта</h2>
                     <br/>
                     <div class="card">
                         <div class="card-body">
@@ -172,39 +172,40 @@
                                 <table  class="table table-bordered">
                                     <tbody>
                                     <tr>
-                                        <td>Name</td>
-                                        <td th:text="${requests.name}">Name</td>
+                                        <td>ID</td>
+                                        <td th:text="${subjects.id}"></td>
                                     </tr>
                                     <tr>
-                                        <td>Phone</td>
-                                        <td th:text="${requests.phoneNumber}">Phone</td>
+                                        <td>Тип недвижимости</td>
+                                        <td th:text="${subjects.propertyType}"></td>
                                     </tr>
                                     <tr>
-                                        <td>Comment</td>
-                                        <td th:text="${requests.comment}">Comment</td>
+                                        <td>Площадь (м. кв.)</td>
+                                        <td th:text="${subjects.area}"></td>
                                     </tr>
                                     <tr>
-                                        <td>Date</td>
-                                        <td th:text="${#temporals.format(requests.date, 'dd.MM.yyyy - HH:mm')}">Date</td>
+                                        <td>Цена ($)</td>
+                                        <td th:text="${subjects.price}"></td>
                                     </tr>
                                     <tr>
-                                        <td>Status</td>
-                                        <td>
-                                            <button th:if="${requests.status.toString() == 'Отвечено'}"
-                                               class="btn btn-success"
-
-                                               th:href="@{/requests/changeStatus/{id}(id=${requests.id})}"
-                                               th:text="${requests.status}">
-                                                Success
-                                            </button>
-                                            <button th:if="${requests.status.toString() == 'Новый'}"
-                                               class="btn btn-warning"
-
-                                               th:href="@{/requests/changeStatus/{id}(id=${requests.id})}"
-                                               th:text="${requests.status}">
-                                                Warning
-                                            </button>
-                                        </td>
+                                        <td>Цена за м. кв. ($)</td>
+                                        <td th:text="${subjects.pricePerMeter}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Комнат</td>
+                                        <td th:text="${subjects.rooms}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Этаж</td>
+                                        <td th:text="${subjects.floor}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Этажность</td>
+                                        <td th:text="${subjects.floorArea}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Дата добавления</td>
+                                        <td th:text="${#temporals.format(subjects.dateAddition, 'dd.MM.yyyy - HH:mm')}">Date</td>
                                     </tr>
                                     </tbody>
                                 </table>

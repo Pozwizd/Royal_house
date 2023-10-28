@@ -2,10 +2,7 @@ package com.pozwizd.royal_house.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnTransformer;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
@@ -38,7 +35,7 @@ public class Requests {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private StatusRequests statusRequests;
 
 }
 

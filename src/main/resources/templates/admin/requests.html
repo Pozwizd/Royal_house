@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html
         lang="ru"
         class="light-style layout-navbar-fixed layout-menu-fixed"
@@ -59,6 +60,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
 </head>
+
 <body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
@@ -164,55 +166,139 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h2 class="mb-0">Просмотр заявки</h2>
+                    <h2 class="mb-0">Заявки</h2>
                     <br/>
+                    <!-- Responsive Table -->
                     <div class="card">
-                        <div class="card-body">
-                            <div  class="table-responsive text-nowrap">
-                                <table  class="table table-bordered">
-                                    <tbody>
-                                    <tr>
-                                        <td>Name</td>
-                                        <td th:text="${requests.name}">Name</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Phone</td>
-                                        <td th:text="${requests.phoneNumber}">Phone</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Comment</td>
-                                        <td th:text="${requests.comment}">Comment</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Date</td>
-                                        <td th:text="${#temporals.format(requests.date, 'dd.MM.yyyy - HH:mm')}">Date</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Status</td>
+                        <div class=" table-responsive text-nowrap">
+                            <table class="table">
+                                <thead>
+                                <tr class="text-nowrap">
+                                    <th>Имя</th>
+                                    <th>Телефон</th>
+                                    <th>Email</th>
+                                    <th>Комментарий</th>
+                                    <th>Дата</th>
+                                    <th>Статус</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <form method="get" action="/requests">
                                         <td>
-                                            <button th:if="${requests.status.toString() == 'Отвечено'}"
-                                               class="btn btn-success"
-
-                                               th:href="@{/requests/changeStatus/{id}(id=${requests.id})}"
-                                               th:text="${requests.status}">
-                                                Success
-                                            </button>
-                                            <button th:if="${requests.status.toString() == 'Новый'}"
-                                               class="btn btn-warning"
-
-                                               th:href="@{/requests/changeStatus/{id}(id=${requests.id})}"
-                                               th:text="${requests.status}">
-                                                Warning
+                                            <input name="name"
+                                                   id="name"
+                                                   type="text"
+                                                   class="form-control"
+                                                   placeholder="Name"
+                                                   value=""/>
+                                        </td>
+                                        <td>
+                                            <input name="phoneNumber"
+                                                   id="phoneNumber"
+                                                   type="text"
+                                                   class="form-control"
+                                                   placeholder="phoneNumber"
+                                                   value=""/>
+                                        </td>
+                                        <td>
+                                            <input name="email"
+                                                   id="email"
+                                                   type="text"
+                                                   class="form-control"
+                                                   placeholder="email"
+                                                   value=""/>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <select name="status"
+                                                    class="form-select color-dropdown">
+                                                <option value="Новый">Новый</option>
+                                                <option value="Отвечено">Отвечено</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-primary">
+                                                Search
                                             </button>
                                         </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+
+                                    </form>
+                                </tr>
+                                <tr th:each="inquiry : ${requests}">
+                                    <td th:text="${inquiry.name}"></td>
+                                    <td th:text="${inquiry.phoneNumber}"></td>
+                                    <td th:text="${inquiry.email}"></td>
+                                    <td th:text="${inquiry.comment}"></td>
+                                    <td th:text="${#temporals.format(inquiry.date, 'dd.MM.yyyy - HH:mm')}"></td>
+                                    <td >
+                                        <a th:if="${inquiry.getStatusRequests.toString() == 'Отвечено'}"
+                                           class="btn btn-success"
+
+                                           th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
+                                           th:text="${inquiry.getStatusRequests}">
+                                            Success
+                                        </a>
+                                        <a th:if="${inquiry.getStatusRequests.toString() == 'Новый'}"
+                                           class="btn btn-warning"
+
+                                           th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
+                                           th:text="${inquiry.getStatusRequests}">
+                                            Warning
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a style="max-width: 24px; " th:href="@{/requests/get/{id}(id=${inquiry.id})}" class="btn btn-primary">
+                                            <i class="ti ti-eye"></i>
+                                        </a>
+                                        <a style="max-width: 24px; " th:href="@{/requests/delete/{id}(id=${inquiry.id})}" class="btn btn-danger">
+                                            <i class="ti ti-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <nav aria-label="Page navigation" style="padding-right: 10px">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item first">
+                                        <a class="page-link"
+                                           th:attr="href=@{/requests(page=0, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                            <i class="ti ti-chevrons-left ti-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item prev">
+                                        <a class="page-link"
+                                           th:attr="href=@{/requests(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, name=${name}, phoneNumber=${phoneNumber} , email=${email})}">
+                                            <i class="ti ti-chevron-left ti-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage == i - 1} ? 'active'">
+                                        <a class="page-link"
+                                           th:attr="href=@{/requests(page=${i - 1}, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                            [[${i}]]
+                                        </a>
+                                    </li>
+                                    <li class="page-item next">
+                                        <a class="page-link"
+                                           th:attr="href=@{/requests(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                            <i class="ti ti-chevron-right ti-xs"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item last">
+                                        <a class="page-link"
+                                           th:attr="href=@{/requests(page=${totalPages - 1 }, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                            <i class="ti ti-chevrons-right ti-xs"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
 
-
+                    <!--/ Responsive Table -->
 
                     <hr class="my-5"/>
 
@@ -300,5 +386,8 @@
 
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
+
+
 </body>
 </html>
+

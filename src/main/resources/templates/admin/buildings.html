@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html
         lang="ru"
         class="light-style layout-navbar-fixed layout-menu-fixed"
@@ -16,7 +15,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Заявки | Royal House</title>
+    <title>Новострои</title>
 
     <meta name="description" content=""/>
 
@@ -166,7 +165,7 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h2 class="mb-0">Заявки</h2>
+                    <h2 class="mb-0">Объекты</h2>
                     <br/>
                     <!-- Responsive Table -->
                     <div class="card">
@@ -174,86 +173,33 @@
                             <table class="table">
                                 <thead>
                                 <tr class="text-nowrap">
-                                    <th>Имя</th>
-                                    <th>Телефон</th>
-                                    <th>Email</th>
-                                    <th>Комментарий</th>
-                                    <th>Дата</th>
+                                    <th>Порядок</th>
+                                    <th>Названия</th>
+                                    <th>Адрес</th>
                                     <th>Статус</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <form method="get" action="/requests">
-                                        <td>
-                                            <input name="name"
-                                                   id="name"
-                                                   type="text"
-                                                   class="form-control"
-                                                   placeholder="Name"
-                                                   value=""/>
-                                        </td>
-                                        <td>
-                                            <input name="phoneNumber"
-                                                   id="phoneNumber"
-                                                   type="text"
-                                                   class="form-control"
-                                                   placeholder="phoneNumber"
-                                                   value=""/>
-                                        </td>
-                                        <td>
-                                            <input name="email"
-                                                   id="email"
-                                                   type="text"
-                                                   class="form-control"
-                                                   placeholder="email"
-                                                   value=""/>
-                                        </td>
+                                    <form method="get" action="/subjects">
                                         <td></td>
                                         <td></td>
-                                        <td>
-                                            <select name="status"
-                                                    class="form-select color-dropdown">
-                                                <option value="Новый">Новый</option>
-                                                <option value="Отвечено">Отвечено</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="btn btn-primary">
-                                                Search
-                                            </button>
-                                        </td>
-
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </form>
                                 </tr>
-                                <tr th:each="inquiry : ${requests}">
-                                    <td th:text="${inquiry.name}"></td>
-                                    <td th:text="${inquiry.phoneNumber}"></td>
-                                    <td th:text="${inquiry.email}"></td>
-                                    <td th:text="${inquiry.comment}"></td>
-                                    <td th:text="${#temporals.format(inquiry.date, 'dd.MM.yyyy - HH:mm')}"></td>
-                                    <td style="display: flex; justify-content: center">
-                                        <a th:if="${inquiry.status.toString() == 'Отвечено'}"
-                                           class="btn btn-success"
-
-                                           th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
-                                           th:text="${inquiry.status}">
-                                            Success
-                                        </a>
-                                        <a th:if="${inquiry.status.toString() == 'Новый'}"
-                                           class="btn btn-warning"
-
-                                           th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
-                                           th:text="${inquiry.status}">
-                                            Warning
-                                        </a>
-                                    </td>
+                                <tr th:each="building : ${buildings}">
+                                    <td th:text="${building.id}"></td>
+                                    <td th:text="${building.name}"></td>
+                                    <td th:text="${building.address}"></td>
+                                    <td th:text="${building.statusBuilding}"></td>
                                     <td>
-                                        <a style="max-width: 24px; " th:href="@{/requests/get/{id}(id=${inquiry.id})}" class="btn btn-primary">
-                                            <i class="ti ti-eye"></i>
+                                        <a style="max-width: 24px; " th:href="@{/buildings/get/{id}(id=${building.id})}" class="btn btn-primary">
+                                            <i class="ti ti-edit"></i>
                                         </a>
-                                        <a style="max-width: 24px; " th:href="@{/requests/delete/{id}(id=${inquiry.id})}" class="btn btn-danger">
+                                        <a style="max-width: 24px;" href="#" class="btn btn-danger">
                                             <i class="ti ti-trash"></i>
                                         </a>
                                     </td>
@@ -265,31 +211,31 @@
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item first">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=0, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                           th:attr="href=@{/subjects(page=0, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             <i class="ti ti-chevrons-left ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item prev">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, name=${name}, phoneNumber=${phoneNumber} , email=${email})}">
+                                           th:attr="href=@{/subjects(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             <i class="ti ti-chevron-left ti-xs"></i>
                                         </a>
                                     </li>
-                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage == i - 1} ? 'active'">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=${i - 1}, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                           th:attr="href=@{/subjects(page=${i - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             [[${i}]]
                                         </a>
                                     </li>
                                     <li class="page-item next">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                           th:attr="href=@{/subjects(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             <i class="ti ti-chevron-right ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item last">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=${totalPages - 1 }, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                           th:attr="href=@{/subjects(page=${totalPages - 1 }, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             <i class="ti ti-chevrons-right ti-xs"></i>
                                         </a>
                                     </li>
@@ -390,4 +336,3 @@
 
 </body>
 </html>
-

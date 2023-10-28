@@ -1,7 +1,9 @@
 package com.pozwizd.royal_house.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "building")
 public class Building {
     @Id
@@ -49,12 +53,14 @@ public class Building {
     @Column(name = "url_panorama")
     private String urlPanorama;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusBuilding statusBuilding;
+
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "infrastructure_building_id")
     private InfrastructureBuilding infrastructureBuilding;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")

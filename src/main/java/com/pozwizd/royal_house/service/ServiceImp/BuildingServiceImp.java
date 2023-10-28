@@ -1,8 +1,11 @@
 package com.pozwizd.royal_house.service.ServiceImp;
 
 import com.pozwizd.royal_house.model.Building;
+import com.pozwizd.royal_house.model.StatusBuilding;
 import com.pozwizd.royal_house.repository.BuildingRepository;
 import com.pozwizd.royal_house.service.BuildingService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,4 +44,16 @@ public class BuildingServiceImp implements BuildingService {
     public List<Building> findAll() {
         return buildingRepository.findAll();
     }
+
+    @Override
+    public Page<Building> findByRequest(String name,
+                                        String address,
+                                        StatusBuilding status,
+                                        Pageable pageable) {
+        return buildingRepository.findByCriteria(name,
+                address,
+                status,
+                pageable);
+    }
+
 }

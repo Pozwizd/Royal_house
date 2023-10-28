@@ -1,12 +1,14 @@
-package com.pozwizd.royal_house.controller;
+package com.pozwizd.royal_house.controller.admin;
 
 
 import com.pozwizd.royal_house.model.Requests;
-import com.pozwizd.royal_house.model.Status;
+import com.pozwizd.royal_house.model.StatusRequests;
 import com.pozwizd.royal_house.service.RequestsService;
 import com.pozwizd.royal_house.service.ServiceImp.RequestsServiceImp;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,11 +35,13 @@ public class RequestsController {
                              @RequestParam(defaultValue = "4") int size,
                              Model model) {
 
+        model.addAttribute("pageActive", "requests");
+
         Pageable pageable = PageRequest.of(page, size);
 
         Page<Requests> requests = requestsService.findByRequest(name,
                 phoneNumber,
-                email,pageable);
+                email, pageable);
 
         long totalPages = requests.getTotalPages();
         long totalElements = requests.getTotalElements();
@@ -47,16 +51,18 @@ public class RequestsController {
         model.addAttribute("requests", requests);
         model.addAttribute("currentPage", page);
 
-        return new ModelAndView("requests");
+        return new ModelAndView("admin/requests");
     }
 
     @GetMapping("/changeStatus/{id}")
-    public String changeStatusRequestId(@PathVariable("id") Long requestsId, HttpServletRequest request) {
+    public String changeStatusRequestId(@PathVariable("id") Long requestsId, HttpServletRequest request, Model model) {
+
+
         Requests requests = requestsService.getRequests(requestsId);
-        if (requests.getStatus().toString().equals("Новый")) {
-            requests.setStatus(Status.Отвечено);
+        if (requests.getStatusRequests().toString().equals("Новый")) {
+            requests.setStatusRequests(StatusRequests.Отвечено);
         } else {
-            requests.setStatus(Status.Новый);
+            requests.setStatusRequests(StatusRequests.Новый);
         }
         requestsService.updateRequests(requests);
         String referer = request.getHeader("Referer");
@@ -70,8 +76,11 @@ public class RequestsController {
 
     @GetMapping("/get/{id}")
     public ModelAndView getRequestId(@PathVariable("id") Long requestsId, Model model) {
+
+        model.addAttribute("pageActive", "requests");
+
         model.addAttribute("requests", requestsService.getRequests(requestsId));
-        return new ModelAndView("requestsCard");
+        return new ModelAndView("admin/requestsCard");
     }
 
     @GetMapping("/delete/{id}")

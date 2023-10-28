@@ -216,7 +216,7 @@
 
                                     </form>
                                 </tr>
-                                <tr  th:each="subjectElement : ${subjectsList}">
+                                <tr th:each="subjectElement : ${subjectsList}">
                                     <td th:text="${subjectElement.id}"></td>
                                     <td th:text="${subjectElement.propertyType}"></td>
                                     <td th:text="${subjectElement.area}"></td>
@@ -227,7 +227,7 @@
                                     <td th:text="${subjectElement.floorArea}"></td>
                                     <td th:text="${#temporals.format(subjectElement.dateAddition, 'dd.MM.yyyy - HH:mm')}"></td>
                                     <td>
-                                        <a style="max-width: 24px; " th:href="@{/subjects/get/{id}(id=${subjectElement.id})}" class="btn btn-primary">
+                                        <a style="max-width: 24px;" th:href="@{/subjects/get/{id}(id=${subjectElement.id})}" class="btn btn-primary">
                                             <i class="ti ti-eye"></i>
                                         </a>
                                     </td>
@@ -249,7 +249,7 @@
                                             <i class="ti ti-chevron-left ti-xs"></i>
                                         </a>
                                     </li>
-                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage == i - 1} ? 'active'">
                                         <a class="page-link"
                                            th:attr="href=@{/subjects(page=${i - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             [[${i}]]

@@ -1,6 +1,5 @@
-package com.pozwizd.royal_house.controller;
+package com.pozwizd.royal_house.controller.admin;
 
-import com.pozwizd.royal_house.model.Requests;
 import com.pozwizd.royal_house.model.Subjects;
 import com.pozwizd.royal_house.service.SubjectsService;
 import org.springframework.data.domain.Page;
@@ -34,6 +33,8 @@ public class SubjectsController {
                              @RequestParam(defaultValue = "4") int size,
                              Model model) {
 
+        model.addAttribute("pageActive", "subjects");
+
         Pageable pageable = PageRequest.of(page, size);
         Page<Subjects> subjects = subjectsService.findByRequest(id,
                 PropertyType,
@@ -48,13 +49,16 @@ public class SubjectsController {
         model.addAttribute("subjectsList", subjects);
         model.addAttribute("currentPage", page);
 
-        return new ModelAndView("subjects");
+        return new ModelAndView("admin/subjects");
     }
 
     @GetMapping("/get/{id}")
     public ModelAndView getSubject(@PathVariable("id") Long subjectsId, Model model) {
+
+        model.addAttribute("pageActive", "subjects");
+
         model.addAttribute("subjects", subjectsService.getSubjects(subjectsId));
-        return new ModelAndView("subjectsCard");
+        return new ModelAndView("admin/subjectsCard");
     }
 
     @GetMapping("/delete/{id}")

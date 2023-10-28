@@ -16,6 +16,6 @@ public class IndexController {
 //        model.addAttribute("TitlePage", "Royal House");
 
 
-        return new ModelAndView("index");
+        return new ModelAndView("admin/index");
     }
 }

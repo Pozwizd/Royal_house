@@ -1,6 +1,6 @@
 package com.pozwizd.royal_house.model;
 
-public enum Status {
+public enum StatusRequests {
 
     Новый,
     Отвечено

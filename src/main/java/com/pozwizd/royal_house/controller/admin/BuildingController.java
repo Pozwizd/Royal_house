@@ -2,8 +2,11 @@ package com.pozwizd.royal_house.controller.admin;
 
 import ch.qos.logback.classic.Logger;
 import com.pozwizd.royal_house.model.Building;
+import com.pozwizd.royal_house.model.InfographicBuilding;
+import com.pozwizd.royal_house.model.InfographicBuildingPage;
 import com.pozwizd.royal_house.model.StatusBuilding;
 import com.pozwizd.royal_house.service.BuildingService;
+import com.pozwizd.royal_house.service.InfographicBuildingService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -24,10 +30,12 @@ import java.util.UUID;
 public class BuildingController {
 
     private final BuildingService buildingService;
+    private final InfographicBuildingService infographicBuildingService;
     private Logger logger;
 
-    public BuildingController(BuildingService buildingService) {
+    public BuildingController(BuildingService buildingService, InfographicBuildingService infographicBuildingService) {
         this.buildingService = buildingService;
+        this.infographicBuildingService = infographicBuildingService;
     }
 
 
@@ -73,9 +81,9 @@ public class BuildingController {
                                           @RequestParam(name = "buildingName", required = false) String buildingName,
                                           @RequestParam(name = "statusBuilding", required = false) boolean statusBuilding,
                                           @RequestParam(name = "address", required = false) String address,
-
-
-                                          Model model) {
+                                          @RequestParam(name = "imagesInfographic[]", required = false) List<MultipartFile> imagesInfographic,
+                                          @RequestParam(name = "descriptionImageInfographic[]", required = false) List<String> descriptionImageInfographic,
+                                          Model model) throws IOException {
 
         Building building = buildingService.findById(Long.parseLong(id));
         building.setName(buildingName);
@@ -87,6 +95,14 @@ public class BuildingController {
         }
 
         if (!mainBanner.isEmpty()) {
+
+            String oldMainBanner = building.getMainBanner();
+            if (oldMainBanner != null && !mainBanner.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
+
             try {
                 String uuidFile = UUID.randomUUID().toString();
                 String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
@@ -102,6 +118,55 @@ public class BuildingController {
             }
         }
 
+        List<InfographicBuildingPage> infographicBuildingPageList = new ArrayList<>();
+        List<InfographicBuilding> infographicBuildings = new ArrayList<>();
+        if (!Objects.equals(imagesInfographic.get(0).getOriginalFilename(), "") && !descriptionImageInfographic.isEmpty()) {
+            // Переупаковка в другой массив
+            int i = 0;
+            for (MultipartFile imageInfographic : imagesInfographic) {
+                if (!Objects.equals(imageInfographic.getOriginalFilename(), "") && !descriptionImageInfographic.get(i).isEmpty()) {
+                    InfographicBuildingPage infographicBuildingPage = new InfographicBuildingPage();
+                    infographicBuildingPage.setImage(imageInfographic);
+                    infographicBuildingPage.setDescriptionImage(descriptionImageInfographic.get(i));
+                    infographicBuildingPageList.add(infographicBuildingPage);
+                    i++;
+                }
+            }
+            // Проверка на наличие изображений
+
+            for (int y = 0; y < infographicBuildingPageList.size(); y++) {
+                if (!building.getInfographicBuildings().isEmpty()) {
+                    if (infographicBuildingService.getInfographicBuilding(building.getInfographicBuildings().get(y).getId()) != null) {
+                        String filePath = Paths.get("").toFile().getAbsolutePath() + building.getInfographicBuildings().get(y).getUrlImage();
+                        File file = new File(filePath);
+                        file.delete();
+                        building.getInfographicBuildings().get(y);
+                        infographicBuildingService.deleteInfographicBuilding(building.getInfographicBuildings().get(y).getId());
+
+                    }
+
+                }
+                InfographicBuilding infographicBuilding = new InfographicBuilding();
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + infographicBuildingPageList.get(y).getImage().getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                infographicBuildingPageList.get(y).getImage().transferTo(dest);
+                infographicBuilding.setUrlImage("/images/" + fileName);
+                infographicBuilding.setDescription(infographicBuildingPageList.get(y).getDescriptionImage());
+                infographicBuildings.add(infographicBuilding);
+                infographicBuilding.setBuilding(building);
+            }
+
+
+        }
+
+
+
+
+        building.setInfographicBuildings(infographicBuildings);
+        infographicBuildingService.saveAll(infographicBuildings);
         buildingService.update(building);
         return new ModelAndView("redirect:/buildings/get/" + building.getId());
     }

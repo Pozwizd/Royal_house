@@ -38,6 +38,7 @@ public class Building {
     @Column(name = "url_slide_3")
     private String urlSlide3;
 
+    @Lob
     @Column(name = "text_about")
     private String textAbout;
 

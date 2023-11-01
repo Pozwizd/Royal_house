@@ -539,7 +539,7 @@
                                         <div class="col-12">
                                             <div class="card mb-4">
                                                 <div class="card-body">
-                                                    <div data-item-id="bubble-toolbar-about-project">
+                                                    <div id="bubble-toolbar-about-project">
                                                         <span class="ql-formats">
                                                           <select class="ql-font"></select>
                                                           <select class="ql-size"></select>
@@ -565,8 +565,11 @@
                                                           <button class="ql-code-block"></button>
                                                         </span>
                                                     </div>
-
-                                                    <div data-item-id="bubble-editor-about-project" name="TextAboutProject" th:text="${building.textAbout}">
+                                                    <input
+                                                            type="hidden"
+                                                            id="editor-data-about-project"
+                                                            name="editorDataAboutProject">
+                                                    <div id="bubble-editor-about-project">
 
                                                     </div>
                                                 </div>

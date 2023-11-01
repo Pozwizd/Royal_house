@@ -184,15 +184,15 @@ public class BuildingController {
                                                  @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
                                                  @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
                                                  @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
-                                                 @RequestParam(name = "TextAboutProject", required = false) String TextAboutProject,
-                                                 Model model, HttpServletRequest request) {
+                                                 @RequestParam(name = "editorDataAboutProject", required = false) String TextAboutProject,
+                                                 Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
 
         if (!urlSlide1.isEmpty()) {
-            String oldMainBanner = building.getUrlSlide1();
-            if (oldMainBanner != null && !urlSlide1.isEmpty()) {
-                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+            String oldUrlSlide1 = building.getUrlSlide1();
+            if (oldUrlSlide1 != null && !urlSlide1.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldUrlSlide1;
                 File file = new File(filePath);
                 file.delete();
             }
@@ -211,7 +211,7 @@ public class BuildingController {
         }
 
         if (!urlSlide2.isEmpty()) {
-            String oldMainBanner = building.getUrlSlide1();
+            String oldMainBanner = building.getUrlSlide2();
             if (oldMainBanner != null && !urlSlide2.isEmpty()) {
                 String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
                 File file = new File(filePath);
@@ -232,7 +232,7 @@ public class BuildingController {
         }
 
         if (!urlSlide3.isEmpty()) {
-            String oldMainBanner = building.getUrlSlide1();
+            String oldMainBanner = building.getUrlSlide3();
             if (oldMainBanner != null && !urlSlide3.isEmpty()) {
                 String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
                 File file = new File(filePath);
@@ -253,9 +253,8 @@ public class BuildingController {
         }
 
 
-
-
-        building.setTextAbout(request.getParameter("TextAboutProject"));
+        
+        building.setTextAbout(TextAboutProject);
         buildingService.update(building);
         return new ModelAndView("redirect:/buildings/get/" + building.getId());
     }

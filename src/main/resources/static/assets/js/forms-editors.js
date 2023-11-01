@@ -16,17 +16,32 @@
     theme: 'snow'
   });
 
+
   // Bubble Theme [data-item-id="bubble-editor"]
   // --------------------------------------------------------------------
-  const bubbleEditor = new Quill('#bubble-editor,' +
-      '[data-item-id="bubble-editor-about-project"]', {
+  const bubbleEditor = new Quill('#bubble-editor', {
     modules: {
-      toolbar: 'bubble-toolbar,' +
-          '[data-item-id="bubble-toolbar-about-project"],' +
-          '[data-item-id="bubble-toolbar-about-project"]'
+      toolbar: '#bubble-toolbar'
     },
     theme: 'bubble'
   });
+
+  const bubbleEditorAbout = new Quill('#bubble-editor-about-project', {
+    modules: {
+      toolbar: '#bubble-toolbar-about-project'
+    },
+    theme: 'bubble'
+  });
+
+  // Обработчик события изменения текста
+  bubbleEditor.on('text-change', function() {
+    document.getElementById('editor-data').value = bubbleEditor.root.innerHTML;
+  });
+
+  // Обработчик события изменения текста
+  bubbleEditorAbout.on('text-change', function() {
+    document.getElementById('editor-data-about-project').value = bubbleEditorAbout.value;
+  })
 
   // Full Toolbar
   // --------------------------------------------------------------------

@@ -353,51 +353,6 @@
 
                                         <!--List Infografic-->
                                         <!-- Multi Column with Form Separator -->
-
-                                        <!--                                        <div class="col-12">-->
-                                        <!--                                            <div class="card">-->
-                                        <!--                                                <h5 class="card-header">Инфографика</h5>-->
-                                        <!--                                                <div class="card-body">-->
-                                        <!--                                                    <div class="form-repeater">-->
-                                        <!--                                                        <div data-repeater-list-->
-                                        <!--                                                             name="infographicBuilding">-->
-                                        <!--                                                            <div data-repeater-item>-->
-                                        <!--                                                                <div class="row">-->
-                                        <!--                                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">-->
-                                        <!--                                                                        <label class="form-label"-->
-                                        <!--                                                                               for="form-repeater-1-1"></label>-->
-                                        <!--                                                                        <input class="form-control" type="file"-->
-                                        <!--                                                                               name="images"/>-->
-                                        <!--                                                                    </div>-->
-                                        <!--                                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">-->
-                                        <!--                                                                        <label class="form-label"-->
-                                        <!--                                                                               for="form-repeater-1-2"></label>-->
-                                        <!--                                                                        <input type="text" class="form-control"-->
-                                        <!--                                                                               placeholder="Описание"-->
-                                        <!--                                                                               name="descriptionImage"/>-->
-                                        <!--                                                                    </div>-->
-                                        <!--                                                                    <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">-->
-                                        <!--                                                                        <button class="btn btn-label-danger mt-4"-->
-                                        <!--                                                                                data-repeater-delete type="button">-->
-                                        <!--                                                                            <i class="ti ti-x ti-xs me-1"></i>-->
-                                        <!--                                                                            <span class="align-middle">Delete</span>-->
-                                        <!--                                                                        </button>-->
-                                        <!--                                                                    </div>-->
-                                        <!--                                                                </div>-->
-                                        <!--                                                                <hr/>-->
-                                        <!--                                                            </div>-->
-                                        <!--                                                        </div>-->
-                                        <!--                                                        <div class="mb-0">-->
-                                        <!--                                                            <button class="btn btn-primary" data-repeater-create-->
-                                        <!--                                                                    type="button">-->
-                                        <!--                                                                <i class="ti ti-plus me-1"></i>-->
-                                        <!--                                                                <span class="align-middle">Add</span>-->
-                                        <!--                                                            </button>-->
-                                        <!--                                                        </div>-->
-                                        <!--                                                    </div>-->
-                                        <!--                                                </div>-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </div>-->
                                         <div class="col-12">
                                             <div class="card">
                                                 <h5 class="card-header">Инфографика</h5>
@@ -584,7 +539,7 @@
                                         <div class="col-12">
                                             <div class="card mb-4">
                                                 <div class="card-body">
-                                                    <div data-item-id="bubble-toolbar">
+                                                    <div data-item-id="bubble-toolbar-about-project">
                                                         <span class="ql-formats">
                                                           <select class="ql-font"></select>
                                                           <select class="ql-size"></select>
@@ -611,7 +566,7 @@
                                                         </span>
                                                     </div>
 
-                                                    <div data-item-id="bubble-editor" name="TextAboutProject" th:text="${building.textAbout}">
+                                                    <div data-item-id="bubble-editor-about-project" name="TextAboutProject" th:text="${building.textAbout}">
 
                                                     </div>
                                                 </div>
@@ -953,40 +908,6 @@
                                                                     class="form-control"
                                                                     accept="image/png, image/jpeg"/>
                                                         </label>
-
-
-                                                        <!--                                                        <div class="d-flex align-items-start align-items-sm-center gap-4">-->
-                                                        <!--                                                            <img-->
-                                                        <!--                                                                    th:src="${building.mainBanner}"-->
-                                                        <!--                                                                    th:alt="${building.mainBanner}"-->
-                                                        <!--                                                                    class="d-block w-px-100 h-px-100 rounded"-->
-                                                        <!--                                                            />-->
-                                                        <!--                                                            <div class="button-wrapper">-->
-                                                        <!--                                                                <label for="upload" class="btn btn-primary me-2 mb-3"-->
-                                                        <!--                                                                       tabindex="0">-->
-                                                        <!--                                                                    <span class="d-none d-sm-block">Upload new photo</span>-->
-                                                        <!--                                                                    <input-->
-                                                        <!--                                                                            type="file"-->
-                                                        <!--                                                                            id="upload"-->
-                                                        <!--                                                                            name="mainBanner"-->
-                                                        <!--                                                                            hidden-->
-                                                        <!--                                                                            class="account-file-input"-->
-                                                        <!--                                                                            accept="image/png, image/jpeg"-->
-                                                        <!--                                                                    />-->
-                                                        <!--                                                                </label>-->
-                                                        <!--                                                                <button type="button"-->
-                                                        <!--                                                                        class="btn btn-label-secondary account-image-reset mb-3">-->
-                                                        <!--                                                                    <i class="ti ti-refresh-dot d-block d-sm-none"></i>-->
-                                                        <!--                                                                    <span class="d-none d-sm-block">Reset</span>-->
-                                                        <!--                                                                </button>-->
-
-                                                        <!--                                                                <div class="text-muted">Allowed JPG, GIF or PNG. Max-->
-                                                        <!--                                                                    size of 800K-->
-                                                        <!--                                                                </div>-->
-                                                        <!--                                                            </div>-->
-                                                        <!--                                                        </div>-->
-
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -1125,40 +1046,6 @@
                                                                     class="form-control"
                                                                     accept="image/png, image/jpeg"/>
                                                         </label>
-
-
-                                                        <!--                                                        <div class="d-flex align-items-start align-items-sm-center gap-4">-->
-                                                        <!--                                                            <img-->
-                                                        <!--                                                                    th:src="${building.mainBanner}"-->
-                                                        <!--                                                                    th:alt="${building.mainBanner}"-->
-                                                        <!--                                                                    class="d-block w-px-100 h-px-100 rounded"-->
-                                                        <!--                                                            />-->
-                                                        <!--                                                            <div class="button-wrapper">-->
-                                                        <!--                                                                <label for="upload" class="btn btn-primary me-2 mb-3"-->
-                                                        <!--                                                                       tabindex="0">-->
-                                                        <!--                                                                    <span class="d-none d-sm-block">Upload new photo</span>-->
-                                                        <!--                                                                    <input-->
-                                                        <!--                                                                            type="file"-->
-                                                        <!--                                                                            id="upload"-->
-                                                        <!--                                                                            name="mainBanner"-->
-                                                        <!--                                                                            hidden-->
-                                                        <!--                                                                            class="account-file-input"-->
-                                                        <!--                                                                            accept="image/png, image/jpeg"-->
-                                                        <!--                                                                    />-->
-                                                        <!--                                                                </label>-->
-                                                        <!--                                                                <button type="button"-->
-                                                        <!--                                                                        class="btn btn-label-secondary account-image-reset mb-3">-->
-                                                        <!--                                                                    <i class="ti ti-refresh-dot d-block d-sm-none"></i>-->
-                                                        <!--                                                                    <span class="d-none d-sm-block">Reset</span>-->
-                                                        <!--                                                                </button>-->
-
-                                                        <!--                                                                <div class="text-muted">Allowed JPG, GIF or PNG. Max-->
-                                                        <!--                                                                    size of 800K-->
-                                                        <!--                                                                </div>-->
-                                                        <!--                                                            </div>-->
-                                                        <!--                                                        </div>-->
-
-
                                                     </div>
                                                 </div>
                                             </div>

@@ -18,9 +18,12 @@
 
   // Bubble Theme [data-item-id="bubble-editor"]
   // --------------------------------------------------------------------
-  const bubbleEditor = new Quill('#bubble-editor', {
+  const bubbleEditor = new Quill('#bubble-editor,' +
+      '[data-item-id="bubble-editor-about-project"]', {
     modules: {
-      toolbar: 'bubble-toolbar'
+      toolbar: 'bubble-toolbar,' +
+          '[data-item-id="bubble-toolbar-about-project"],' +
+          '[data-item-id="bubble-toolbar-about-project"]'
     },
     theme: 'bubble'
   });

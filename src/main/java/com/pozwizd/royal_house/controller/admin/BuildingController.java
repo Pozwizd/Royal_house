@@ -83,7 +83,7 @@ public class BuildingController {
                                           @RequestParam(name = "address", required = false) String address,
                                           @RequestParam(name = "imagesInfographic[]", required = false) List<MultipartFile> imagesInfographic,
                                           @RequestParam(name = "descriptionImageInfographic[]", required = false) List<String> descriptionImageInfographic,
-                                          Model model) throws IOException {
+                                          Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
         building.setName(buildingName);
@@ -118,6 +118,14 @@ public class BuildingController {
             }
         }
 
+        /*
+        1. Переупаковка в другой массив
+        2. Проверка на наличие изображений в бд
+        3. Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
+        4. После этого записываем новые
+
+         */
+
         List<InfographicBuildingPage> infographicBuildingPageList = new ArrayList<>();
         List<InfographicBuilding> infographicBuildings = new ArrayList<>();
         if (!Objects.equals(imagesInfographic.get(0).getOriginalFilename(), "") && !descriptionImageInfographic.isEmpty()) {
@@ -132,39 +140,38 @@ public class BuildingController {
                     i++;
                 }
             }
-            // Проверка на наличие изображений
-
-            for (int y = 0; y < infographicBuildingPageList.size(); y++) {
-                if (!building.getInfographicBuildings().isEmpty()) {
-                    if (infographicBuildingService.getInfographicBuilding(building.getInfographicBuildings().get(y).getId()) != null) {
-                        String filePath = Paths.get("").toFile().getAbsolutePath() + building.getInfographicBuildings().get(y).getUrlImage();
-                        File file = new File(filePath);
-                        file.delete();
-                        building.getInfographicBuildings().get(y);
-                        infographicBuildingService.deleteInfographicBuilding(building.getInfographicBuildings().get(y).getId());
-
-                    }
-
+            // Проверка на наличие изображений в бд
+            // Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
+            if (!infographicBuildingPageList.isEmpty()) {
+                for (InfographicBuilding buildingInfographic : infographicBuildingService.findAllInfographicBuildings()) {
+                    String filePath = Paths.get("").toFile().getAbsolutePath() + buildingInfographic.getUrlImage();
+                    File file = new File(filePath);
+                    file.delete();
+                    infographicBuildingService.deleteInfographicBuilding(buildingInfographic.getId());
                 }
+            }
+
+            // После этого записываем новые в бд и зановисив в новую коллекцию
+            for (InfographicBuildingPage infographicBuildingPage : infographicBuildingPageList) {
                 InfographicBuilding infographicBuilding = new InfographicBuilding();
                 String uuidFile = UUID.randomUUID().toString();
                 String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
-                String fileName = uuidFile + "." + infographicBuildingPageList.get(y).getImage().getOriginalFilename();
+                String fileName = uuidFile + "." + infographicBuildingPage.getImage().getOriginalFilename();
                 String filePath = uploadDir + fileName;
                 File dest = new File(filePath);
-                infographicBuildingPageList.get(y).getImage().transferTo(dest);
+                try {
+                    infographicBuildingPage.getImage().transferTo(dest);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 infographicBuilding.setUrlImage("/images/" + fileName);
-                infographicBuilding.setDescription(infographicBuildingPageList.get(y).getDescriptionImage());
+                infographicBuilding.setDescription(infographicBuildingPage.getDescriptionImage());
                 infographicBuildings.add(infographicBuilding);
                 infographicBuilding.setBuilding(building);
             }
-
-
         }
 
-
-
-
+        // Обновляем значения
         building.setInfographicBuildings(infographicBuildings);
         infographicBuildingService.saveAll(infographicBuildings);
         buildingService.update(building);
@@ -173,7 +180,7 @@ public class BuildingController {
 
 
     @PostMapping("/edit-about-project/{id}")
-    public ModelAndView editAboutProjectBuilding(@RequestParam("buildingId") String id,
+    public ModelAndView editAboutProjectBuilding(@RequestParam(name = "buildingId", required = true) String id,
                                                  @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
                                                  @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
                                                  @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
@@ -183,6 +190,13 @@ public class BuildingController {
         Building building = buildingService.findById(Long.parseLong(id));
 
         if (!urlSlide1.isEmpty()) {
+            String oldMainBanner = building.getUrlSlide1();
+            if (oldMainBanner != null && !urlSlide1.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
+
             try {
                 String uuidFile = UUID.randomUUID().toString();
                 String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
@@ -191,15 +205,20 @@ public class BuildingController {
                 File dest = new File(filePath);
                 urlSlide1.transferTo(dest);
                 building.setUrlSlide1("/images/" + fileName);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         if (!urlSlide2.isEmpty()) {
-            try {
+            String oldMainBanner = building.getUrlSlide1();
+            if (oldMainBanner != null && !urlSlide2.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
 
+            try {
                 String uuidFile = UUID.randomUUID().toString();
                 String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
                 String fileName = uuidFile + "." + urlSlide2.getOriginalFilename();
@@ -207,15 +226,20 @@ public class BuildingController {
                 File dest = new File(filePath);
                 urlSlide2.transferTo(dest);
                 building.setUrlSlide2("/images/" + fileName);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         if (!urlSlide3.isEmpty()) {
-            try {
+            String oldMainBanner = building.getUrlSlide1();
+            if (oldMainBanner != null && !urlSlide3.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
 
+            try {
                 String uuidFile = UUID.randomUUID().toString();
                 String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
                 String fileName = uuidFile + "." + urlSlide3.getOriginalFilename();
@@ -223,11 +247,13 @@ public class BuildingController {
                 File dest = new File(filePath);
                 urlSlide3.transferTo(dest);
                 building.setUrlSlide3("/images/" + fileName);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+
+
 
         building.setTextAbout(request.getParameter("TextAboutProject"));
         buildingService.update(building);

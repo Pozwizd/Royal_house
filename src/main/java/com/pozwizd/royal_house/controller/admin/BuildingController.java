@@ -1,13 +1,10 @@
 package com.pozwizd.royal_house.controller.admin;
 
 import ch.qos.logback.classic.Logger;
-import com.pozwizd.royal_house.model.Building;
-import com.pozwizd.royal_house.model.InfographicBuilding;
-import com.pozwizd.royal_house.model.InfographicBuildingPage;
-import com.pozwizd.royal_house.model.StatusBuilding;
+import com.pozwizd.royal_house.model.*;
 import com.pozwizd.royal_house.service.BuildingService;
 import com.pozwizd.royal_house.service.InfographicBuildingService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.pozwizd.royal_house.service.InfographicInfrastructureService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,11 +28,14 @@ public class BuildingController {
 
     private final BuildingService buildingService;
     private final InfographicBuildingService infographicBuildingService;
+
+    private final InfographicInfrastructureService infographicInfrastructureService;
     private Logger logger;
 
-    public BuildingController(BuildingService buildingService, InfographicBuildingService infographicBuildingService) {
+    public BuildingController(BuildingService buildingService, InfographicBuildingService infographicBuildingService, InfographicInfrastructureService infographicInfrastructureService) {
         this.buildingService = buildingService;
         this.infographicBuildingService = infographicBuildingService;
+        this.infographicInfrastructureService = infographicInfrastructureService;
     }
 
 
@@ -126,23 +126,23 @@ public class BuildingController {
 
          */
 
-        List<InfographicBuildingPage> infographicBuildingPageList = new ArrayList<>();
+        List<InfographicPage> infographicPageList = new ArrayList<>();
         List<InfographicBuilding> infographicBuildings = new ArrayList<>();
         if (!Objects.equals(imagesInfographic.get(0).getOriginalFilename(), "") && !descriptionImageInfographic.isEmpty()) {
             // Переупаковка в другой массив
             int i = 0;
             for (MultipartFile imageInfographic : imagesInfographic) {
                 if (!Objects.equals(imageInfographic.getOriginalFilename(), "") && !descriptionImageInfographic.get(i).isEmpty()) {
-                    InfographicBuildingPage infographicBuildingPage = new InfographicBuildingPage();
-                    infographicBuildingPage.setImage(imageInfographic);
-                    infographicBuildingPage.setDescriptionImage(descriptionImageInfographic.get(i));
-                    infographicBuildingPageList.add(infographicBuildingPage);
+                    InfographicPage infographicPage = new InfographicPage();
+                    infographicPage.setImage(imageInfographic);
+                    infographicPage.setDescriptionImage(descriptionImageInfographic.get(i));
+                    infographicPageList.add(infographicPage);
                     i++;
                 }
             }
             // Проверка на наличие изображений в бд
             // Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
-            if (!infographicBuildingPageList.isEmpty()) {
+            if (!infographicPageList.isEmpty()) {
                 for (InfographicBuilding buildingInfographic : infographicBuildingService.findAllInfographicBuildings()) {
                     String filePath = Paths.get("").toFile().getAbsolutePath() + buildingInfographic.getUrlImage();
                     File file = new File(filePath);
@@ -152,20 +152,20 @@ public class BuildingController {
             }
 
             // После этого записываем новые в бд и зановисив в новую коллекцию
-            for (InfographicBuildingPage infographicBuildingPage : infographicBuildingPageList) {
+            for (InfographicPage infographicPage : infographicPageList) {
                 InfographicBuilding infographicBuilding = new InfographicBuilding();
                 String uuidFile = UUID.randomUUID().toString();
                 String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
-                String fileName = uuidFile + "." + infographicBuildingPage.getImage().getOriginalFilename();
+                String fileName = uuidFile + "." + infographicPage.getImage().getOriginalFilename();
                 String filePath = uploadDir + fileName;
                 File dest = new File(filePath);
                 try {
-                    infographicBuildingPage.getImage().transferTo(dest);
+                    infographicPage.getImage().transferTo(dest);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 infographicBuilding.setUrlImage("/images/" + fileName);
-                infographicBuilding.setDescription(infographicBuildingPage.getDescriptionImage());
+                infographicBuilding.setDescription(infographicPage.getDescriptionImage());
                 infographicBuildings.add(infographicBuilding);
                 infographicBuilding.setBuilding(building);
             }
@@ -253,11 +253,338 @@ public class BuildingController {
         }
 
 
-        
         building.setTextAbout(TextAboutProject);
         buildingService.update(building);
         return new ModelAndView("redirect:/buildings/get/" + building.getId());
     }
 
+    @PostMapping("/edit-location/{id}")
+    public ModelAndView editLocationBuilding(@RequestParam(name = "buildingId", required = true) String id,
+                                             @RequestParam(name = "LocationLongitudeBuilding", required = true) String longitude,
+                                             @RequestParam(name = "LocationLatitudeBuilding", required = true) String latitude,
+                                             Model model) {
+
+        Building building = buildingService.findById(Long.parseLong(id));
+        building.setLongitude(longitude);
+        building.setLatitude(latitude);
+        buildingService.update(building);
+        return new ModelAndView("redirect:/buildings/get/" + building.getId());
+    }
+
+    @PostMapping("/edit-infrastructure-building/{id}")
+    public ModelAndView editInfrastructureBuilding(@RequestParam(name = "buildingId", required = true) String id,
+                                                   @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
+                                                   @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
+                                                   @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
+                                                   @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String TextInfrastructureBuilding,
+                                                   @RequestParam(name = "imagesInfographicInfrastructure[]", required = false) List<MultipartFile> imagesInfographicInfrastructure,
+                                                   @RequestParam(name = "descriptionImageInfographicInfrastructure[]", required = false) List<String> descriptionImageInfographicInfrastructure,
+                                                   Model model) {
+
+        Building building = buildingService.findById(Long.parseLong(id));
+
+        // Обработка картинок
+        if (!urlSlide1.isEmpty()) {
+            String oldUrlSlide1 = building.getInfrastructureBuilding().getUrlSlide1();
+            if (oldUrlSlide1 != null && !urlSlide1.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldUrlSlide1;
+                File file = new File(filePath);
+                file.delete();
+            }
+
+            try {
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + urlSlide1.getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                urlSlide1.transferTo(dest);
+                building.getInfrastructureBuilding().setUrlSlide1("/images/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!urlSlide2.isEmpty()) {
+            String oldMainBanner = building.getInfrastructureBuilding().getUrlSlide2();
+            if (oldMainBanner != null && !urlSlide2.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
+
+            try {
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + urlSlide2.getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                urlSlide2.transferTo(dest);
+                building.getInfrastructureBuilding().setUrlSlide2("/images/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!urlSlide3.isEmpty()) {
+            String oldMainBanner = building.getInfrastructureBuilding().getUrlSlide3();
+            if (oldMainBanner != null && !urlSlide3.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
+
+            try {
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + urlSlide3.getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                urlSlide3.transferTo(dest);
+                building.getInfrastructureBuilding().setUrlSlide3("/images/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Обработка текста
+
+        building.getInfrastructureBuilding().setText(TextInfrastructureBuilding);
+
+        // Обработка инфографики
+
+          /*
+        1. Переупаковка в другой массив
+        2. Проверка на наличие изображений в бд
+        3. Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
+        4. После этого записываем новые
+
+         */
+
+        List<InfographicPage> infographicPageList = new ArrayList<>();
+        List<InfographicInfrastructure> infographicInfrastructures = new ArrayList<>();
+
+        // Переупаковка в другой массив
+        int i = 0;
+        for (MultipartFile imageInfographic : imagesInfographicInfrastructure) {
+            if (!Objects.equals(imagesInfographicInfrastructure.get(i).getOriginalFilename(), "")
+                    && !descriptionImageInfographicInfrastructure.get(i).isEmpty()) {
+                if (!Objects.equals(imageInfographic.getOriginalFilename(), "") && !descriptionImageInfographicInfrastructure.get(i).isEmpty()) {
+                    InfographicPage infographicPage = new InfographicPage();
+                    infographicPage.setImage(imageInfographic);
+                    infographicPage.setDescriptionImage(descriptionImageInfographicInfrastructure.get(i));
+                    infographicPageList.add(infographicPage);
+                }
+            }
+            i++;
+        }
+        // Проверка на наличие изображений в бд
+        // Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
+        if (!infographicPageList.isEmpty()) {
+            for (InfographicInfrastructure infographicInfrastructure : infographicInfrastructureService.findAllInfographicInfrastructures()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + infographicInfrastructure.getUrlImage();
+                File file = new File(filePath);
+                file.delete();
+                infographicBuildingService.deleteInfographicBuilding(infographicInfrastructure.getId());
+            }
+        }
+
+        // После этого записываем новые в бд и зановисив в новую коллекцию
+        for (InfographicPage infographicPage : infographicPageList) {
+            InfographicInfrastructure infographicInfrastructure = new InfographicInfrastructure();
+            String uuidFile = UUID.randomUUID().toString();
+            String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+            String fileName = uuidFile + "." + infographicPage.getImage().getOriginalFilename();
+            String filePath = uploadDir + fileName;
+            File dest = new File(filePath);
+            try {
+                infographicPage.getImage().transferTo(dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            infographicInfrastructure.setUrlImage("/images/" + fileName);
+            infographicInfrastructure.setDescription(infographicPage.getDescriptionImage());
+            infographicInfrastructures.add(infographicInfrastructure);
+        }
+
+        // Обновляем значения
+        building.getInfrastructureBuilding().setInfrastructures(infographicInfrastructures);
+        buildingService.update(building);
+        return new ModelAndView("redirect:/buildings/get/" + building.getId());
+    }
+
+    @PostMapping("/edit-rooms-building/{id}")
+    public ModelAndView editRoomsBuilding(@RequestParam(name = "buildingId", required = true) String id,
+                                                   @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
+                                                   @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
+                                                   @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
+                                                   @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String TextInfrastructureBuilding,
+                                                   @RequestParam(name = "imagesInfographicInfrastructure[]", required = false) List<MultipartFile> imagesInfographicInfrastructure,
+                                                   @RequestParam(name = "descriptionImageInfographicInfrastructure[]", required = false) List<String> descriptionImageInfographicInfrastructure,
+                                                   Model model) {
+
+        Building building = buildingService.findById(Long.parseLong(id));
+
+        // Обработка картинок
+        if (!urlSlide1.isEmpty()) {
+            String oldUrlSlide1 = building.getInfrastructureBuilding().getUrlSlide1();
+            if (oldUrlSlide1 != null && !urlSlide1.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldUrlSlide1;
+                File file = new File(filePath);
+                file.delete();
+            }
+
+            try {
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + urlSlide1.getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                urlSlide1.transferTo(dest);
+                building.getInfrastructureBuilding().setUrlSlide1("/images/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!urlSlide2.isEmpty()) {
+            String oldMainBanner = building.getInfrastructureBuilding().getUrlSlide2();
+            if (oldMainBanner != null && !urlSlide2.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
+
+            try {
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + urlSlide2.getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                urlSlide2.transferTo(dest);
+                building.getInfrastructureBuilding().setUrlSlide2("/images/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!urlSlide3.isEmpty()) {
+            String oldMainBanner = building.getInfrastructureBuilding().getUrlSlide3();
+            if (oldMainBanner != null && !urlSlide3.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
+
+            try {
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + urlSlide3.getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                urlSlide3.transferTo(dest);
+                building.getInfrastructureBuilding().setUrlSlide3("/images/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Обработка текста
+
+        building.getInfrastructureBuilding().setText(TextInfrastructureBuilding);
+
+        // Обработка инфографики
+
+          /*
+        1. Переупаковка в другой массив
+        2. Проверка на наличие изображений в бд
+        3. Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
+        4. После этого записываем новые
+
+         */
+
+        List<InfographicPage> infographicPageList = new ArrayList<>();
+        List<InfographicInfrastructure> infographicInfrastructures = new ArrayList<>();
+
+        // Переупаковка в другой массив
+        int i = 0;
+        for (MultipartFile imageInfographic : imagesInfographicInfrastructure) {
+            if (!Objects.equals(imagesInfographicInfrastructure.get(i).getOriginalFilename(), "")
+                    && !descriptionImageInfographicInfrastructure.get(i).isEmpty()) {
+                if (!Objects.equals(imageInfographic.getOriginalFilename(), "") && !descriptionImageInfographicInfrastructure.get(i).isEmpty()) {
+                    InfographicPage infographicPage = new InfographicPage();
+                    infographicPage.setImage(imageInfographic);
+                    infographicPage.setDescriptionImage(descriptionImageInfographicInfrastructure.get(i));
+                    infographicPageList.add(infographicPage);
+                }
+            }
+            i++;
+        }
+        // Проверка на наличие изображений в бд
+        // Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
+        if (!infographicPageList.isEmpty()) {
+            for (InfographicInfrastructure infographicInfrastructure : infographicInfrastructureService.findAllInfographicInfrastructures()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + infographicInfrastructure.getUrlImage();
+                File file = new File(filePath);
+                file.delete();
+                infographicBuildingService.deleteInfographicBuilding(infographicInfrastructure.getId());
+            }
+        }
+
+        // После этого записываем новые в бд и зановисив в новую коллекцию
+        for (InfographicPage infographicPage : infographicPageList) {
+            InfographicInfrastructure infographicInfrastructure = new InfographicInfrastructure();
+            String uuidFile = UUID.randomUUID().toString();
+            String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+            String fileName = uuidFile + "." + infographicPage.getImage().getOriginalFilename();
+            String filePath = uploadDir + fileName;
+            File dest = new File(filePath);
+            try {
+                infographicPage.getImage().transferTo(dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            infographicInfrastructure.setUrlImage("/images/" + fileName);
+            infographicInfrastructure.setDescription(infographicPage.getDescriptionImage());
+            infographicInfrastructures.add(infographicInfrastructure);
+        }
+
+        // Обновляем значения
+        building.getInfrastructureBuilding().setInfrastructures(infographicInfrastructures);
+        buildingService.update(building);
+        return new ModelAndView("redirect:/buildings/get/" + building.getId());
+    }
+
+
+    @PostMapping("/edit-panorama/{id}")
+    public ModelAndView editPanoramaBuilding(@RequestParam(name = "buildingId", required = true) String id,
+                                          @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
+                                          @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
+                                          @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
+                                          @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String TextInfrastructureBuilding,
+                                          @RequestParam(name = "imagesInfographicInfrastructure[]", required = false) List<MultipartFile> imagesInfographicInfrastructure,
+                                          @RequestParam(name = "descriptionImageInfographicInfrastructure[]", required = false) List<String> descriptionImageInfographicInfrastructure,
+                                          Model model) {
+
+
+        return new ModelAndView("redirect:/buildings/get/" + id);
+    }
+
+    @PostMapping("/edit-specification/{id}")
+    public ModelAndView editSpecificationBuilding(@RequestParam(name = "buildingId", required = true) String id,
+                                             @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
+                                             @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
+                                             @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
+                                             @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String TextInfrastructureBuilding,
+                                             @RequestParam(name = "imagesInfographicInfrastructure[]", required = false) List<MultipartFile> imagesInfographicInfrastructure,
+                                             @RequestParam(name = "descriptionImageInfographicInfrastructure[]", required = false) List<String> descriptionImageInfographicInfrastructure,
+                                             Model model) {
+
+
+        return new ModelAndView("redirect:/buildings/get/" + id);
+    }
+
+
 
 }
+

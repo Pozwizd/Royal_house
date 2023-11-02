@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InfographicBuildingPage {
+public class InfographicPage {
     private MultipartFile image;
     private String descriptionImage;
 }

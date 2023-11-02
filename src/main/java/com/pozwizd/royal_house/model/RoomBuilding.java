@@ -26,7 +26,7 @@ public class RoomBuilding {
     @Column(name = "url_slide_3")
     private String urlSlide3;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "new_building_id")
     private Building building;
 

@@ -1,7 +1,6 @@
 package com.pozwizd.royal_house.service.ServiceImp;
 
 import com.pozwizd.royal_house.model.InfographicBuilding;
-import com.pozwizd.royal_house.model.InfographicBuildingPage;
 import com.pozwizd.royal_house.repository.InfographicBuildingRepository;
 import com.pozwizd.royal_house.service.InfographicBuildingService;
 import org.springframework.stereotype.Repository;

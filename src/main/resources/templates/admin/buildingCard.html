@@ -588,7 +588,7 @@
                                     <div class="container-xxl flex-grow-1 container-p-y">
                                         <!--Фото и основные данные-->
                                         <label style="visibility: hidden">
-                                            <input type="text" name="buildingId" th:value="${building.id}"/>
+                                            <input type="hidden" name="buildingId" th:value="${building.id}"/>
                                         </label>
                                         <div class="row">
                                             <div class="col-12">
@@ -601,8 +601,8 @@
 
                                                                         class="form-control"
                                                                         type="text"
-                                                                        th:value="${building.name}"
-                                                                        name="buildingName"
+                                                                        th:value="${building.longitude}"
+                                                                        name="LocationLongitudeBuilding"
                                                                         placeholder="Координаты"
                                                                         autofocus
                                                                 />
@@ -612,7 +612,8 @@
                                                                 <input
                                                                         class="form-control"
                                                                         type="text"
-                                                                        name=""
+                                                                        name="LocationLatitudeBuilding"
+                                                                        th:value="${building.latitude}"
                                                                         placeholder="Координаты"
                                                                         autofocus
                                                                 />
@@ -628,7 +629,7 @@
                                     <div class="col-12">
                                         <div class="card mb-4">
                                             <div class="card-body">
-                                                <div data-item-id="bubble-toolbar">
+                                                <div id="bubble-toolbar-location-building">
                                                         <span class="ql-formats">
                                                           <select class="ql-font"></select>
                                                           <select class="ql-size"></select>
@@ -654,7 +655,7 @@
                                                           <button class="ql-code-block"></button>
                                                         </span>
                                                 </div>
-                                                <div data-item-id="bubble-editor">
+                                                <div id="bubble-editor-location-building">
                                                 </div>
                                             </div>
                                         </div>
@@ -666,7 +667,7 @@
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="infrastructure" role="tabpanel">
-                                <form action="/buildings/edit-about-project/{id}" method="post"
+                                <form action="/buildings/edit-infrastructure-building/{id}" method="post"
                                       enctype="multipart/form-data">
                                     <div class="container-xxl flex-grow-1 container-p-y">
                                         <!--Фото и основные данные-->
@@ -677,117 +678,8 @@
                                             <div class="col-md-4 col-lg-4">
                                                 <div class="card text-center mb-3">
                                                     <div class="card-body">
-                                                        <img th:src="${building.mainBanner}"
-                                                             th:alt="${building.mainBanner}"
-                                                             style="max-width: 250px;
-                                                             max-height: 200px;">
-                                                        <hr/>
-                                                        <label class="form-label">
-                                                            <input
-                                                                    type="file"
-                                                                    name="mainBanner"
-                                                                    class="form-control"
-                                                                    accept="image/png, image/jpeg"/>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <div class="card text-center mb-3">
-                                                    <div class="card-body">
-                                                        <img th:src="${building.mainBanner}"
-                                                             th:alt="${building.mainBanner}"
-                                                             style="max-width: 250px;
-                                                             max-height: 200px;">
-                                                        <hr/>
-                                                        <label class="form-label">
-                                                            <input
-                                                                    type="file"
-                                                                    name="mainBanner"
-                                                                    class="form-control"
-                                                                    accept="image/png, image/jpeg"/>
-                                                        </label>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <div class="card text-center mb-3">
-                                                    <div class="card-body">
-                                                        <img th:src="${building.mainBanner}"
-                                                             th:alt="${building.mainBanner}"
-                                                             style="max-width: 250px;
-                                                             max-height: 200px;">
-                                                        <hr/>
-                                                        <label class="form-label">
-                                                            <input
-                                                                    type="file"
-                                                                    name="mainBanner"
-                                                                    class="form-control"
-                                                                    accept="image/png, image/jpeg"/>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--List Infografic-->
-                                        <!-- Multi Column with Form Separator -->
-                                        <div class="col-12">
-                                            <div class="card mb-4">
-                                                <h5 class="card-header">Bubble Theme</h5>
-                                                <div class="card-body">
-                                                    <div data-item-id="bubble-toolbar">
-                                                        <span class="ql-formats">
-                                                          <select class="ql-font"></select>
-                                                          <select class="ql-size"></select>
-                                                        </span>
-                                                        <span class="ql-formats">
-                                                          <button class="ql-bold"></button>
-                                                          <button class="ql-italic"></button>
-                                                          <button class="ql-underline"></button>
-                                                          <button class="ql-strike"></button>
-                                                        </span>
-                                                        <span class="ql-formats">
-                                                          <select class="ql-color"></select>
-                                                          <select class="ql-background"></select>
-                                                        </span>
-                                                        <span class="ql-formats">
-                                                          <button class="ql-script" value="sub"></button>
-                                                          <button class="ql-script" value="super"></button>
-                                                        </span>
-                                                        <span class="ql-formats">
-                                                          <button class="ql-header" value="1"></button>
-                                                          <button class="ql-header" value="2"></button>
-                                                          <button class="ql-blockquote"></button>
-                                                          <button class="ql-code-block"></button>
-                                                        </span>
-                                                    </div>
-                                                    <div data-item-id="bubble-editor">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 d-flex justify-content-end mx-4">
-                                        <button type="reset" class="btn btn-label-secondary">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="rooms" role="tabpanel">
-                                <form action="/buildings/edit-rooms/{id}" method="post"
-                                      enctype="multipart/form-data">
-                                    <div class="container-xxl flex-grow-1 container-p-y">
-                                        <!--Фото и основные данные-->
-                                        <label style="visibility: hidden">
-                                            <input type="text" name="buildingId" th:value="${building.id}"/>
-                                        </label>
-                                        <div class="row mb-5">
-                                            <div class="col-md-4 col-lg-4">
-                                                <div class="card text-center mb-3">
-                                                    <div class="card-body">
-                                                        <img th:src="${building.urlSlide1}"
-                                                             th:alt="${building.urlSlide1}"
+                                                        <img th:src="${building.infrastructureBuilding.urlSlide1}"
+                                                             th:alt="${building.infrastructureBuilding.urlSlide1}"
                                                              style="max-width: 250px;
                                                              max-height: 200px;">
                                                         <hr/>
@@ -798,17 +690,14 @@
                                                                     class="form-control"
                                                                     accept="image/png, image/jpeg"/>
                                                         </label>
-
-
-
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-lg-4">
                                                 <div class="card text-center mb-3">
                                                     <div class="card-body">
-                                                        <img th:src="${building.urlSlide2}"
-                                                             th:alt="${building.urlSlide2}"
+                                                        <img th:src="${building.infrastructureBuilding.urlSlide2}"
+                                                             th:alt="${building.infrastructureBuilding.urlSlide2}"
                                                              style="max-width: 250px;
                                                              max-height: 200px;">
                                                         <hr/>
@@ -825,8 +714,8 @@
                                             <div class="col-md-4 col-lg-4">
                                                 <div class="card text-center mb-3">
                                                     <div class="card-body">
-                                                        <img th:src="${building.urlSlide3}"
-                                                             th:alt="${building.urlSlide3}"
+                                                        <img th:src="${building.infrastructureBuilding.urlSlide3}"
+                                                             th:alt="${building.infrastructureBuilding.urlSlide3}"
                                                              style="max-width: 250px;
                                                              max-height: 200px;">
                                                         <hr/>
@@ -837,17 +726,18 @@
                                                                     class="form-control"
                                                                     accept="image/png, image/jpeg"/>
                                                         </label>
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <!--List Infografic-->
                                         <!-- Multi Column with Form Separator -->
+
                                         <div class="col-12">
                                             <div class="card mb-4">
                                                 <div class="card-body">
-                                                    <div data-item-id="bubble-toolbar">
+                                                    <div id="bubble-toolbar-infrastructure-building">
                                                         <span class="ql-formats">
                                                           <select class="ql-font"></select>
                                                           <select class="ql-size"></select>
@@ -873,13 +763,354 @@
                                                           <button class="ql-code-block"></button>
                                                         </span>
                                                     </div>
-
-                                                    <div data-item-id="bubble-editor" name="TextAboutProject" th:text="${building.textAbout}">
+                                                    <input
+                                                            type="hidden"
+                                                            id="editor-data-infrastructure-building"
+                                                            name="editorDataInfrastructureBuilding">
+                                                    <div id="bubble-editor-infrastructure-building" th:text="${building.infrastructureBuilding.text}">
 
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!--List Infografic-->
+                                        <!-- Multi Column with Form Separator -->
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <h5 class="card-header">Инфографика</h5>
+                                                <div class="card-body">
+                                                    <div class="form-repeater">
+                                                        <div data-repeater-list-infrastructure-building>
+                                                            <div data-repeater-item-infrastructure-building>
+                                                                <div class="row">
+                                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                                        <label class="form-label"
+                                                                               for="form-repeater-1-1"></label>
+                                                                        <input class="form-control" type="file"
+                                                                               name="imagesInfographicInfrastructure[]" multiple/>
+                                                                    </div>
+                                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                                        <label class="form-label"
+                                                                               for="form-repeater-1-2"></label>
+                                                                        <input type="text" class="form-control"
+                                                                               placeholder="Описание"
+                                                                               name="descriptionImageInfographicInfrastructure[]" multiple/>
+                                                                    </div>
+                                                                    <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                                        <button class="btn btn-label-danger mt-4"
+                                                                                data-repeater-delete-infrastructure-building type="button">
+                                                                            <i class="ti ti-x ti-xs me-1"></i>
+                                                                            <span class="align-middle">Delete</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <hr/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-0">
+                                                            <button class="btn btn-primary" data-repeater-create-infrastructure-building
+                                                                    type="button">
+                                                                <i class="ti ti-plus me-1"></i>
+                                                                <span class="align-middle">Add</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            let itemsInfrastructure = []; // Массив для хранения данных каждого элемента в участке "Infographic Infrastructure"
+                                            let nextIdInfrastructure = 1; // Идентификатор для следующего элемента в участке "Infographic Infrastructure"
+                                            const btnAddInfrastructure = document.querySelector('[data-repeater-create-infrastructure-building]'); // Кнопка добавления нового элемента в участке "Infographic Infrastructure"
+
+                                            function addNewItemInfrastructure() {
+                                                let itemHtmlInfrastructure = `
+                                                    <div data-repeater-item-infrastructure-building data-id="${nextIdInfrastructure}">
+                                                        <div class="row">
+                                                           <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                               <label class="form-label"
+                                                                      for="form-repeater-1-1"></label>
+                                                               <input class="form-control" type="file"
+                                                                      name="imagesInfographicInfrastructure[]" multiple/>
+                                                           </div>
+                                                           <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                               <label class="form-label"
+                                                                      for="form-repeater-1-2"></label>
+                                                               <input type="text" class="form-control"
+                                                                      placeholder="Описание"
+                                                                      name="descriptionImageInfographicInfrastructure[]" multiple/>
+                                                           </div>
+                                                           <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                               <button class="btn btn-label-danger mt-4"
+                                                                       data-repeater-delete-infrastructure-building type="button">
+                                                                   <i class="ti ti-x ti-xs me-1"></i>
+                                                                   <span class="align-middle">Delete</span>
+                                                               </button>
+                                                           </div>
+                                                        </div>
+                                                        <hr/>
+                                                    </div>
+                                                `;
+
+                                                // Вставка HTML-разметки нового элемента в конец списка элементов в участке "Infographic Infrastructure"
+                                                document.querySelector('[data-repeater-list-infrastructure-building]').insertAdjacentHTML('beforeend', itemHtmlInfrastructure);
+
+                                                const newItemInfrastructure = {
+                                                    id: nextIdInfrastructure++,
+                                                    // Дополнительные свойства элемента в участке "Infographic Infrastructure"
+                                                };
+                                                itemsInfrastructure.push(newItemInfrastructure);
+                                                addDeleteHandlerInfrastructure();
+                                            }
+
+                                            function addDeleteHandlerInfrastructure() {
+                                                const deleteBtnsInfrastructure = document.querySelectorAll('[data-repeater-delete-infrastructure-building]');
+                                                deleteBtnsInfrastructure.forEach(btn => {
+                                                    btn.addEventListener('click', handleDeleteInfrastructure);
+                                                });
+                                            }
+
+                                            function handleDeleteInfrastructure() {
+                                                const itemBlockInfrastructure = this.closest('[data-repeater-item-infrastructure-building]');
+
+                                                const itemIndexInfrastructure = itemsInfrastructure.findIndex(item => {
+                                                    return item.id === parseInt(itemBlockInfrastructure.dataset.id);
+                                                });
+                                                itemsInfrastructure.splice(itemIndexInfrastructure, 1);
+                                                itemBlockInfrastructure.remove();
+                                                addDeleteHandlerInfrastructure();
+                                            }
+
+                                            btnAddInfrastructure.addEventListener('click', addNewItemInfrastructure);
+                                        </script>
+                                    </div>
+                                    <div class="mt-2 d-flex justify-content-end mx-4">
+                                        <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="rooms" role="tabpanel">
+                                <form action="/buildings/edit-rooms-building/{id}" method="post"
+                                      enctype="multipart/form-data">
+                                    <div class="container-xxl flex-grow-1 container-p-y">
+                                        <!--Фото и основные данные-->
+                                        <label style="visibility: hidden">
+                                            <input type="text" name="buildingId" th:value="${building.id}"/>
+                                        </label>
+                                        <div class="row mb-5">
+                                            <div class="col-md-4 col-lg-4">
+                                                <div class="card text-center mb-3">
+                                                    <div class="card-body">
+                                                        <img th:src="${building.roomBuilding.urlSlide1}"
+                                                             th:alt="${building.roomBuilding.urlSlide1}"
+                                                             style="max-width: 250px;
+                                                             max-height: 200px;">
+                                                        <hr/>
+                                                        <label class="form-label">
+                                                            <input
+                                                                    type="file"
+                                                                    name="urlSlide1"
+                                                                    class="form-control"
+                                                                    accept="image/png, image/jpeg"/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4">
+                                                <div class="card text-center mb-3">
+                                                    <div class="card-body">
+                                                        <img th:src="${building.roomBuilding.urlSlide2}"
+                                                             th:alt="${building.roomBuilding.urlSlide2}"
+                                                             style="max-width: 250px;
+                                                             max-height: 200px;">
+                                                        <hr/>
+                                                        <label class="form-label">
+                                                            <input
+                                                                    type="file"
+                                                                    name="urlSlide2"
+                                                                    class="form-control"
+                                                                    accept="image/png, image/jpeg"/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4">
+                                                <div class="card text-center mb-3">
+                                                    <div class="card-body">
+                                                        <img th:src="${building.roomBuilding.urlSlide3}"
+                                                             th:alt="${building.roomBuilding.urlSlide3}"
+                                                             style="max-width: 250px;
+                                                             max-height: 200px;">
+                                                        <hr/>
+                                                        <label class="form-label">
+                                                            <input
+                                                                    type="file"
+                                                                    name="urlSlide3"
+                                                                    class="form-control"
+                                                                    accept="image/png, image/jpeg"/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--List Infografic-->
+                                        <!-- Multi Column with Form Separator -->
+
+                                        <div class="col-12">
+                                            <div class="card mb-4">
+                                                <div class="card-body">
+                                                    <div id="bubble-toolbar-room-building">
+                                                        <span class="ql-formats">
+                                                          <select class="ql-font"></select>
+                                                          <select class="ql-size"></select>
+                                                        </span>
+                                                        <span class="ql-formats">
+                                                          <button class="ql-bold"></button>
+                                                          <button class="ql-italic"></button>
+                                                          <button class="ql-underline"></button>
+                                                          <button class="ql-strike"></button>
+                                                        </span>
+                                                        <span class="ql-formats">
+                                                          <select class="ql-color"></select>
+                                                          <select class="ql-background"></select>
+                                                        </span>
+                                                        <span class="ql-formats">
+                                                          <button class="ql-script" value="sub"></button>
+                                                          <button class="ql-script" value="super"></button>
+                                                        </span>
+                                                        <span class="ql-formats">
+                                                          <button class="ql-header" value="1"></button>
+                                                          <button class="ql-header" value="2"></button>
+                                                          <button class="ql-blockquote"></button>
+                                                          <button class="ql-code-block"></button>
+                                                        </span>
+                                                    </div>
+                                                    <input
+                                                            type="hidden"
+                                                            id="editor-data-room-building"
+                                                            name="editorDataInfrastructureBuilding">
+                                                    <div id="bubble-editor-room-building" th:text="${building.roomBuilding.text}">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--List Infografic-->
+                                        <!-- Multi Column with Form Separator -->
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <h5 class="card-header">Инфографика</h5>
+                                                <div class="card-body">
+                                                    <div class="form-repeater">
+                                                        <div data-repeater-list-room-building>
+                                                            <div data-repeater-item-room-building>
+                                                                <div class="row">
+                                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                                        <label class="form-label"
+                                                                               for="form-repeater-1-1"></label>
+                                                                        <input class="form-control" type="file"
+                                                                               name="imagesRoomInfographic[]" multiple/>
+                                                                    </div>
+                                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                                        <label class="form-label"
+                                                                               for="form-repeater-1-2"></label>
+                                                                        <input type="text" class="form-control"
+                                                                               placeholder="Описание"
+                                                                               name="descriptionImageRoomInfographic[]" multiple/>
+                                                                    </div>
+                                                                    <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                                        <button class="btn btn-label-danger mt-4"
+                                                                                data-repeater-delete-room-building type="button">
+                                                                            <i class="ti ti-x ti-xs me-1"></i>
+                                                                            <span class="align-middle">Delete</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <hr/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-0">
+                                                            <button class="btn btn-primary" data-repeater-create-room-building
+                                                                    type="button">
+                                                                <i class="ti ti-plus me-1"></i>
+                                                                <span class="align-middle">Add</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            let itemsRoom = [];
+                                            let nextIdRoom = 1;
+                                            const btnAddRoom = document.querySelector('[data-repeater-create-room-infographic]');
+
+                                            function addNewItemRoom() {
+                                                let itemHtmlRoom = `
+                                                    <div data-repeater-item-room-building data-id="${nextIdRoom}">
+                                                        <div class="row">
+                                                           <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                               <label class="form-label"
+                                                                      for="form-repeater-1-1"></label>
+                                                               <input class="form-control" type="file"
+                                                                      name="imagesRoomInfographic[]" multiple/>
+                                                           </div>
+                                                           <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                               <label class="form-label"
+                                                                      for="form-repeater-1-2"></label>
+                                                               <input type="text" class="form-control"
+                                                                      placeholder="Описание"
+                                                                      name="descriptionImageRoomInfographic[]" multiple/>
+                                                           </div>
+                                                           <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                               <button class="btn btn-label-danger mt-4"
+                                                                       data-repeater-delete-infrastructure-building type="button">
+                                                                   <i class="ti ti-x ti-xs me-1"></i>
+                                                                   <span class="align-middle">Delete</span>
+                                                               </button>
+                                                           </div>
+                                                        </div>
+                                                        <hr/>
+                                                    </div>
+                                                `;
+
+
+                                                document.querySelector('[data-repeater-list-room-infographic]').insertAdjacentHTML('beforeend', itemHtmlRoom);
+
+                                                const newItemRoom = {
+                                                    id: nextIdRoom++,
+                                                };
+                                                itemsRoom.push(newItemRoom);
+                                                addDeleteHandlerRoom();
+                                            }
+
+                                            function addDeleteHandlerRoom() {
+                                                const deleteBtnsRoom = document.querySelectorAll('[data-repeater-delete-room-infographic]');
+                                                deleteBtnsRoom.forEach(btn => {
+                                                    btn.addEventListener('click', handleDeleteRoom);
+                                                });
+                                            }
+
+                                            function handleDeleteRoom() {
+                                                const itemBlockRoom = this.closest('[data-repeater-item-room-infographic]');
+
+                                                const itemIndexRoom = itemsRoom.findIndex(item => {
+                                                    return item.id === parseInt(itemBlockRoom.dataset.id);
+                                                });
+                                                itemsRoom.splice(itemIndexRoom, 1);
+                                                itemBlockRoom.remove();
+                                                addDeleteHandlerRoom();
+                                            }
+
+                                            btnAddRoom.addEventListener('click', addNewItemRoom);
+                                        </script>
+
                                     </div>
                                     <div class="mt-2 d-flex justify-content-end mx-4">
                                         <button type="reset" class="btn btn-label-secondary">Cancel</button>

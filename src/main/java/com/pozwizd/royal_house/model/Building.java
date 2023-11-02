@@ -64,8 +64,8 @@ public class Building {
     @OneToOne(fetch = FetchType.LAZY)
     private InfrastructureBuilding infrastructureBuilding;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
-    private List<RoomBuilding> roomBuildings;
+    @OneToOne(fetch = FetchType.LAZY)
+    private RoomBuilding roomBuilding;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
     private List<SpecificationBuilding> specificationBuildings;

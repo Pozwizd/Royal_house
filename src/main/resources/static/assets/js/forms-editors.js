@@ -33,6 +33,27 @@
     theme: 'bubble'
   });
 
+  const bubbleEditorLocationBuilding = new Quill('#bubble-editor-location-building', {
+    modules: {
+      toolbar: '#bubble-toolbar-location-building'
+    },
+    theme: 'bubble'
+  });
+
+  const bubbleEditorInfrastructure = new Quill('#bubble-editor-room-building', {
+    modules: {
+      toolbar: '#bubble-toolbar-room-building'
+    },
+    theme: 'bubble'
+  });
+
+  const bubbleEditorRoomBuilding = new Quill('#bubble-editor-infrastructure-building', {
+    modules: {
+      toolbar: '#bubble-toolbar-infrastructure-building'
+    },
+    theme: 'bubble'
+  });
+
   // Обработчик события изменения текста
   bubbleEditor.on('text-change', function() {
     document.getElementById('editor-data').value = bubbleEditor.root.innerHTML;
@@ -41,6 +62,11 @@
   // Обработчик события изменения текста
   bubbleEditorAbout.on('text-change', function() {
     document.getElementById('editor-data-about-project').value = bubbleEditorAbout.value;
+  })
+
+  // Обработчик события изменения текста
+  bubbleEditorInfrastructure.on('text-change', function() {
+    document.getElementById('editor-data-infrastructure-building').value = bubbleEditorAbout.value;
   })
 
   // Full Toolbar

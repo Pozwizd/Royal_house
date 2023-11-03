@@ -80,6 +80,7 @@ public class RequestsController {
         model.addAttribute("pageActive", "requests");
 
         model.addAttribute("requests", requestsService.getRequests(requestsId));
+
         return new ModelAndView("admin/requestsCard");
     }
 

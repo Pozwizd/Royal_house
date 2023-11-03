@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -27,7 +29,9 @@ public class RoomBuilding {
     private String urlSlide3;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "new_building_id")
+    @JoinColumn(name = "building_id")
     private Building building;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roomBuilding")
+    private List<InfographicRoom> infographicRooms;
 }

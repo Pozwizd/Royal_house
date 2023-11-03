@@ -79,90 +79,7 @@
         <div class="layout-page">
             <!-- Navbar -->
 
-            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                 id="layout-navbar"
-            >
-                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="ti ti-menu-2 ti-sm"></i>
-                    </a>
-                </div>
-
-                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                    <div class="navbar-nav align-items-center">
-                        <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
-                            <i class="ti ti-sm"></i>
-                        </a>
-                    </div>
-
-                    <ul class="navbar-nav flex-row align-items-center ms-auto">
-                        <!-- User -->
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                               data-bs-toggle="dropdown">
-                                <div class="avatar avatar-online">
-                                    <img src="../../assets/img/avatars/1.png" alt class="h-auto rounded-circle"/>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar avatar-online">
-                                                    <img src="../../assets/img/avatars/1.png" alt
-                                                         class="h-auto rounded-circle"/>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block">John Doe</span>
-                                                <small class="text-muted">Admin</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="ti ti-user-check me-2 ti-sm"></i>
-                                        <span class="align-middle">My Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="ti ti-settings me-2 ti-sm"></i>
-                                        <span class="align-middle">Settings</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger w-px-20 h-px-20"
-                          >2</span
-                          >
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="ti ti-logout me-2 ti-sm"></i>
-                                        <span class="align-middle">Log Out</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/ User -->
-                    </ul>
-                </div>
-            </nav>
-
+            <nav th:replace="~{fragments :: navbar}"></nav>
             <!-- / Navbar -->
             <hr class="my-5"/>
 
@@ -362,14 +279,12 @@
                                                             <div data-repeater-item>
                                                                 <div class="row">
                                                                     <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                        <label class="form-label"
-                                                                               for="form-repeater-1-1"></label>
+                                                                        <label class="form-label"></label>
                                                                         <input class="form-control" type="file"
                                                                                name="imagesInfographic[]" multiple/>
                                                                     </div>
                                                                     <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                        <label class="form-label"
-                                                                               for="form-repeater-1-2"></label>
+                                                                        <label class="form-label"></label>
                                                                         <input type="text" class="form-control"
                                                                                placeholder="Описание"
                                                                                name="descriptionImageInfographic[]" multiple/>
@@ -785,14 +700,12 @@
                                                             <div data-repeater-item-infrastructure-building>
                                                                 <div class="row">
                                                                     <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                        <label class="form-label"
-                                                                               for="form-repeater-1-1"></label>
+                                                                        <label class="form-label"></label>
                                                                         <input class="form-control" type="file"
                                                                                name="imagesInfographicInfrastructure[]" multiple/>
                                                                     </div>
                                                                     <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                        <label class="form-label"
-                                                                               for="form-repeater-1-2"></label>
+                                                                        <label class="form-label"></label>
                                                                         <input type="text" class="form-control"
                                                                                placeholder="Описание"
                                                                                name="descriptionImageInfographicInfrastructure[]" multiple/>
@@ -898,7 +811,7 @@
                                     <div class="container-xxl flex-grow-1 container-p-y">
                                         <!--Фото и основные данные-->
                                         <label style="visibility: hidden">
-                                            <input type="text" name="buildingId" th:value="${building.id}"/>
+                                            <input type="hidden" name="buildingId" th:value="${building.id}"/>
                                         </label>
                                         <div class="row mb-5">
                                             <div class="col-md-4 col-lg-4">
@@ -1007,18 +920,16 @@
                                                 <h5 class="card-header">Инфографика</h5>
                                                 <div class="card-body">
                                                     <div class="form-repeater">
-                                                        <div data-repeater-list-room-building>
-                                                            <div data-repeater-item-room-building>
+                                                        <div data-repeater-list-room-infographic>
+                                                            <div data-repeater-item-room-infographic>
                                                                 <div class="row">
                                                                     <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                        <label class="form-label"
-                                                                               for="form-repeater-1-1"></label>
+                                                                        <label class="form-label"></label>
                                                                         <input class="form-control" type="file"
                                                                                name="imagesRoomInfographic[]" multiple/>
                                                                     </div>
                                                                     <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                        <label class="form-label"
-                                                                               for="form-repeater-1-2"></label>
+                                                                        <label class="form-label"></label>
                                                                         <input type="text" class="form-control"
                                                                                placeholder="Описание"
                                                                                name="descriptionImageRoomInfographic[]" multiple/>
@@ -1035,7 +946,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-0">
-                                                            <button class="btn btn-primary" data-repeater-create-room-building
+                                                            <button class="btn btn-primary"
+                                                                    data-repeater-create-room-infographic
                                                                     type="button">
                                                                 <i class="ti ti-plus me-1"></i>
                                                                 <span class="align-middle">Add</span>
@@ -1053,7 +965,7 @@
 
                                             function addNewItemRoom() {
                                                 let itemHtmlRoom = `
-                                                    <div data-repeater-item-room-building data-id="${nextIdRoom}">
+                                                    <div data-repeater-item-room-infographic data-id="${nextIdRoom}">
                                                         <div class="row">
                                                            <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
                                                                <label class="form-label"
@@ -1070,7 +982,7 @@
                                                            </div>
                                                            <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
                                                                <button class="btn btn-label-danger mt-4"
-                                                                       data-repeater-delete-infrastructure-building type="button">
+                                                                       data-repeater-delete-room-infographic type="button">
                                                                    <i class="ti ti-x ti-xs me-1"></i>
                                                                    <span class="align-middle">Delete</span>
                                                                </button>
@@ -1127,9 +1039,9 @@
                                             <input type="text" name="buildingId" th:value="${building.id}"/>
                                         </label>
                                         <div class="row">
-                                            <div class="col-md-6 col-lg-6">
-                                                <div class="card text-center mb-3">
-                                                    <div class="card-body">
+                                            <div class="col-12 flex justify-content-start">
+                                                <div class="card text-center mb-3 flex justify-content-start">
+                                                    <div class="card-body flex justify-content-start">
                                                         <img th:src="${building.mainBanner}"
                                                              th:alt="${building.mainBanner}"
                                                              style="max-width: 250px;
@@ -1145,110 +1057,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl">
-                                                <div class="card mb-4">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="mb-3 col-md-4">
-                                                                <label class="form-label">Название</label>
-                                                                <input
-
-                                                                        class="form-control"
-                                                                        type="text"
-                                                                        th:value="${building.name}"
-                                                                        name="buildingName"
-                                                                        placeholder="Название"
-                                                                        autofocus
-                                                                />
-                                                            </div>
-                                                            <div class="mb-3 col-md-4">
-                                                                <label class="form-label">Порядок сортировки</label>
-                                                                <input
-                                                                        class="form-control"
-                                                                        type="text"
-                                                                        name=""
-                                                                        placeholder="Порядок сортировки"
-                                                                        autofocus
-                                                                />
-                                                            </div>
-                                                            <div class="mb-3 col-md-4">
-                                                                <label class="form-label"></label>
-                                                                <div class="form-check mb-4">
-                                                                    <label class="form-check-label"
-                                                                    >Активен
-                                                                        <input class="form-check-input"
-                                                                               type="checkbox"
-                                                                               name="statusBuilding"
-                                                                               value="true"
-                                                                               th:checked="${building.statusBuilding.toString() == 'Активен'} ? 'true' : 'false'"
-                                                                        />
-                                                                    </label>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="mb-3 column">
-                                                                <label class="form-label">Адрес</label>
-                                                                <input
-                                                                        class="form-control"
-                                                                        type="text"
-                                                                        name="address"
-                                                                        placeholder="Адрес"
-                                                                        th:value="${building.address}"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
-                                        <!--List Infografic-->
-                                        <!-- Multi Column with Form Separator -->
-                                        <div class="card mb-4">
-                                            <div class="col-12">
-                                                <div class="card">
-                                                    <h5 class="card-header">Инфографика</h5>
-                                                    <div class="card-body">
-                                                        <div class="form-repeater">
-                                                            <div data-repeater-list="infographicBuilding"
-                                                                 name="infographicBuilding">
-                                                                <div data-repeater-item>
-                                                                    <div class="row">
-                                                                        <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                            <label class="form-label"
-                                                                                   for="form-repeater-1-1"></label>
-                                                                            <input class="form-control" type="file"
-                                                                                   name="infographicFile"/>
-                                                                        </div>
-                                                                        <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                            <label class="form-label"
-                                                                                   for="form-repeater-1-2"></label>
-                                                                            <input type="text" class="form-control"
-                                                                                   placeholder="Описание"
-                                                                                   name="infographicDescription"/>
-                                                                        </div>
-                                                                        <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
-                                                                            <button class="btn btn-label-danger mt-4"
-                                                                                    data-repeater-delete type="button">
-                                                                                <i class="ti ti-x ti-xs me-1"></i>
-                                                                                <span class="align-middle">Delete</span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr/>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-0">
-                                                                <button class="btn btn-primary" data-repeater-create
-                                                                        type="button">
-                                                                    <i class="ti ti-plus me-1"></i>
-                                                                    <span class="align-middle">Add</span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <div class="mt-2 d-flex justify-content-end mx-4">
                                         <button type="reset" class="btn btn-label-secondary">Cancel</button>
@@ -1264,131 +1074,119 @@
                                         <label style="visibility: hidden">
                                             <input type="text" name="buildingId" th:value="${building.id}"/>
                                         </label>
-                                        <div class="row">
-                                            <div class="col-md-6 col-lg-6">
-                                                <div class="card text-center mb-3">
-                                                    <div class="card-body">
-                                                        <img th:src="${building.mainBanner}"
-                                                             th:alt="${building.mainBanner}"
-                                                             style="max-width: 250px;
-                                                             max-height: 200px;">
-                                                        <hr/>
-                                                        <label class="form-label">
-                                                            <input
-                                                                    type="file"
-                                                                    name="mainBanner"
-                                                                    class="form-control"
-                                                                    accept="image/png, image/jpeg"/>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl">
-                                                <div class="card mb-4">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="mb-3 col-md-4">
-                                                                <label class="form-label">Название</label>
-                                                                <input
 
-                                                                        class="form-control"
-                                                                        type="text"
-                                                                        th:value="${building.name}"
-                                                                        name="buildingName"
-                                                                        placeholder="Название"
-                                                                        autofocus
-                                                                />
-                                                            </div>
-                                                            <div class="mb-3 col-md-4">
-                                                                <label class="form-label">Порядок сортировки</label>
-                                                                <input
-                                                                        class="form-control"
-                                                                        type="text"
-                                                                        name=""
-                                                                        placeholder="Порядок сортировки"
-                                                                        autofocus
-                                                                />
-                                                            </div>
-                                                            <div class="mb-3 col-md-4">
-                                                                <label class="form-label"></label>
-                                                                <div class="form-check mb-4">
-                                                                    <label class="form-check-label"
-                                                                    >Активен
-                                                                        <input class="form-check-input"
-                                                                               type="checkbox"
-                                                                               name="statusBuilding"
-                                                                               value="true"
-                                                                               th:checked="${building.statusBuilding.toString() == 'Активен'} ? 'true' : 'false'"
-                                                                        />
-                                                                    </label>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="mb-3 column">
-                                                                <label class="form-label">Адрес</label>
-                                                                <input
-                                                                        class="form-control"
-                                                                        type="text"
-                                                                        name="address"
-                                                                        placeholder="Адрес"
-                                                                        th:value="${building.address}"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--List Infografic-->
-                                        <!-- Multi Column with Form Separator -->
-                                        <div class="card mb-4">
-                                            <div class="col-12">
-                                                <div class="card">
-                                                    <h5 class="card-header">Инфографика</h5>
-                                                    <div class="card-body">
-                                                        <div class="form-repeater">
-                                                            <div data-repeater-list="infographicBuilding"
-                                                                 name="infographicBuilding">
-                                                                <div data-repeater-item>
-                                                                    <div class="row">
-                                                                        <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                            <label class="form-label"
-                                                                                   for="form-repeater-1-1"></label>
-                                                                            <input id="form-repeater-1-1"
-                                                                                   class="form-control" type="file"
-                                                                                   name="infographicFile"/>
-                                                                        </div>
-                                                                        <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                                            <label class="form-label"
-                                                                                   for="form-repeater-1-2"></label>
-                                                                            <input type="text" id="form-repeater-1-2"
-                                                                                   class="form-control"
-                                                                                   placeholder="Описание"
-                                                                                   name="infographicDescription"/>
-                                                                        </div>
-                                                                        <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
-                                                                            <button class="btn btn-label-danger mt-4"
-                                                                                    data-repeater-delete type="button">
-                                                                                <i class="ti ti-x ti-xs me-1"></i>
-                                                                                <span class="align-middle">Delete</span>
-                                                                            </button>
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <h5 class="card-header">Инфографика</h5>
+                                                <div class="card-body">
+                                                    <div class="form-repeater">
+                                                        <div data-repeater-list-specification-building>
+                                                            <div data-repeater-item-specification-building>
+                                                                <div class="row">
+                                                                    <div class="card">
+                                                                        <h5 class="card-header">Full Editor</h5>
+                                                                        <div class="card-body">
+                                                                            <div id="full-editor">
+                                                                                <h6>Quill Rich Text Editor</h6>
+                                                                                <p>
+                                                                                    Cupcake ipsum dolor sit amet. Halvah
+                                                                                    cheesecake chocolate bar gummi bears
+                                                                                    cupcake. Pie
+                                                                                    macaroon bear claw. Soufflé I love candy
+                                                                                    canes I love cotton candy I love.
+                                                                                </p>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                    <hr/>
+                                                                    <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                                        <button class="btn btn-label-danger mt-4"
+                                                                                data-repeater-delete-specification-building type="button">
+                                                                            <i class="ti ti-x ti-xs me-1"></i>
+                                                                            <span class="align-middle">Delete</span>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
+                                                                <hr/>
                                                             </div>
-                                                            <div class="mb-0">
-                                                                <button class="btn btn-primary" data-repeater-create
-                                                                        type="button">
-                                                                    <i class="ti ti-plus me-1"></i>
-                                                                    <span class="align-middle">Add</span>
-                                                                </button>
-                                                            </div>
+                                                        </div>
+                                                        <div class="mb-0">
+                                                            <button class="btn btn-primary"
+                                                                    data-repeater-create-specification-building
+                                                                    type="button">
+                                                                <i class="ti ti-plus me-1"></i>
+                                                                <span class="align-middle">Add</span>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+                                        <script>
+                                            let itemsSpecification = [];
+                                            let nextIdSpecification = 1;
+                                            const btnAddSpecification = document.querySelector('[data-repeater-create-specification-building]');
+
+                                            function addNewItemSpecification() {
+                                                let itemHtmlSpecification = `
+                                              
+                                                    <div data-repeater-item-specification-building data-id="${nextIdSpecification}">
+                                                        <div class="card">
+                                                            <h5 class="card-header">Full Editor</h5>
+                                                            <div class="card-body">
+                                                                <div id="full-editor-specification-building">
+                                                                    <h6>Quill Rich Text Editor</h6>
+                                                                    <p>
+                                                                        Cupcake ipsum dolor sit amet. Halvah
+                                                                        cheesecake chocolate bar gummi bears
+                                                                        cupcake. Pie
+                                                                        macaroon bear claw. Soufflé I love candy
+                                                                        canes I love cotton candy I love.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                            <button class="btn btn-label-danger mt-4"
+                                                                    data-repeater-delete-specification-building type="button">
+                                                                <i class="ti ti-x ti-xs me-1"></i>
+                                                                <span class="align-middle">Delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>`;
+
+
+                                                document.querySelector('[data-repeater-list-specification-building]').insertAdjacentHTML('beforeend', itemHtmlSpecification);
+
+                                                const newItemSpecification = {
+                                                    id: nextIdSpecification++,
+                                                };
+                                                itemsRoom.push(newItemSpecification);
+                                                addDeleteHandlerSpecification();
+                                            }
+
+                                            function addDeleteHandlerSpecification() {
+                                                const deleteBtnsSpecification = document.querySelectorAll('[data-repeater-delete-specification-building]');
+                                                deleteBtnsSpecification.forEach(btn => {
+                                                    btn.addEventListener('click', handleDeleteSpecification);
+                                                });
+                                            }
+
+                                            function handleDeleteSpecification() {
+                                                const itemBlockSpecification = this.closest('[data-repeater-item-specification-building]');
+
+                                                const itemIndexSpecification = itemsSpecification.findIndex(item => {
+                                                    return item.id === parseInt(itemBlockSpecification.dataset.id);
+                                                });
+                                                itemsSpecification.splice(itemIndexSpecification, 1);
+                                                itemBlockSpecification.remove();
+                                                addDeleteHandlerSpecification();
+                                            }
+
+                                            btnAddSpecification.addEventListener('click', addNewItemSpecification);
+                                        </script>
                                     </div>
                                     <div class="mt-2 d-flex justify-content-end mx-4">
                                         <button type="reset" class="btn btn-label-secondary">Cancel</button>

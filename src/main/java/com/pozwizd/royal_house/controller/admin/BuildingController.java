@@ -5,6 +5,7 @@ import com.pozwizd.royal_house.model.*;
 import com.pozwizd.royal_house.service.BuildingService;
 import com.pozwizd.royal_house.service.InfographicBuildingService;
 import com.pozwizd.royal_house.service.InfographicInfrastructureService;
+import com.pozwizd.royal_house.service.SpecificationBuildingService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,12 +31,18 @@ public class BuildingController {
     private final InfographicBuildingService infographicBuildingService;
 
     private final InfographicInfrastructureService infographicInfrastructureService;
+
+    private final SpecificationBuildingService specificationBuildingService;
     private Logger logger;
 
-    public BuildingController(BuildingService buildingService, InfographicBuildingService infographicBuildingService, InfographicInfrastructureService infographicInfrastructureService) {
+    public BuildingController(BuildingService buildingService,
+                              InfographicBuildingService infographicBuildingService,
+                              InfographicInfrastructureService infographicInfrastructureService,
+                              SpecificationBuildingService specificationBuildingService) {
         this.buildingService = buildingService;
         this.infographicBuildingService = infographicBuildingService;
         this.infographicInfrastructureService = infographicInfrastructureService;
+        this.specificationBuildingService = specificationBuildingService;
     }
 
 
@@ -408,7 +415,7 @@ public class BuildingController {
         }
 
         // Обновляем значения
-        building.getInfrastructureBuilding().setInfrastructures(infographicInfrastructures);
+        building.getInfrastructureBuilding().setInfographicInfrastructures(infographicInfrastructures);
         buildingService.update(building);
         return new ModelAndView("redirect:/buildings/get/" + building.getId());
     }
@@ -550,36 +557,59 @@ public class BuildingController {
         }
 
         // Обновляем значения
-        building.getInfrastructureBuilding().setInfrastructures(infographicInfrastructures);
+        building.getInfrastructureBuilding().setInfographicInfrastructures(infographicInfrastructures);
         buildingService.update(building);
         return new ModelAndView("redirect:/buildings/get/" + building.getId());
     }
 
 
     @PostMapping("/edit-panorama/{id}")
-    public ModelAndView editPanoramaBuilding(@RequestParam(name = "buildingId", required = true) String id,
-                                          @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
-                                          @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
-                                          @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
-                                          @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String TextInfrastructureBuilding,
-                                          @RequestParam(name = "imagesInfographicInfrastructure[]", required = false) List<MultipartFile> imagesInfographicInfrastructure,
-                                          @RequestParam(name = "descriptionImageInfographicInfrastructure[]", required = false) List<String> descriptionImageInfographicInfrastructure,
-                                          Model model) {
+    public ModelAndView editPanoramaBuilding(@RequestParam(name = "panoramaBuilding", required = false) MultipartFile panoramaBuilding,
+                                             Model model, @PathVariable String id) {
 
+        Building building = buildingService.findById(Long.parseLong(id));
+
+        if (!panoramaBuilding.isEmpty()) {
+            String oldUrlPanorama = building.getUrlPanorama();
+            if (oldUrlPanorama != null && !panoramaBuilding.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldUrlPanorama;
+                File file = new File(filePath);
+                file.delete();
+            }
+
+            try {
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + panoramaBuilding.getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                panoramaBuilding.transferTo(dest);
+                building.setUrlPanorama("/images/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return new ModelAndView("redirect:/buildings/get/" + id);
     }
 
     @PostMapping("/edit-specification/{id}")
-    public ModelAndView editSpecificationBuilding(@RequestParam(name = "buildingId", required = true) String id,
-                                             @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
-                                             @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
-                                             @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
-                                             @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String TextInfrastructureBuilding,
-                                             @RequestParam(name = "imagesInfographicInfrastructure[]", required = false) List<MultipartFile> imagesInfographicInfrastructure,
-                                             @RequestParam(name = "descriptionImageInfographicInfrastructure[]", required = false) List<String> descriptionImageInfographicInfrastructure,
-                                             Model model) {
+    public ModelAndView editSpecificationBuilding(@RequestParam(name = "specificationBuilding[]", required = false) List<String> specificationBuildingsText,
+                                                  Model model, @PathVariable String id) {
 
+
+        Building building = buildingService.findById(Long.parseLong(id));
+        List<SpecificationBuilding> specificationBuildingList = new ArrayList<>();
+        SpecificationBuilding specificationBuilding = new SpecificationBuilding();
+        for (String specificationBuildingText : specificationBuildingsText) {
+           specificationBuilding.setText(specificationBuildingText);
+           specificationBuilding.setBuilding(building);
+           specificationBuildingService.saveSpecificationBuilding(specificationBuilding);
+           specificationBuildingList.add(specificationBuilding);
+        }
+
+        building.setSpecificationBuildings(specificationBuildingList);
+        buildingService.update(building);
 
         return new ModelAndView("redirect:/buildings/get/" + id);
     }

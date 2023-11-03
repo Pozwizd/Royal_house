@@ -3,6 +3,8 @@ package com.pozwizd.royal_house.service.ServiceImp;
 import com.pozwizd.royal_house.model.Services;
 import com.pozwizd.royal_house.repository.ServicesRepository;
 import com.pozwizd.royal_house.service.ServicesService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,5 +41,15 @@ public class ServicesServiceImp implements ServicesService {
     @Override
     public List<Services> getAllServices() {
         return servicesRepository.findAll();
+    }
+
+    @Override
+    public Page<Services> findAll(Pageable pageable) {
+        return servicesRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Services> findByRequest(String name, Pageable pageable) {
+        return servicesRepository.findByCriteria(name, pageable);
     }
 }

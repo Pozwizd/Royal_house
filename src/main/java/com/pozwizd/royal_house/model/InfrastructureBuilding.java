@@ -32,7 +32,6 @@ public class InfrastructureBuilding {
     @JoinColumn(name = "building_id")
     private Building building;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<InfographicInfrastructure> infrastructures;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "infrastructureBuilding")
+    private List<InfographicInfrastructure> infographicInfrastructures;
 }

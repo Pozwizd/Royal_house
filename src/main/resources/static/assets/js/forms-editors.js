@@ -54,6 +54,13 @@
     theme: 'bubble'
   });
 
+  const bubbleEditorServices = new Quill('#bubble-editor-services', {
+    modules: {
+      toolbar: '#bubble-toolbar-services'
+    },
+    theme: 'bubble'
+  });
+
   // Обработчик события изменения текста
   bubbleEditor.on('text-change', function() {
     document.getElementById('editor-data').value = bubbleEditor.root.innerHTML;
@@ -134,4 +141,14 @@
     },
     theme: 'snow'
   });
+
+  // const fullEditorSpecificationBuilding = new Quill('#full-editor-specification-building', {
+  //   bounds: '#full-editor-specification-building',
+  //   placeholder: 'Type Something...',
+  //   modules: {
+  //     formula: true,
+  //     toolbar: fullToolbar
+  //   },
+  //   theme: 'snow'
+  // });
 })();

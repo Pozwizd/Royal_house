@@ -24,7 +24,6 @@ public class InfographicInfrastructure {
     private String altImage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "infrastructure_id")
-    private InfographicInfrastructure infographicInfrastructure;
-
+    @JoinColumn(name = "infrastructure_building_id")
+    private InfrastructureBuilding infrastructureBuilding;
 }

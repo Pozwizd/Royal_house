@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -25,6 +27,9 @@ public class Services {
 
     @Column(name = "text")
     private String text;
+
+    @Column(name = "date")
+    private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "visible")

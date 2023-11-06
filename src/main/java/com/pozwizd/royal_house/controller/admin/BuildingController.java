@@ -564,8 +564,9 @@ public class BuildingController {
 
 
     @PostMapping("/edit-panorama/{id}")
-    public ModelAndView editPanoramaBuilding(@RequestParam(name = "panoramaBuilding", required = false) MultipartFile panoramaBuilding,
-                                             Model model, @PathVariable String id) {
+    public ModelAndView editPanoramaBuilding(@RequestParam(name = "buildingId", required = true) String id,
+                                             @RequestParam(name = "panoramaBuilding", required = false) MultipartFile panoramaBuilding,
+                                             Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
 

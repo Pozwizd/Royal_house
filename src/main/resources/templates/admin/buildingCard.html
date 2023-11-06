@@ -480,10 +480,7 @@
                                                           <button class="ql-code-block"></button>
                                                         </span>
                                                     </div>
-                                                    <input
-                                                            type="hidden"
-                                                            id="editor-data-about-project"
-                                                            name="editorDataAboutProject">
+
                                                     <div id="bubble-editor-about-project">
 
                                                     </div>
@@ -1042,15 +1039,15 @@
                                             <div class="col-12 flex justify-content-start">
                                                 <div class="card text-center mb-3 flex justify-content-start">
                                                     <div class="card-body flex justify-content-start">
-                                                        <img th:src="${building.mainBanner}"
-                                                             th:alt="${building.mainBanner}"
+                                                        <img th:src="${building.urlPanorama}"
+                                                             th:alt="${building.urlPanorama}"
                                                              style="max-width: 250px;
                                                              max-height: 200px;">
                                                         <hr/>
                                                         <label class="form-label">
                                                             <input
                                                                     type="file"
-                                                                    name="mainBanner"
+                                                                    name="panoramaBuilding"
                                                                     class="form-control"
                                                                     accept="image/png, image/jpeg"/>
                                                         </label>

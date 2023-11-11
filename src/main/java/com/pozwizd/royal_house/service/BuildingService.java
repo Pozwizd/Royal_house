@@ -5,8 +5,6 @@ import com.pozwizd.royal_house.model.StatusBuilding;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface BuildingService {
 
     public void save(Building building);
@@ -17,7 +15,7 @@ public interface BuildingService {
 
     public void update(Building building);
 
-    public List<Building> findAll();
+    public Iterable<Building> findAll();
 
 
     Page<Building> findByRequest(

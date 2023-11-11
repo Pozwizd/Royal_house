@@ -86,7 +86,8 @@
 
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <form action="/services/edit-service/{id}" method="post"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data"
+                          onclick="">
                         <div class="row mb-5">
                             <div class="col-md-4 col-lg-4">
                                 <div class="card text-center mb-3">
@@ -179,34 +180,14 @@
                         <div class="col-12">
                             <div class="card mb-4">
                                 <div class="card-body">
-                                    <div id="bubble-toolbar-services">
-                                                        <span class="ql-formats">
-                                                          <select class="ql-font"></select>
-                                                          <select class="ql-size"></select>
-                                                        </span>
-                                        <span class="ql-formats">
-                                                          <button class="ql-bold"></button>
-                                                          <button class="ql-italic"></button>
-                                                          <button class="ql-underline"></button>
-                                                          <button class="ql-strike"></button>
-                                                        </span>
-                                        <span class="ql-formats">
-                                                          <select class="ql-color"></select>
-                                                          <select class="ql-background"></select>
-                                                        </span>
-                                        <span class="ql-formats">
-                                                          <button class="ql-script" value="sub"></button>
-                                                          <button class="ql-script" value="super"></button>
-                                                        </span>
-                                        <span class="ql-formats">
-                                                          <button class="ql-header" value="1"></button>
-                                                          <button class="ql-header" value="2"></button>
-                                                          <button class="ql-blockquote"></button>
-                                                          <button class="ql-code-block"></button>
-                                                        </span>
+                                    <div data-quill-editor th:utext="${services.text}" id="editor-serviceCard">
+
                                     </div>
-                                    <div id="bubble-editor-services">
-                                    </div>
+                                    <label for="textareaServiceCard">
+                                                    <textarea id="textareaServiceCard" class="visually-hidden" name="editorServiceCard">
+
+                                                    </textarea>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -216,6 +197,13 @@
                         </div>
                     </form>
 
+                    <script>
+                        function transferTextServiceCard() {
+                            const content = $('#editor-serviceCard').html();
+                            $('#textareaServiceCard').val(content);
+                            return true;
+                        }
+                    </script>
 
                 </div>
                 <!-- / Content -->
@@ -295,6 +283,7 @@
 <script src="../../assets/js/pages-account-settings-account.js"></script>
 <script src="../../assets/js/forms-extras.js"></script>
 <script src="../../assets/js/forms-editors.js"></script>
+<script src="../../assets/js/form-custom-editors.js"></script>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.pozwizd.royal_house.service.ServiceImp;
 
+import com.pozwizd.royal_house.model.Building;
 import com.pozwizd.royal_house.model.InfrastructureBuilding;
 import com.pozwizd.royal_house.repository.InfrastructureBuildingRepository;
 import com.pozwizd.royal_house.service.InfrastructureBuildingService;
@@ -39,5 +40,9 @@ public class InfrastructureBuildingServiceImp implements InfrastructureBuildingS
     @Override
     public List<InfrastructureBuilding> findAllInfrastructureBuildings() {
         return infrastructureBuildingRepository.findAll();
+    }
+
+    public InfrastructureBuilding findByBuildingId(Building building) {
+        return infrastructureBuildingRepository.findById(building.getInfrastructureBuilding().getId()).orElse(null);
     }
 }

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/buildings/edit-specification/{id}" method="post"
+      enctype="multipart/form-data"
+      th:fragment="specificationBuildingForm">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <!--Фото и основные данные-->
+        <label style="visibility: hidden">
+            <input type="text" name="buildingId" th:value="${building.id}"/>
+        </label>
+
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header">Инфографика</h5>
+                <div class="card-body">
+                    <div class="form-repeater">
+                        <div data-repeater-list-specification-building>
+                            <div data-repeater-item-specification-building>
+                                <div class="row">
+                                    <div class="card">
+                                        <h5 class="card-header">Full Editor</h5>
+                                        <div class="card-body">
+                                            <div data-quill-editor>
+
+                                            </div>
+
+                                            <label for="textareaSpecificationBuilding">
+                                                <textarea id="textareaSpecificationBuilding"
+                                                          class="visually-hidden"
+                                                          name="editorDataSpecificationBuilding[]">
+                                                </textarea>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                        <button class="btn btn-label-danger mt-4"
+                                                data-repeater-delete-specification-building type="button">
+                                            <i class="ti ti-x ti-xs me-1"></i>
+                                            <span class="align-middle">Delete</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <button class="btn btn-primary"
+                                    data-repeater-create-specification-building
+                                    type="button">
+                                <i class="ti ti-plus me-1"></i>
+                                <span class="align-middle">Add</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            const form = document.querySelector('form');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const editors = document.querySelectorAll('[data-quill-editor]');
+
+                editors.forEach(editor => {
+                    const editorId = editor.dataset.id;
+                    const textarea = document.querySelector(`textarea[data-id="${editorId}"]`);
+                    const quill = new Quill(editor);
+                    textarea.value = quill.root.innerHTML;
+                });
+                this.submit();
+            });
+
+            function transferTextSpecification() {
+                const content = $('#editor-infrastructureBuilding [data-id="${newItemSpecification.id}"]').html();
+                $('#textareaInfrastructureBuilding').val(content);
+                return true;
+            }
+
+            let itemsSpecification = [];
+            let nextIdSpecification = 1;
+            const btnAddSpecification = document.querySelector('[data-repeater-create-specification-building]');
+
+            function addNewItemSpecification() {
+                let itemHtmlSpecification = `
+    <div data-repeater-item-specification-building data-id="${nextIdSpecification}">
+        <div class="row">
+            <div class="card">
+                <h5 class="card-header">Full Editor</h5>
+                <div class="card-body">
+                    <div data-quill-editor data-id="${nextIdSpecification}">
+                    </div>
+                    <label for="textareaSpecificationBuilding">
+                         <textarea id="textareaSpecificationBuilding"
+                                   data-id="${nextIdSpecification}"
+                                   class="visually-hidden"
+                                   name="editorDataSpecificationBuilding[]">
+                         </textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                <button class="btn btn-label-danger mt-4" data-repeater-delete-specification-building type="button">
+                    <i class="ti ti-x ti-xs me-1"></i>
+                    <span class="align-middle">Delete</span>
+                </button>
+            </div>
+        </div>
+        <hr/>
+    </div>`;
+
+                document.querySelector('[data-repeater-list-specification-building]').insertAdjacentHTML('beforeend', itemHtmlSpecification);
+
+                const newItemSpecification = {
+                    id: nextIdSpecification++,
+                };
+                itemsSpecification.push(newItemSpecification);
+                const customfullToolbar = [
+                    [
+                        {font: []},
+                        {size: []}
+                    ],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [
+                        {list: 'ordered'},
+                        {list: 'bullet'},
+                        {indent: '-1'},
+                        {indent: '+1'}
+                    ],
+                    [{direction: 'rtl'}],
+                    ['clean']
+                ];
+
+                const newEditor = document.querySelector(`[data-quill-editor][data-id="${newItemSpecification.id}"]`);
+                new Quill(newEditor, {
+                    modules: {
+                        toolbar: customfullToolbar
+                    },
+                    theme: 'snow'
+                });
+
+                addDeleteHandlerSpecification();
+            }
+
+            function addDeleteHandlerSpecification() {
+                const deleteBtnsSpecification = document.querySelectorAll('[data-repeater-delete-specification-building]');
+                deleteBtnsSpecification.forEach(btn => {
+                    btn.addEventListener('click', handleDeleteSpecification);
+                });
+            }
+
+            function handleDeleteSpecification() {
+                const itemBlockSpecification = this.closest('[data-repeater-item-specification-building]');
+
+                const itemIndexSpecification = itemsSpecification.findIndex(item => {
+                    return item.id === parseInt(itemBlockSpecification.dataset.id);
+                });
+                itemsSpecification.splice(itemIndexSpecification, 1);
+                itemBlockSpecification.remove();
+                addDeleteHandlerSpecification();
+            }
+
+            btnAddSpecification.addEventListener('click', addNewItemSpecification);
+        </script>
+    </div>
+    <div class="mt-2 d-flex justify-content-end mx-4">
+        <button type="reset" class="btn btn-label-secondary">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+</form>
+
+</body>
+</html>

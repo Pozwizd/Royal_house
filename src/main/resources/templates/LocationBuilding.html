@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/buildings/edit-location/{id}" method="post"
+      enctype="multipart/form-data"
+th:fragment="locationBuildingForm">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <label style="visibility: hidden">
+            <input type="hidden" name="buildingId" th:value="${building.id}"/>
+        </label>
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Долгота</label>
+                                <input
+
+                                        class="form-control"
+                                        type="text"
+                                        th:value="${building.longitude}"
+                                        name="LocationLongitudeBuilding"
+                                        placeholder="Координаты"
+                                        autofocus
+                                />
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Широта</label>
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        name="LocationLatitudeBuilding"
+                                        th:value="${building.latitude}"
+                                        placeholder="Координаты"
+                                        autofocus
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--List Infografic-->
+    <!-- Multi Column with Form Separator -->
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div data-quill-editor>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2 d-flex justify-content-end mx-4">
+        <button type="reset" class="btn btn-label-secondary">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+</form>
+
+</body>
+</html>

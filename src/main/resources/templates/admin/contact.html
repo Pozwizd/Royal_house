@@ -76,9 +76,9 @@
       <!-- Content wrapper -->
       <div class="content-wrapper">
         <!-- Content -->
-
-        <div class="container-xxl flex-grow-1 container-p-y">
-          <div class="row g-3">
+        <form>
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="row g-6">
             <div class="col-md-3">
               <label class="form-label">Телефон</label>
               <input
@@ -163,13 +163,52 @@
               </div>
             </div>
           </div>
-          <hr/>
-          <div class="row g-3">
-            <div class="col-xl">
-              <div class="card mb-4">
+            <hr/>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="card">
+                  <h5 class="card-header">Почты для получения заявок</h5>
+                  <div class="card-body">
+                    <div class="form-repeater">
+                      <div data-repeater-list="InfographicBuildingPage">
+                        <div data-repeater-item>
+                          <div class="row">
+                            <div class="mb-3 col-md-8">
+                              <label class="form-label">Email</label>
+                              <input
+                                      class="form-control"
+                                      type="text"
+                                      name="address"
+                                      placeholder="Email"
+                              />
+                            </div>
+                            <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                              <button class="btn btn-label-danger mt-4"
+                                      data-repeater-delete type="button"
+                                      onclick="handleDelete()">
+                                <i class="ti ti-x ti-xs me-1"></i>
+                                <span class="align-middle">Delete</span>
+                              </button>
+                            </div>
+                          </div>
+                          <hr/>
+                        </div>
+                      </div>
+                      <div class="mb-0">
+                        <button class="btn btn-primary" data-repeater-create
+                                type="button">
+                          <i class="ti ti-plus me-1"></i>
+                          <span class="align-middle">Add</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
                 <div class="card-header d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">Basic Layout</h5>
-                  <small class="text-muted float-end">Default label</small>
                 </div>
                 <div class="card-body">
                   <div class="col-md-6">
@@ -178,42 +217,101 @@
                             type="text"
                             id="oldPassword"
                             class="form-control phone-mask"
-                            placeholder="658 799 8941"
-                            aria-label="658 799 8941"
                     />
                   </div>
                   <div class="col-md-3">
-                    <label class="form-label" for="email">Viber</label>
+                    <label class="form-label" for="email">Новый пароль</label>
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
                               type="text"
                               id="newPassword"
-                              name="email"
-                              placeholder="Viber"
+                              name="#"
+                              placeholder="Пароль"
                       />
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <label class="form-label">Telegram</label>
+                    <label class="form-label">Повторить пароль</label>
                     <input
                             type="text"
                             id="repeatNewPassword"
-                            name="telegram"
+                            name="#"
                             class="form-control phone-mask"
-                            placeholder="Имя пользователя"
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-xl">
-
-              </div>
-            </div>
           </div>
+          <div class="mt-2 d-flex justify-content-end mx-4">
+            <button type="reset" class="btn btn-label-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
 
-        </div>
+        <script>
+          let items = [];
+          let nextId = 1;
+          const btnAdd = document.querySelector('[data-repeater-create]');
+
+          function addNewItem() {
+            let itemHtml = `
+            <div data-repeater-item data-id="${nextId}">
+                          <div class="row">
+                            <div class="mb-3 col-md-8">
+                              <label class="form-label">Email</label>
+                              <input
+                                      class="form-control"
+                                      type="text"
+                                      name="address"
+                                      placeholder="Email"
+                              />
+                            </div>
+                            <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                              <button class="btn btn-label-danger mt-4"
+                                      data-repeater-delete type="button"
+                                      onclick="handleDelete()">
+                                <i class="ti ti-x ti-xs me-1"></i>
+                                <span class="align-middle">Delete</span>
+                              </button>
+                            </div>
+                          </div>
+                          <hr/>
+                        </div>`;
+
+            document.querySelector('[data-repeater-list]').insertAdjacentHTML('beforeend', itemHtml);
+
+            const newItem = {
+              id: nextId++,
+              image: '',
+              description: ''
+            };
+            items.push(newItem);
+            addDeleteHandler();
+          }
+
+          function addDeleteHandler() {
+            const deleteBtns = document.querySelectorAll('[data-repeater-delete]');
+            deleteBtns.forEach(btn => {
+              btn.addEventListener('click', handleDelete);
+            });
+          }
+
+          function handleDelete() {
+            const itemBlock = this.closest('[data-repeater-item]');
+
+            const itemIndex = items.findIndex(item => {
+              return item.id === parseInt(itemBlock.dataset.id);
+            });
+            items.splice(itemIndex, 1);
+            itemBlock.remove();
+            addDeleteHandler();
+          }
+
+          btnAdd.addEventListener('click', addNewItem);
+        </script>
+      </div>
         <!-- / Content -->
 
         <!-- Footer -->
@@ -244,16 +342,15 @@
         <div class="content-backdrop fade"></div>
       </div>
       <!-- Content wrapper -->
-    </div>
-    <!-- / Layout page -->
   </div>
+    <!-- / Layout page -->
+</div>
 
   <!-- Overlay -->
   <div class="layout-overlay layout-menu-toggle"></div>
 
   <!-- Drag Target Area To SlideIn Menu On Small Screens -->
   <div class="drag-target"></div>
-</div>
 <!-- / Layout wrapper -->
 
 <!-- Core JS -->

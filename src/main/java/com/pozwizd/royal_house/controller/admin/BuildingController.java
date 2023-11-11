@@ -2,10 +2,7 @@ package com.pozwizd.royal_house.controller.admin;
 
 import ch.qos.logback.classic.Logger;
 import com.pozwizd.royal_house.model.*;
-import com.pozwizd.royal_house.service.BuildingService;
-import com.pozwizd.royal_house.service.InfographicBuildingService;
-import com.pozwizd.royal_house.service.InfographicInfrastructureService;
-import com.pozwizd.royal_house.service.SpecificationBuildingService;
+import com.pozwizd.royal_house.service.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,16 +30,20 @@ public class BuildingController {
     private final InfographicInfrastructureService infographicInfrastructureService;
 
     private final SpecificationBuildingService specificationBuildingService;
+
+    private final InfrastructureBuildingService infrastructureBuildingService;
+
+    private final InfographicRoomService infographicRoomService;
     private Logger logger;
 
     public BuildingController(BuildingService buildingService,
-                              InfographicBuildingService infographicBuildingService,
-                              InfographicInfrastructureService infographicInfrastructureService,
-                              SpecificationBuildingService specificationBuildingService) {
+                              InfographicBuildingService infographicBuildingService, InfographicInfrastructureService infographicInfrastructureService, SpecificationBuildingService specificationBuildingService, InfrastructureBuildingService infrastructureBuildingService, InfographicRoomService infographicRoomService) {
         this.buildingService = buildingService;
         this.infographicBuildingService = infographicBuildingService;
         this.infographicInfrastructureService = infographicInfrastructureService;
         this.specificationBuildingService = specificationBuildingService;
+        this.infrastructureBuildingService = infrastructureBuildingService;
+        this.infographicRoomService = infographicRoomService;
     }
 
 
@@ -73,7 +74,7 @@ public class BuildingController {
 
 
     @GetMapping("/get/{id}")
-    public ModelAndView getRequestId(@PathVariable("id") Long buildingId, Model model) {
+    public ModelAndView getBuildingId(@PathVariable("id") Long buildingId, Model model) {
 
         model.addAttribute("pageActive", "buildings");
 
@@ -189,9 +190,7 @@ public class BuildingController {
     @PostMapping("/edit-about-project/{id}")
     public ModelAndView editAboutProjectBuilding(@RequestParam(name = "buildingId", required = true) String id,
                                                  @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
-                                                 @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
-                                                 @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
-                                                 @RequestParam(name = "editorDataAboutProject", required = false) String TextAboutProject,
+                                                 @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2, @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3, @RequestParam(name = "editorDataAboutProject", required = false) Object TextAboutProject,
                                                  Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
@@ -260,7 +259,7 @@ public class BuildingController {
         }
 
 
-        building.setTextAbout(TextAboutProject);
+        building.setTextAbout(TextAboutProject.toString());
         buildingService.update(building);
         return new ModelAndView("redirect:/buildings/get/" + building.getId());
     }
@@ -356,7 +355,7 @@ public class BuildingController {
 
         // Обработка текста
 
-        building.getInfrastructureBuilding().setText(TextInfrastructureBuilding);
+
 
         // Обработка инфографики
 
@@ -392,7 +391,7 @@ public class BuildingController {
                 String filePath = Paths.get("").toFile().getAbsolutePath() + infographicInfrastructure.getUrlImage();
                 File file = new File(filePath);
                 file.delete();
-                infographicBuildingService.deleteInfographicBuilding(infographicInfrastructure.getId());
+                infographicInfrastructureService.deleteInfographicInfrastructure(infographicInfrastructure.getId());
             }
         }
 
@@ -411,9 +410,11 @@ public class BuildingController {
             }
             infographicInfrastructure.setUrlImage("/images/" + fileName);
             infographicInfrastructure.setDescription(infographicPage.getDescriptionImage());
+            infographicInfrastructure.setInfrastructureBuilding(building.getInfrastructureBuilding());
             infographicInfrastructures.add(infographicInfrastructure);
+            infographicInfrastructureService.saveInfographicInfrastructure(infographicInfrastructure);
         }
-
+        building.getInfrastructureBuilding().setText(TextInfrastructureBuilding);
         // Обновляем значения
         building.getInfrastructureBuilding().setInfographicInfrastructures(infographicInfrastructures);
         buildingService.update(building);
@@ -423,18 +424,14 @@ public class BuildingController {
     @PostMapping("/edit-rooms-building/{id}")
     public ModelAndView editRoomsBuilding(@RequestParam(name = "buildingId", required = true) String id,
                                                    @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
-                                                   @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
-                                                   @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
-                                                   @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String TextInfrastructureBuilding,
-                                                   @RequestParam(name = "imagesInfographicInfrastructure[]", required = false) List<MultipartFile> imagesInfographicInfrastructure,
-                                                   @RequestParam(name = "descriptionImageInfographicInfrastructure[]", required = false) List<String> descriptionImageInfographicInfrastructure,
+                                                   @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2, @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3, @RequestParam(name = "editorDataRoomsBuilding", required = false) String textRoomsBuilding, @RequestParam(name = "imagesRoomInfographic[]", required = false) List<MultipartFile> imagesRoomInfographic, @RequestParam(name = "descriptionImageRoomInfographic[]", required = false) List<String> descriptionImageRoomInfographic,
                                                    Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
 
         // Обработка картинок
         if (!urlSlide1.isEmpty()) {
-            String oldUrlSlide1 = building.getInfrastructureBuilding().getUrlSlide1();
+            String oldUrlSlide1 = building.getRoomBuilding().getUrlSlide1();
             if (oldUrlSlide1 != null && !urlSlide1.isEmpty()) {
                 String filePath = Paths.get("").toFile().getAbsolutePath() + oldUrlSlide1;
                 File file = new File(filePath);
@@ -448,14 +445,14 @@ public class BuildingController {
                 String filePath = uploadDir + fileName;
                 File dest = new File(filePath);
                 urlSlide1.transferTo(dest);
-                building.getInfrastructureBuilding().setUrlSlide1("/images/" + fileName);
+                building.getRoomBuilding().setUrlSlide1("/images/" + fileName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         if (!urlSlide2.isEmpty()) {
-            String oldMainBanner = building.getInfrastructureBuilding().getUrlSlide2();
+            String oldMainBanner = building.getRoomBuilding().getUrlSlide2();
             if (oldMainBanner != null && !urlSlide2.isEmpty()) {
                 String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
                 File file = new File(filePath);
@@ -469,14 +466,14 @@ public class BuildingController {
                 String filePath = uploadDir + fileName;
                 File dest = new File(filePath);
                 urlSlide2.transferTo(dest);
-                building.getInfrastructureBuilding().setUrlSlide2("/images/" + fileName);
+                building.getRoomBuilding().setUrlSlide2("/images/" + fileName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         if (!urlSlide3.isEmpty()) {
-            String oldMainBanner = building.getInfrastructureBuilding().getUrlSlide3();
+            String oldMainBanner = building.getRoomBuilding().getUrlSlide3();
             if (oldMainBanner != null && !urlSlide3.isEmpty()) {
                 String filePath = Paths.get("").toFile().getAbsolutePath() + oldMainBanner;
                 File file = new File(filePath);
@@ -490,7 +487,7 @@ public class BuildingController {
                 String filePath = uploadDir + fileName;
                 File dest = new File(filePath);
                 urlSlide3.transferTo(dest);
-                building.getInfrastructureBuilding().setUrlSlide3("/images/" + fileName);
+                building.getRoomBuilding().setUrlSlide3("/images/" + fileName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -498,7 +495,7 @@ public class BuildingController {
 
         // Обработка текста
 
-        building.getInfrastructureBuilding().setText(TextInfrastructureBuilding);
+        building.getRoomBuilding().setText(textRoomsBuilding);
 
         // Обработка инфографики
 
@@ -511,17 +508,16 @@ public class BuildingController {
          */
 
         List<InfographicPage> infographicPageList = new ArrayList<>();
-        List<InfographicInfrastructure> infographicInfrastructures = new ArrayList<>();
+        List<InfographicRoom> infographicRooms = new ArrayList<>();
 
         // Переупаковка в другой массив
         int i = 0;
-        for (MultipartFile imageInfographic : imagesInfographicInfrastructure) {
-            if (!Objects.equals(imagesInfographicInfrastructure.get(i).getOriginalFilename(), "")
-                    && !descriptionImageInfographicInfrastructure.get(i).isEmpty()) {
-                if (!Objects.equals(imageInfographic.getOriginalFilename(), "") && !descriptionImageInfographicInfrastructure.get(i).isEmpty()) {
+        for (MultipartFile imageInfographic : imagesRoomInfographic) {
+            if (!Objects.equals(imagesRoomInfographic.get(i).getOriginalFilename(), "") && !descriptionImageRoomInfographic.get(i).isEmpty()) {
+                if (!Objects.equals(imageInfographic.getOriginalFilename(), "") && !descriptionImageRoomInfographic.get(i).isEmpty()) {
                     InfographicPage infographicPage = new InfographicPage();
                     infographicPage.setImage(imageInfographic);
-                    infographicPage.setDescriptionImage(descriptionImageInfographicInfrastructure.get(i));
+                    infographicPage.setDescriptionImage(descriptionImageRoomInfographic.get(i));
                     infographicPageList.add(infographicPage);
                 }
             }
@@ -530,17 +526,17 @@ public class BuildingController {
         // Проверка на наличие изображений в бд
         // Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
         if (!infographicPageList.isEmpty()) {
-            for (InfographicInfrastructure infographicInfrastructure : infographicInfrastructureService.findAllInfographicInfrastructures()) {
-                String filePath = Paths.get("").toFile().getAbsolutePath() + infographicInfrastructure.getUrlImage();
+            for (InfographicRoom infographicRoom : infographicRoomService.findAllInfographicRooms()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + infographicRoom.getUrlImage();
                 File file = new File(filePath);
                 file.delete();
-                infographicBuildingService.deleteInfographicBuilding(infographicInfrastructure.getId());
+                infographicRoomService.deleteInfographicRoom(infographicRoom.getId());
             }
         }
 
         // После этого записываем новые в бд и зановисив в новую коллекцию
         for (InfographicPage infographicPage : infographicPageList) {
-            InfographicInfrastructure infographicInfrastructure = new InfographicInfrastructure();
+            InfographicRoom infographicRoom = new InfographicRoom();
             String uuidFile = UUID.randomUUID().toString();
             String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
             String fileName = uuidFile + "." + infographicPage.getImage().getOriginalFilename();
@@ -551,13 +547,14 @@ public class BuildingController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            infographicInfrastructure.setUrlImage("/images/" + fileName);
-            infographicInfrastructure.setDescription(infographicPage.getDescriptionImage());
-            infographicInfrastructures.add(infographicInfrastructure);
+            infographicRoom.setUrlImage("/images/" + fileName);
+            infographicRoom.setDescription(infographicPage.getDescriptionImage());
+            infographicRoom.setRoomBuilding(building.getRoomBuilding());
+            infographicRooms.add(infographicRoom);
         }
 
         // Обновляем значения
-        building.getInfrastructureBuilding().setInfographicInfrastructures(infographicInfrastructures);
+        building.getRoomBuilding().setInfographicRooms(infographicRooms);
         buildingService.update(building);
         return new ModelAndView("redirect:/buildings/get/" + building.getId());
     }
@@ -595,18 +592,20 @@ public class BuildingController {
     }
 
     @PostMapping("/edit-specification/{id}")
-    public ModelAndView editSpecificationBuilding(@RequestParam(name = "specificationBuilding[]", required = false) List<String> specificationBuildingsText,
-                                                  Model model, @PathVariable String id) {
+    public ModelAndView editSpecificationBuilding(@RequestParam(name = "buildingId", required = true) String id,
+                                                  @RequestParam(name = "editorDataSpecificationBuilding[]", required = false) List<String> specificationBuildingsText,
+                                                  Model model) {
 
 
         Building building = buildingService.findById(Long.parseLong(id));
         List<SpecificationBuilding> specificationBuildingList = new ArrayList<>();
-        SpecificationBuilding specificationBuilding = new SpecificationBuilding();
+
         for (String specificationBuildingText : specificationBuildingsText) {
-           specificationBuilding.setText(specificationBuildingText);
-           specificationBuilding.setBuilding(building);
-           specificationBuildingService.saveSpecificationBuilding(specificationBuilding);
-           specificationBuildingList.add(specificationBuilding);
+            SpecificationBuilding specificationBuilding = new SpecificationBuilding();
+            specificationBuilding.setText(specificationBuildingText);
+            specificationBuilding.setBuilding(building);
+            specificationBuildingService.saveSpecificationBuilding(specificationBuilding);
+            specificationBuildingList.add(specificationBuilding);
         }
 
         building.setSpecificationBuildings(specificationBuildingList);

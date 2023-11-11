@@ -92,6 +92,7 @@ public class ServicesController {
                                           @RequestParam(name = "urlPreview", required = false) MultipartFile urlPreview,
                                           @RequestParam(name = "servicesName", required = false) String servicesName,
                                           @RequestParam(name = "visibleServices", required = false) boolean visibleServices,
+
                                           Model model) {
 
         Services services = servicesService.getServices(Long.parseLong(id));

@@ -26,56 +26,6 @@
     theme: 'bubble'
   });
 
-  const bubbleEditorAbout = new Quill('#bubble-editor-about-project', {
-    modules: {
-      toolbar: '#bubble-toolbar-about-project'
-    },
-    theme: 'bubble'
-  });
-
-  const bubbleEditorLocationBuilding = new Quill('#bubble-editor-location-building', {
-    modules: {
-      toolbar: '#bubble-toolbar-location-building'
-    },
-    theme: 'bubble'
-  });
-
-  const bubbleEditorInfrastructure = new Quill('#bubble-editor-room-building', {
-    modules: {
-      toolbar: '#bubble-toolbar-room-building'
-    },
-    theme: 'bubble'
-  });
-
-  const bubbleEditorRoomBuilding = new Quill('#bubble-editor-infrastructure-building', {
-    modules: {
-      toolbar: '#bubble-toolbar-infrastructure-building'
-    },
-    theme: 'bubble'
-  });
-
-  const bubbleEditorServices = new Quill('#bubble-editor-services', {
-    modules: {
-      toolbar: '#bubble-toolbar-services'
-    },
-    theme: 'bubble'
-  });
-
-  // Обработчик события изменения текста
-  bubbleEditor.on('text-change', function() {
-    document.getElementById('editor-data').value = bubbleEditor.root.innerHTML;
-  });
-
-  // Обработчик события изменения текста
-  bubbleEditorAbout.on('text-change', function() {
-    document.getElementById('editor-data-about-project').value = bubbleEditorAbout.value;
-  })
-
-  // Обработчик события изменения текста
-  bubbleEditorInfrastructure.on('text-change', function() {
-    document.getElementById('editor-data-infrastructure-building').value = bubbleEditorAbout.value;
-  })
-
   // Full Toolbar
   // --------------------------------------------------------------------
   const fullToolbar = [
@@ -141,14 +91,4 @@
     },
     theme: 'snow'
   });
-
-  // const fullEditorSpecificationBuilding = new Quill('#full-editor-specification-building', {
-  //   bounds: '#full-editor-specification-building',
-  //   placeholder: 'Type Something...',
-  //   modules: {
-  //     formula: true,
-  //     toolbar: fullToolbar
-  //   },
-  //   theme: 'snow'
-  // });
 })();

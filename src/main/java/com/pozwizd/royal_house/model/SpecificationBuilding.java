@@ -15,7 +15,7 @@ public class SpecificationBuilding {
     private Long id;
 
     @Lob
-    @Column(name = "text")
+    @Column(name = "text", length = 65535)
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)

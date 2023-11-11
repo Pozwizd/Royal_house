@@ -16,7 +16,8 @@ public class InfrastructureBuilding {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "text")
+    @Lob
+    @Column(name = "text", length = 65535)
     private String text;
 
     @Column(name = "url_slide_1")
@@ -32,6 +33,6 @@ public class InfrastructureBuilding {
     @JoinColumn(name = "building_id")
     private Building building;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "infrastructureBuilding")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "infrastructureBuilding")
     private List<InfographicInfrastructure> infographicInfrastructures;
 }

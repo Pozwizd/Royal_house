@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/buildings/edit-about-project/{id}" method="post"
+      enctype="multipart/form-data"
+      onsubmit="transferText()"
+      th:fragment="aboutBuilding">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <label style="visibility: hidden">
+            <input type="text" name="buildingId" th:value="${building.id}"/>
+        </label>
+        <div class="row mb-5">
+            <div class="col-md-4 col-lg-4">
+                <div class="card text-center mb-3">
+                    <div class="card-body">
+                        <img th:src="${building.urlSlide1}"
+                             th:alt="${building.urlSlide1}"
+                             style="max-width: 250px;
+                                                             max-height: 200px;">
+                        <hr/>
+                        <label class="form-label">
+                            <input
+                                    type="file"
+                                    name="urlSlide1"
+                                    class="form-control"
+                                    accept="image/png, image/jpeg"/>
+                        </label>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="card text-center mb-3">
+                    <div class="card-body">
+                        <img th:src="${building.urlSlide2}"
+                             th:alt="${building.urlSlide2}"
+                             style="max-width: 250px;
+                                                             max-height: 200px;">
+                        <hr/>
+                        <label class="form-label">
+                            <input
+                                    type="file"
+                                    name="urlSlide2"
+                                    class="form-control"
+                                    accept="image/png, image/jpeg"/>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="card text-center mb-3">
+                    <div class="card-body">
+                        <img th:src="${building.urlSlide3}"
+                             th:alt="${building.urlSlide3}"
+                             style="max-width: 250px;
+                                                             max-height: 200px;">
+                        <hr/>
+                        <label class="form-label">
+                            <input
+                                    type="file"
+                                    name="urlSlide3"
+                                    class="form-control"
+                                    accept="image/png, image/jpeg"/>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--List Infografic-->
+        <!-- Multi Column with Form Separator -->
+        <!--style="visibility: hidden;" -->
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div data-quill-editor th:utext="${building.textAbout}">
+
+                    </div>
+                    <label for="textareaAboutProject">
+                                                    <textarea id="textareaAboutProject" class="visually-hidden" name="editorDataAboutProject">
+
+                                                    </textarea>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function transferText() {
+            const content = $('[data-quill-editor]').html();
+            $('#textareaAboutProject').val(content);
+            return true;
+        }
+    </script>
+    <div class="mt-2 d-flex justify-content-end mx-4">
+        <button type="reset" class="btn btn-label-secondary">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+</form>
+
+</body>
+</html>

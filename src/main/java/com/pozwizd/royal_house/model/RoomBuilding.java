@@ -16,7 +16,8 @@ public class RoomBuilding {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "text")
+    @Lob
+    @Column(name = "text", length = 65365)
     private String text;
 
     @Column(name = "url_slide_1")

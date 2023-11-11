@@ -186,7 +186,10 @@
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div th:replace="~{BasicBuilding :: basicBuildingForm}">
+                            <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                                <form th:replace="~{BasicBuilding :: basicBuildingForm}">
+
+                                </form>
                             </div>
                             <div class="tab-pane fade" id="about-project" role="tabpanel">
                                 <form th:replace="~{AboutBuilding :: aboutBuilding}"></form>

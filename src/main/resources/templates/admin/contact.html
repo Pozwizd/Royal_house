@@ -76,180 +76,195 @@
       <!-- Content wrapper -->
       <div class="content-wrapper">
         <!-- Content -->
-        <form>
           <div class="container-xxl flex-grow-1 container-p-y">
-            <h5 class="card-header">Контакты</h5>
-            <div class="row g-6">
-            <div class="col-md-3">
-              <label class="form-label">Телефон</label>
-              <input
-                      type="text"
-                      id="phoneNumber"
-                      class="form-control phone-mask"
-                      placeholder="658 799 8941"
-                      aria-label="658 799 8941"
-              />
+            <div class="card-header d-flex align-items-center justify-content-between">
+              <h2 class="mb-0">Настройки</h2>
+              <small class="text-muted float-end"> Главная | <span>Настройки</span></small>
             </div>
-            <div class="col-md-3">
-              <label class="form-label" for="email">Viber</label>
-              <div class="input-group input-group-merge">
-                <input
-                        class="form-control"
-                        type="text"
-                        id="viber"
-                        name="email"
-                        placeholder="Viber"
-                />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label">Telegram</label>
-              <input
-                      type="text"
-                      id="telegram"
-                      name="telegram"
-                      class="form-control phone-mask"
-                      placeholder="Имя пользователя"
-              />
-            </div>
-            <div class="col-md-3">
-              <label class="form-label" for="email">Email</label>
-              <div class="input-group input-group-merge">
-                <input
-                        class="form-control"
-                        type="text"
-                        id="email"
-                        name="email"
-                        placeholder="email"
-                        aria-label="email"
-                        aria-describedby="email3"
-                />
-                <span class="input-group-text" id="email3">@example.com</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label" for="email">Instagram</label>
-              <div class="input-group input-group-merge">
-                <input
-                        class="form-control"
-                        type="text"
-                        id="instagram"
-                        name="instagram"
-                        placeholder="instagram"
-                />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label" for="email">Facebook</label>
-              <div class="input-group input-group-merge">
-                <input
-                        class="form-control"
-                        type="text"
-                        id="facebook"
-                        name="facebook"
-                        placeholder="facebook"
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label" for="email">Адрес</label>
-              <div class="input-group input-group-merge">
-                <input
-                        class="form-control"
-                        type="text"
-                        id="address"
-                        name="address"
-                        placeholder="address"
-                />
-              </div>
-            </div>
-            </div>
-            <hr/>
-            <div class="row">
-              <div class="col-6">
-                <div class="card">
-                  <h5 class="card-header">Почты для получения заявок</h5>
+            <hr class="my-5"/>
+            <form>
+              <div class="col-xxl">
+
+                <div class="card mb-4">
                   <div class="card-body">
-                    <div class="form-repeater">
-                      <div data-repeater-list="InfographicBuildingPage">
-                        <div data-repeater-item>
-                          <div class="row">
-                            <div class="mb-3 col-md-8">
-                              <label class="form-label">Email</label>
-                              <input
-                                      class="form-control"
-                                      type="text"
-                                      name="address"
-                                      placeholder="Email"
-                              />
-                            </div>
-                            <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
-                              <button class="btn btn-label-danger mt-4"
-                                      data-repeater-delete type="button"
-                                      onclick="handleDelete()">
-                                <i class="ti ti-x ti-xs me-1"></i>
-                                <span class="align-middle">Delete</span>
-                              </button>
-                            </div>
-                          </div>
-                          <hr/>
+                    <div class="row g-6">
+                      <div class="col-md-3">
+                        <label class="form-label">Телефон</label>
+                        <input
+                                type="text"
+                                id="phoneNumber"
+                                class="form-control phone-mask"
+                                placeholder="658 799 8941"
+                                aria-label="658 799 8941"
+                        />
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label" for="email">Viber</label>
+                        <div class="input-group input-group-merge">
+                          <input
+                                  class="form-control"
+                                  type="text"
+                                  id="viber"
+                                  name="email"
+                                  placeholder="Viber"
+                          />
                         </div>
                       </div>
-                      <div class="mb-0">
-                        <button class="btn btn-primary" data-repeater-create
-                                type="button">
-                          <i class="ti ti-plus me-1"></i>
-                          <span class="align-middle">Add</span>
-                        </button>
+                      <div class="col-md-3">
+                        <label class="form-label">Telegram</label>
+                        <input
+                                type="text"
+                                id="telegram"
+                                name="telegram"
+                                class="form-control phone-mask"
+                                placeholder="Имя пользователя"
+                        />
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label" for="email">Email</label>
+                        <div class="input-group input-group-merge">
+                          <input
+                                  class="form-control"
+                                  type="text"
+                                  id="email"
+                                  name="email"
+                                  placeholder="email"
+                                  aria-label="email"
+                                  aria-describedby="email3"
+                          />
+                          <span class="input-group-text" id="email3">@example.com</span>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label" for="email">Instagram</label>
+                        <div class="input-group input-group-merge">
+                          <input
+                                  class="form-control"
+                                  type="text"
+                                  id="instagram"
+                                  name="instagram"
+                                  placeholder="instagram"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label" for="email">Facebook</label>
+                        <div class="input-group input-group-merge">
+                          <input
+                                  class="form-control"
+                                  type="text"
+                                  id="facebook"
+                                  name="facebook"
+                                  placeholder="facebook"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="email">Адрес</label>
+                        <div class="input-group input-group-merge">
+                          <input
+                                  class="form-control"
+                                  type="text"
+                                  id="address"
+                                  name="address"
+                                  placeholder="address"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <h5 class="mb-0">Смена пароля</h5>
-                </div>
-                <div class="card-body">
-                  <div class="col-md-6">
-                    <label class="form-label">Действующий пароль</label>
-                    <input
-                            type="text"
-                            id="oldPassword"
-                            class="form-control phone-mask"
-                    />
-                  </div>
-                  <div class="col-md-3">
-                    <label class="form-label" for="email">Новый пароль</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              class="form-control"
-                              type="text"
-                              id="newPassword"
-                              name="#"
-                              placeholder="Пароль"
-                      />
+              <div class="row">
+                <div class="col-xl">
+                  <div class="card">
+                    <h5 class="card-header">Почты для получения заявок</h5>
+                    <div class="card-body">
+                      <div class="form-repeater">
+                        <div data-repeater-list="InfographicBuildingPage">
+                          <div data-repeater-item>
+                            <div class="row">
+                              <div class="mb-3 col-md-8">
+                                <label class="form-label">Email</label>
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        name="address"
+                                        placeholder="Email"
+                                />
+                              </div>
+                              <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                <button class="btn btn-label-danger mt-4"
+                                        data-repeater-delete type="button"
+                                        onclick="handleDelete()">
+                                  <i class="ti ti-x ti-xs me-1"></i>
+                                  <span class="align-middle">Delete</span>
+                                </button>
+                              </div>
+                            </div>
+                            <hr/>
+                          </div>
+                        </div>
+                        <div class="mb-0">
+                          <button class="btn btn-primary" data-repeater-create
+                                  type="button">
+                            <i class="ti ti-plus me-1"></i>
+                            <span class="align-middle">Add</span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Повторить пароль</label>
-                    <input
-                            type="text"
-                            id="repeatNewPassword"
-                            name="#"
-                            class="form-control phone-mask"
-                    />
+                </div>
+                <div class="col-xl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="mb-0">Смена пароля</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="col">
+                        <label class="form-label">Действующий пароль</label>
+                        <input
+                                type="text"
+                                id="oldPassword"
+                                class="form-control phone-mask"
+                        />
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <label class="form-label" for="email">Новый пароль</label>
+                          <div class="input-group input-group-merge">
+                            <input
+                                    class="form-control"
+                                    type="text"
+                                    id="newPassword"
+                                    name="#"
+                                    placeholder="Пароль"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label">Повторить пароль</label>
+                          <input
+                                  type="text"
+                                  id="repeatNewPassword"
+                                  name="#"
+                                  class="form-control phone-mask"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="mt-2 d-flex justify-content-end mx-4">
+                <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+            <hr/>
             </div>
             <hr/>
-            <div class="mt-2 d-flex justify-content-end mx-4">
-              <button type="reset" class="btn btn-label-secondary">Cancel</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </form>
 
         <script>
           let items = [];

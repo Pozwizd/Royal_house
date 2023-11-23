@@ -19,4 +19,9 @@ public interface BuildingRepository extends CrudRepository<Building, Long> {
                                   @Param("address") String address,
                                   @Param("status") StatusBuilding status,
                                   Pageable pageable);
+
+    @Query("SELECT b FROM Building b " +
+            "WHERE (:name IS NULL OR b.name = :name) ")
+    Page<Building> findByName(@Param("name") String name,
+                                  Pageable pageable);
 }

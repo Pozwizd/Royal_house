@@ -1,6 +1,7 @@
 package com.pozwizd.royal_house.service;
 
 import com.pozwizd.royal_house.model.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface UserService {
     public void deleteUser(long id);
 
     public void updateUser(User user);
+
 }

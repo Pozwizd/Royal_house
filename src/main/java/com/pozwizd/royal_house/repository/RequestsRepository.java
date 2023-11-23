@@ -1,8 +1,10 @@
 package com.pozwizd.royal_house.repository;
 
 import com.pozwizd.royal_house.model.Requests;
+import com.pozwizd.royal_house.model.StatusRequests;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -12,12 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RequestsRepository extends JpaRepository<Requests, Long>, PagingAndSortingRepository<Requests, Long> {
 
-    @Query("SELECT r FROM Requests r " +
-            "WHERE (:name IS NULL OR r.name LIKE %:name%) " +
-            "AND (:phoneNumber IS NULL OR r.phoneNumber LIKE %:phoneNumber%) " +
-            "AND (:email IS NULL OR r.email LIKE %:email%) " )
-    Page<Requests> findByCriteria(@Param("name") String name,
-                                  @Param("phoneNumber") String phoneNumber,
-                                  @Param("email") String email,
-                                  Pageable pageable);
+    Page<Requests> findAll(Specification<Requests> spec, Pageable pageable);
 }

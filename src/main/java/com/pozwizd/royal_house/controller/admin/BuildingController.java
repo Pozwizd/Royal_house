@@ -26,15 +26,10 @@ public class BuildingController {
 
     private final BuildingService buildingService;
     private final InfographicBuildingService infographicBuildingService;
-
     private final InfographicInfrastructureService infographicInfrastructureService;
-
     private final SpecificationBuildingService specificationBuildingService;
-
     private final InfrastructureBuildingService infrastructureBuildingService;
-
     private final InfographicRoomService infographicRoomService;
-    private Logger logger;
 
     public BuildingController(BuildingService buildingService,
                               InfographicBuildingService infographicBuildingService, InfographicInfrastructureService infographicInfrastructureService, SpecificationBuildingService specificationBuildingService, InfrastructureBuildingService infrastructureBuildingService, InfographicRoomService infographicRoomService) {
@@ -596,19 +591,22 @@ public class BuildingController {
                                                   @RequestParam(name = "editorDataSpecificationBuilding[]", required = false) List<String> specificationBuildingsText,
                                                   Model model) {
 
-
         Building building = buildingService.findById(Long.parseLong(id));
-        List<SpecificationBuilding> specificationBuildingList = new ArrayList<>();
 
-        for (String specificationBuildingText : specificationBuildingsText) {
-            SpecificationBuilding specificationBuilding = new SpecificationBuilding();
-            specificationBuilding.setText(specificationBuildingText);
-            specificationBuilding.setBuilding(building);
-            specificationBuildingService.saveSpecificationBuilding(specificationBuilding);
-            specificationBuildingList.add(specificationBuilding);
+        specificationBuildingService.deleteAllSpecificationBuildings();
+        building.setSpecificationBuildings(new ArrayList<>());
+
+        if (specificationBuildingsText != null && !specificationBuildingsText.isEmpty()) {
+            for (int i = 0; i < specificationBuildingsText.size(); i++) {
+                SpecificationBuilding specificationBuilding = new SpecificationBuilding();
+                specificationBuilding.setId((long) i + 1);
+                specificationBuilding.setText(specificationBuildingsText.get(i));
+                specificationBuilding.setBuilding(building);
+                building.getSpecificationBuildings().add(specificationBuilding);
+                specificationBuildingService.saveSpecificationBuilding(specificationBuilding);
+            }
         }
 
-        building.setSpecificationBuildings(specificationBuildingList);
         buildingService.update(building);
 
         return new ModelAndView("redirect:/buildings/get/" + id);

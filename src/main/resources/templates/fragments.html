@@ -82,29 +82,29 @@
                 <div>Настройки</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item" th:classappend="${pageActive == 'buildings' ? 'active' : ''}">
+                <li class="menu-item" th:classappend="${pageActive == 'contact' ? 'active' : ''}">
                     <a href="/setting/contact" class="menu-link">
                         <div>Контакты</div>
                     </a>
                 </li>
 
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item" th:classappend="${pageActive == 'bindingObject' ? 'active' : ''}">
+                    <a href="/setting/bindingObject" class="menu-link">
                         <div>Привязка объктов</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item" th:classappend="${pageActive == 'secondaryMarket' ? 'active' : ''}">
+                    <a href="/setting/secondaryMarket" class="menu-link">
                         <div>Вторичный рынок</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item" th:classappend="${pageActive == 'editPageService' ? 'active' : ''}">
+                    <a href="/setting/editPageService" class="menu-link">
                         <div>Услуги</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item" th:classappend="${pageActive == 'editPageAboutCompany0' ? 'active' : ''}">
+                    <a href="/setting/editPageAboutCompany" class="menu-link">
                         <div>О компании</div>
                     </a>
                 </li>

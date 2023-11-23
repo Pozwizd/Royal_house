@@ -58,19 +58,19 @@ public class Building {
     @Column(name = "status")
     private StatusBuilding statusBuilding;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private User user;
 
     @OneToOne(fetch = FetchType.EAGER)
     private InfrastructureBuilding infrastructureBuilding;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private RoomBuilding roomBuilding;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "building")
     private List<SpecificationBuilding> specificationBuildings;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "building")
     private List<InfographicBuilding> infographicBuildings;
 
 

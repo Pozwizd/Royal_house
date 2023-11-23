@@ -3,6 +3,7 @@ package com.pozwizd.royal_house.service.ServiceImp;
 import com.pozwizd.royal_house.model.User;
 import com.pozwizd.royal_house.repository.UserRepository;
 import com.pozwizd.royal_house.service.UserService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -42,4 +43,5 @@ public class UserServiceImp implements UserService {
     public void updateUser(User user) {
         userRepository.save(user);
     }
+
 }

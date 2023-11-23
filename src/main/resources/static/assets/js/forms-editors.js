@@ -16,8 +16,7 @@
     theme: 'snow'
   });
 
-
-  // Bubble Theme [data-item-id="bubble-editor"]
+  // Bubble Theme
   // --------------------------------------------------------------------
   const bubbleEditor = new Quill('#bubble-editor', {
     modules: {

@@ -39,9 +39,22 @@ public class RequestsController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        Page<Requests> requests = requestsService.findByRequest(name,
-                phoneNumber,
-                email, pageable);
+
+        Page<Requests> requests;
+
+        if(name != null || email != null || phoneNumber != null) {
+            StatusRequests statusEnum = null;
+
+             requests = requestsService
+                    .findByRequest(name,
+                            phoneNumber,
+                            email,
+                            pageable);
+        } else {
+             requests = requestsService.findAll(pageable);
+        }
+
+
 
         long totalPages = requests.getTotalPages();
         long totalElements = requests.getTotalElements();
@@ -50,6 +63,7 @@ public class RequestsController {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("requests", requests);
         model.addAttribute("currentPage", page);
+
 
         return new ModelAndView("admin/requests");
     }

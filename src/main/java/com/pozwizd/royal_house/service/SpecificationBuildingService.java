@@ -16,4 +16,6 @@ public interface SpecificationBuildingService {
 
     public List<SpecificationBuilding> findAllSpecificationBuildings();
 
+    public void deleteAllSpecificationBuildings();
+
 }

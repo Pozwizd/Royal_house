@@ -13,7 +13,7 @@ public class IndexController {
 
     @GetMapping({"/", ""})
     public ModelAndView index(Model model) {
-//        model.addAttribute("TitlePage", "Royal House");
+
 
 
         return new ModelAndView("admin/index");

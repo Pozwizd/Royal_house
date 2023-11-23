@@ -1,5 +1,6 @@
 package com.pozwizd.royal_house.service.ServiceImp;
 
+import com.pozwizd.royal_house.model.Building;
 import com.pozwizd.royal_house.model.SpecificationBuilding;
 import com.pozwizd.royal_house.repository.SpecificationBuildingRepository;
 import com.pozwizd.royal_house.service.SpecificationBuildingService;
@@ -39,5 +40,13 @@ public class SpecificationBuildingServiceImp implements SpecificationBuildingSer
     @Override
     public List<SpecificationBuilding> findAllSpecificationBuildings() {
         return specificationBuildingRepository.findAll();
+    }
+
+    public SpecificationBuilding findByBuilding(Building building) {
+        return specificationBuildingRepository.findByBuilding(building);
+    }
+
+    public void deleteAllSpecificationBuildings() {
+        specificationBuildingRepository.deleteAll();
     }
 }

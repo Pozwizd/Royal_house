@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html
         lang="ru"
         class="light-style layout-navbar-fixed layout-menu-fixed"
@@ -6,7 +7,6 @@
         data-theme="theme-default"
         data-assets-path="../../assets/"
         data-template="vertical-menu-template-starter"
-        xmlns:th="http://www.thymeleaf.org"
 >
 <head>
     <meta charset="utf-8"/>
@@ -15,7 +15,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Новострои</title>
+    <title>Royal House</title>
 
     <meta name="description" content=""/>
 
@@ -43,10 +43,6 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"/>
     <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css"/>
-    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css"/>
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css"/>
-    <!-- Form Validation -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/formvalidation/dist/css/formValidation.min.css"/>
 
     <!-- Page CSS -->
 
@@ -74,6 +70,7 @@
             <!-- Navbar -->
 
             <nav th:replace="~{fragments :: navbar}"></nav>
+
             <!-- / Navbar -->
 
             <!-- Content wrapper -->
@@ -81,48 +78,40 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h2 class="mb-0">Объекты</h2>
-                        <small class="text-muted float-end">Главная | <span>Объекты</span></small>
+                    <h2 class="mb-0">Привязка объектов</h2>
+                    <hr/>
+                    <div class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Recipient's username"
+                                aria-label="Recipient's username"
+                                aria-describedby="button-addon2"
+                        />
+                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Button</button>
                     </div>
-                    <hr class="my-5"/>
-
                     <br/>
                     <!-- Responsive Table -->
                     <div class="card">
                         <div class=" table-responsive text-nowrap">
                             <table class="table">
-                                <thead>
-                                <tr class="text-nowrap">
-                                    <th>Порядок</th>
-                                    <th>Названия</th>
-                                    <th>Адрес</th>
-                                    <th>Статус</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
                                 <tbody>
-                                <tr>
-                                    <form method="get" action="/subjects">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </form>
-                                </tr>
                                 <tr th:each="building : ${buildings}">
-                                    <td th:text="${building.id}"></td>
-                                    <td th:text="${building.name}"></td>
-                                    <td th:text="${building.address}"></td>
-                                    <td th:text="${building.statusBuilding}"></td>
+                                    <td th:text="${building.name}">
+                                        <input name="buildingName"
+                                               id="name"
+                                               type="text"
+                                               class="form-control"
+                                               placeholder="Name"
+                                               value=""/>
+                                    </td>
                                     <td>
-                                        <a style="max-width: 24px; " th:href="@{/buildings/get/{id}(id=${building.id})}" class="btn btn-primary">
-                                            <i class="ti ti-edit"></i>
-                                        </a>
-                                        <a style="max-width: 24px;" href="#" class="btn btn-danger">
-                                            <i class="ti ti-trash"></i>
-                                        </a>
+                                        <select name="selectedUser" th:field="*{users}">
+                                            <option th:each="user : ${users}"
+                                                    th:text="${user.name}"
+                                                    th:value="${user.id}">
+                                            </option>
+                                        </select>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -132,31 +121,32 @@
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item first">
                                         <a class="page-link"
-                                           th:attr="href=@{/subjects(page=0, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/bindingObject(page=0, name=${name})}">
                                             <i class="ti ti-chevrons-left ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item prev">
                                         <a class="page-link"
-                                           th:attr="href=@{/subjects(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/bindingObject(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, name=${name})}">
                                             <i class="ti ti-chevron-left ti-xs"></i>
                                         </a>
                                     </li>
-                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage == i - 1} ? 'active'">
+                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
+                                        th:classappend="${currentPage == i - 1} ? 'active'">
                                         <a class="page-link"
-                                           th:attr="href=@{/subjects(page=${i - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/bindingObject(page=${i - 1}, name=${name})}">
                                             [[${i}]]
                                         </a>
                                     </li>
                                     <li class="page-item next">
                                         <a class="page-link"
-                                           th:attr="href=@{/subjects(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/bindingObject(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, name=${name})}">
                                             <i class="ti ti-chevron-right ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item last">
                                         <a class="page-link"
-                                           th:attr="href=@{/subjects(page=${totalPages - 1 }, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/bindingObject(page=${totalPages - 1 }, name=${name})}">
                                             <i class="ti ti-chevrons-right ti-xs"></i>
                                         </a>
                                     </li>
@@ -164,11 +154,6 @@
                             </nav>
                         </div>
                     </div>
-
-                    <!--/ Responsive Table -->
-
-                    <hr class="my-5"/>
-
                 </div>
                 <!-- / Content -->
 
@@ -184,28 +169,6 @@
                                     document.write(new Date().getFullYear());
                                 </script>
                                 , Разработано SpaceLab
-                            </div>
-                            <div>
-                                <a href="https://themeforest.net/licenses/standard" class="footer-link me-4"
-                                   target="_blank"
-                                >License</a
-                                >
-                                <a href="https://1.envato.market/pixinvent_portfolio" target="_blank"
-                                   class="footer-link me-4"
-                                >More Themes</a
-                                >
-
-                                <a
-                                        href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/"
-                                        target="_blank"
-                                        class="footer-link me-4"
-                                >Documentation</a
-                                >
-
-                                <a href="https://pixinvent.ticksy.com/" target="_blank"
-                                   class="footer-link d-none d-sm-inline-block"
-                                >Support</a
-                                >
                             </div>
                         </div>
                     </div>
@@ -236,24 +199,15 @@
 <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
 
 <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
-<script src="../../assets/vendor/libs/i18n/i18n.js"></script>
-<script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
 
 <script src="../../assets/vendor/js/menu.js"></script>
 <!-- endbuild -->
 
-
-<!-- Flat Picker -->
-<script src="../../assets/vendor/libs/moment/moment.js"></script>
-<script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-<!-- Form Validation -->
-<script src="../../assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
-<script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
-<script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+<!-- Vendors JS -->
 
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
 
-
+<!-- Page JS -->
 </body>
 </html>

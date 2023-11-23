@@ -138,10 +138,11 @@
         </div>
 
         <script>
+            addDeleteHandlerInfrastructure()
             function transferTextInfrastructure() {
-                const content = $('#editor-infrastructureBuilding').html();
-                $('#textareaInfrastructureBuilding').val(content);
-                return true;
+                let container = document.querySelector('#editor-infrastructureBuilding')
+                let quill = new Quill(container);
+                document.querySelector('#textareaInfrastructureBuilding').textContent = quill.root.innerHTML;
             }
             let itemsInfrastructure = [];
             let nextIdInfrastructure = 1;

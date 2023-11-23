@@ -94,10 +94,12 @@
     </div>
     <script>
         function transferText() {
-            const content = $('[data-quill-editor]').html();
-            $('#textareaAboutProject').val(content);
-            return true;
+            let container = document.querySelector('[data-quill-editor]')
+            let quill = new Quill(container);
+            document.querySelector("#textareaAboutProject").textContent = quill.root.innerHTML;
         }
+
+
     </script>
     <div class="mt-2 d-flex justify-content-end mx-4">
         <button type="reset" class="btn btn-label-secondary">Cancel</button>

@@ -76,15 +76,19 @@
 
             <nav th:replace="~{fragments :: navbar}"></nav>
             <!-- / Navbar -->
-            <hr class="my-5"/>
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h2 class="mb-0">Заявки</h2>
-                    <br/>
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h2 class="mb-0">Заявки</h2>
+                        <small class="text-muted float-end">Главная | <span>Заявки</span></small>
+                    </div>
+
+
+                    <hr class="my-5"/>
                     <!-- Responsive Table -->
                     <div class="card">
                         <div class=" table-responsive text-nowrap">
@@ -132,6 +136,7 @@
                                         <td>
                                             <select name="status"
                                                     class="form-select color-dropdown">
+                                                <option value=""></option>
                                                 <option value="Новый">Новый</option>
                                                 <option value="Отвечено">Отвечено</option>
                                             </select>
@@ -153,17 +158,13 @@
                                     <td >
                                         <a th:if="${inquiry.getStatusRequests.toString() == 'Отвечено'}"
                                            class="btn btn-success"
-
                                            th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
                                            th:text="${inquiry.getStatusRequests}">
-                                            Success
                                         </a>
                                         <a th:if="${inquiry.getStatusRequests.toString() == 'Новый'}"
                                            class="btn btn-warning"
-
                                            th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
                                            th:text="${inquiry.getStatusRequests}">
-                                            Warning
                                         </a>
                                     </td>
                                     <td>

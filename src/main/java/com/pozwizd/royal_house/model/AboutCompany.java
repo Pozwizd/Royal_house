@@ -24,4 +24,9 @@ public class AboutCompany {
     @Column(name = "text")
     private String text;
 
+    @Lob
+    @Column(name = "banner_text",length = 65535)
+    private String bannerText;
+
+
 }

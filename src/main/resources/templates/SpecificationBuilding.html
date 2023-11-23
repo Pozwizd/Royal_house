@@ -8,25 +8,25 @@
 
 <form action="/buildings/edit-specification/{id}" method="post"
       enctype="multipart/form-data"
-      th:fragment="specificationBuildingForm">
+      th:fragment="specificationBuildingForm" onsubmit="transferTextSpecification()">
     <div class="container-xxl flex-grow-1 container-p-y">
         <!--Фото и основные данные-->
         <label style="visibility: hidden">
             <input type="text" name="buildingId" th:value="${building.id}"/>
         </label>
-
         <div class="col-12">
-            <div class="card">
-                <h5 class="card-header">Инфографика</h5>
+
                 <div class="card-body">
                     <div class="form-repeater">
                         <div data-repeater-list-specification-building>
-                            <div data-repeater-item-specification-building>
+                            <div data-repeater-item-specification-building th:each="specification, i : ${building.specificationBuildings}">
                                 <div class="row">
                                     <div class="card">
-                                        <h5 class="card-header">Full Editor</h5>
+                                        <h5 class="card-header">Слайд [[${i.count}]]</h5>
                                         <div class="card-body">
-                                            <div data-quill-editor>
+                                            <div data-quill-editor
+                                                 th:attr="data-id=${i.index}"
+                                                 th:utext="${specification.text}">
 
                                             </div>
 
@@ -59,34 +59,27 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
         </div>
 
 
         <script>
-            const form = document.querySelector('form');
+            addDeleteHandlerSpecification();
 
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const editors = document.querySelectorAll('[data-quill-editor]');
-
-                editors.forEach(editor => {
-                    const editorId = editor.dataset.id;
-                    const textarea = document.querySelector(`textarea[data-id="${editorId}"]`);
-                    const quill = new Quill(editor);
-                    textarea.value = quill.root.innerHTML;
-                });
-                this.submit();
-            });
 
             function transferTextSpecification() {
-                const content = $('#editor-infrastructureBuilding [data-id="${newItemSpecification.id}"]').html();
-                $('#textareaInfrastructureBuilding').val(content);
-                return true;
+                let allTextArea = document.getElementsByName("editorDataSpecificationBuilding[]");
+                let i = 0;
+                for (let contentElement of document.querySelectorAll('[data-quill-editor][data-id]')) {
+
+                    let quill = new Quill(contentElement);
+                    allTextArea[i].textContent = quill.root.innerHTML
+                    i++;
+                }
             }
 
             let itemsSpecification = [];
-            let nextIdSpecification = 1;
+            let nextIdSpecification = document.getElementsByName("editorDataSpecificationBuilding[]").length+1;
             const btnAddSpecification = document.querySelector('[data-repeater-create-specification-building]');
 
             function addNewItemSpecification() {
@@ -94,7 +87,7 @@
     <div data-repeater-item-specification-building data-id="${nextIdSpecification}">
         <div class="row">
             <div class="card">
-                <h5 class="card-header">Full Editor</h5>
+                <h5 class="card-header">Слайд ${nextIdSpecification}</h5>
                 <div class="card-body">
                     <div data-quill-editor data-id="${nextIdSpecification}">
                     </div>

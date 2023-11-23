@@ -54,4 +54,11 @@ public class BuildingServiceImp implements BuildingService {
                 pageable);
     }
 
+    @Override
+    public Page<Building> findByName(String name,
+                                     Pageable pageable) {
+        return buildingRepository.findByName(name,
+                pageable);
+    }
+
 }

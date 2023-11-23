@@ -23,4 +23,7 @@ public interface BuildingService {
             String address,
             StatusBuilding status,
             Pageable pageable);
+
+    Page<Building> findByName(String name,
+                              Pageable pageable);
 }

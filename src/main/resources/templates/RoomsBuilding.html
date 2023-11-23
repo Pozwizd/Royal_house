@@ -141,9 +141,10 @@
         <script>
 
             function transferTextRoom() {
-                const content = $('#editor-roomsBuilding').html();
-                $('#textareaRoomsBuilding').val(content);
-                return true;
+
+                let container = document.querySelector('#editor-roomsBuilding')
+                let quill = new Quill(container);
+                document.querySelector('#textareaRoomsBuilding').textContent = quill.root.innerHTML;
             }
 
             let itemsRoom = [];

@@ -4,7 +4,9 @@ import com.pozwizd.royal_house.model.Building;
 import com.pozwizd.royal_house.model.SpecificationBuilding;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SpecificationBuildingRepository extends JpaRepository<SpecificationBuilding, Long> {
 
     @Query("SELECT sp FROM SpecificationBuilding sp WHERE sp.building = :building")

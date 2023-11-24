@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -45,6 +46,12 @@ public class User {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private Building building;
+
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<AdditionalEmail> additionalEmails;

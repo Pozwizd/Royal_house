@@ -1,7 +1,6 @@
 package com.pozwizd.royal_house.service;
 
 import com.pozwizd.royal_house.model.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 

@@ -88,7 +88,7 @@
             <div class="content-wrapper">
                 <!-- Content -->
 
-                <form action="/buildings/editPageAboutCompany/{id}" method="post"
+                <form action="/setting/editPageAboutCompany" method="post"
                       enctype="multipart/form-data"
                       onsubmit="transferText()">
                     <div class="container-xxl flex-grow-1 container-p-y">
@@ -117,7 +117,9 @@
                                                     type="file"
                                                     name="urlBanner"
                                                     class="form-control"
-                                                    accept="image/png, image/jpeg"/>
+                                                    accept="image/png, image/jpeg"
+                                                    th:src="${aboutCompany.getUrlBanner()}"
+                                            />
                                         </label>
                                     </div>
                                 </div>
@@ -130,6 +132,7 @@
                                                 type="text"
                                                 id="textBanner"
                                                 class="form-control phone-mask"
+                                                th:value="${aboutCompany.getBannerText()}"
                                         />
                                     </div>
                                     <div class="col">
@@ -140,20 +143,17 @@
                                                     type="text"
                                                     id="newPassword"
                                                     name="titleText"
+                                                    th:value="${aboutCompany.getTitle()}"
                                             />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!--List Infografic-->
-                        <!-- Multi Column with Form Separator -->
-
                         <div class="col-12">
                             <div class="card mb-4">
                                 <div class="card-body">
-                                    <div data-quill-editor id="full-editor">
+                                    <div data-quill-editor id="full-editor" th:text="${aboutCompany.getText()}">
 
                                     </div>
                                     <label for="textareaAboutCompany">

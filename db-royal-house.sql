@@ -194,6 +194,7 @@ where name like '% %'
   and status = ' ';
 
 
+USE db_royal_house;
 INSERT INTO requests (name, phone_number, email, comment, date, status)
 VALUES ('John Doe', '+380501234567', 'john@example.com', 'Need help with order', NOW(), 'Новый'),
        ('Jane Smith', '+380509876543', 'jane@gmail.com', 'Shipping question', NOW(), 'Отвечено'),

@@ -5,15 +5,13 @@ import com.pozwizd.royal_house.repository.ServicesRepository;
 import com.pozwizd.royal_house.service.ServicesService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class ServicesServiceImp implements ServicesService, UserDetailsService {
+public class ServicesServiceImp implements ServicesService{
 
     private final ServicesRepository servicesRepository;
 
@@ -54,10 +52,5 @@ public class ServicesServiceImp implements ServicesService, UserDetailsService {
     @Override
     public Page<Services> findByRequest(String name, Pageable pageable) {
         return servicesRepository.findByCriteria(name, pageable);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
     }
 }

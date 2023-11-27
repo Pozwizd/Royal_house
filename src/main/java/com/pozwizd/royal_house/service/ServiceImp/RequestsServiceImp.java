@@ -2,6 +2,7 @@ package com.pozwizd.royal_house.service.ServiceImp;
 
 import com.pozwizd.royal_house.Specification.RequestSpecification;
 import com.pozwizd.royal_house.model.Requests;
+import com.pozwizd.royal_house.model.StatusRequests;
 import com.pozwizd.royal_house.repository.RequestsRepository;
 import com.pozwizd.royal_house.service.RequestsService;
 import org.springframework.data.domain.Page;
@@ -44,8 +45,16 @@ public class RequestsServiceImp implements RequestsService {
     }
 
     @Override
-    public Page<Requests> findByRequest(String name, String phoneNumber, String email, Pageable pageable) {
-        Specification<Requests> spec = new RequestSpecification(name, phoneNumber, email);
+    public Page<Requests> findByRequest(String name,
+                                        String phoneNumber,
+                                        String email,
+//                                        StatusRequests status,
+                                        Pageable pageable) {
+        Specification<Requests> spec = new RequestSpecification(name,
+                phoneNumber,
+                email
+//                status
+        );
 
         return requestsRepository.findAll(spec, pageable);
     }

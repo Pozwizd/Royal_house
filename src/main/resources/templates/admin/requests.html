@@ -112,7 +112,7 @@
                                                    id="name"
                                                    type="text"
                                                    class="form-control"
-                                                   placeholder="Name"
+                                                   placeholder="Имя"
                                                    value=""/>
                                         </td>
                                         <td>
@@ -120,7 +120,7 @@
                                                    id="phoneNumber"
                                                    type="text"
                                                    class="form-control"
-                                                   placeholder="phoneNumber"
+                                                   placeholder="Номер телефона"
                                                    value=""/>
                                         </td>
                                         <td>
@@ -128,18 +128,19 @@
                                                    id="email"
                                                    type="text"
                                                    class="form-control"
-                                                   placeholder="email"
-                                                   value=""/>
+                                                   placeholder="Почта"
+                                            />
                                         </td>
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <select name="status"
-                                                    class="form-select color-dropdown">
-                                                <option value=""></option>
-                                                <option value="Новый">Новый</option>
-                                                <option value="Отвечено">Отвечено</option>
-                                            </select>
+<!--                                            TODO: Проблема с Enum-->
+<!--                                            <select name="status"-->
+<!--                                                    class="form-select color-dropdown">-->
+<!--                                                <option value=""></option>-->
+<!--                                                <option value="1">Новый</option>-->
+<!--                                                <option value="0">Отвечено</option>-->
+<!--                                            </select>-->
                                         </td>
                                         <td>
                                             <button type="submit" class="btn btn-primary">
@@ -155,9 +156,9 @@
                                     <td th:text="${inquiry.email}"></td>
                                     <td th:text="${inquiry.comment}"></td>
                                     <td th:text="${#temporals.format(inquiry.date, 'dd.MM.yyyy - HH:mm')}"></td>
-                                    <td >
+                                    <td class="flex flex-column justify-content-center">
                                         <a th:if="${inquiry.getStatusRequests.toString() == 'Отвечено'}"
-                                           class="btn btn-success"
+                                           class="btn btn-success "
                                            th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
                                            th:text="${inquiry.getStatusRequests}">
                                         </a>

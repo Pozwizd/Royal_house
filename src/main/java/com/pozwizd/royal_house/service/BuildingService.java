@@ -21,9 +21,8 @@ public interface BuildingService {
     Page<Building> findByRequest(
             String name,
             String address,
-            StatusBuilding status,
             Pageable pageable);
 
-    Page<Building> findByName(String name,
-                              Pageable pageable);
+
+    Page<Building> findAll(Pageable pageable);
 }

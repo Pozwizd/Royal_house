@@ -19,5 +19,9 @@ public interface RequestsService {
     public Page<Requests> findAll(Pageable pageable);
 
 
-    Page<Requests> findByRequest(String name, String phoneNumber, String email, Pageable pageable);
+    Page<Requests> findByRequest(String name,
+                                 String phoneNumber,
+                                 String email,
+//                                 StatusRequests status,
+                                 Pageable pageable);
 }

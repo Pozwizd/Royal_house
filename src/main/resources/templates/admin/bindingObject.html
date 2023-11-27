@@ -9,40 +9,45 @@
         data-template="vertical-menu-template-starter"
 >
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Royal House</title>
+    <title>Selects and tags - Forms | Vuexy - Bootstrap Admin Template</title>
 
-    <meta name="description" content=""/>
+    <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
             href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
             rel="stylesheet"
     />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css"/>
-    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css"/>
-    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css"/>
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css"/>
-    <link rel="stylesheet" href="../../assets/css/demo.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"/>
-    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/tagify/tagify.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
 
     <!-- Page CSS -->
 
@@ -78,82 +83,84 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h2 class="mb-0">Привязка объектов</h2>
-                    <hr/>
-                    <div class="input-group">
-                        <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Recipient's username"
-                                aria-label="Recipient's username"
-                                aria-describedby="button-addon2"
-                        />
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Button</button>
-                    </div>
-                    <br/>
-                    <!-- Responsive Table -->
-                    <div class="card">
-                        <div class=" table-responsive text-nowrap">
-                            <table class="table">
-                                <tbody>
-                                <tr th:each="building : ${buildings}">
-                                    <td th:text="${building.name}">
-                                        <input name="buildingName"
-                                               id="name"
-                                               type="text"
-                                               class="form-control"
-                                               placeholder="Name"
-                                               value=""/>
-                                    </td>
-                                    <td>
-                                        <select name="selectedUser" th:field="*{users}">
-                                            <option th:each="user : ${users}"
-                                                    th:text="${user.name}"
-                                                    th:value="${user.id}">
-                                            </option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <br/>
-                            <nav aria-label="Page navigation" style="padding-right: 10px">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item first">
-                                        <a class="page-link"
-                                           th:attr="href=@{/bindingObject(page=0, name=${name})}">
-                                            <i class="ti ti-chevrons-left ti-xs"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item prev">
-                                        <a class="page-link"
-                                           th:attr="href=@{/bindingObject(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, name=${name})}">
-                                            <i class="ti ti-chevron-left ti-xs"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
-                                        th:classappend="${currentPage == i - 1} ? 'active'">
-                                        <a class="page-link"
-                                           th:attr="href=@{/bindingObject(page=${i - 1}, name=${name})}">
-                                            [[${i}]]
-                                        </a>
-                                    </li>
-                                    <li class="page-item next">
-                                        <a class="page-link"
-                                           th:attr="href=@{/bindingObject(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, name=${name})}">
-                                            <i class="ti ti-chevron-right ti-xs"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item last">
-                                        <a class="page-link"
-                                           th:attr="href=@{/bindingObject(page=${totalPages - 1 }, name=${name})}">
-                                            <i class="ti ti-chevrons-right ti-xs"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                    <form action="/bindingObjectEdit" method="post">
+                        <h2 class="mb-0">Привязка объектов</h2>
+                        <hr/>
+                        <div class="input-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Recipient's username"
+                                    aria-label="Recipient's username"
+                                    aria-describedby="button-addon2"
+                            />
+                            <button class="btn btn-outline-primary" type="button" id="button-addon2">Button</button>
                         </div>
-                    </div>
+                        <br/>
+                        <!-- Responsive Table -->
+                        <div class="card">
+                            <div class=" table-responsive text-nowrap">
+                                <table class="table">
+                                    <tbody>
+                                    <tr th:each="building, index : ${buildings}">
+                                        <td th:text="${building.name}">
+                                            <input name="buildingName[]"
+                                                   type="text"
+                                                   class="form-control"
+                                                   placeholder="Name"
+                                                   th:name="${i.index}"
+                                                   value=""/>
+                                        </td>
+                                        <td>
+                                            <select name="selectedUser[]" class="select2 form-select form-select-lg" th:field="*{users}">
+                                                <option th:each="user : ${users}"
+                                                        th:text="${user.name}"
+                                                        th:value="${user.id}">
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <nav aria-label="Page navigation" style="padding-right: 10px">
+                                    <ul class="pagination justify-content-end">
+                                        <li class="page-item first">
+                                            <a class="page-link"
+                                               th:attr="href=@{/bindingObject(page=0, name=${name})}">
+                                                <i class="ti ti-chevrons-left ti-xs"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item prev">
+                                            <a class="page-link"
+                                               th:attr="href=@{/bindingObject(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, name=${name})}">
+                                                <i class="ti ti-chevron-left ti-xs"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
+                                            th:classappend="${currentPage == i - 1} ? 'active'">
+                                            <a class="page-link"
+                                               th:attr="href=@{/bindingObject(page=${i - 1}, name=${name})}">
+                                                [[${i}]]
+                                            </a>
+                                        </li>
+                                        <li class="page-item next">
+                                            <a class="page-link"
+                                               th:attr="href=@{/bindingObject(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, name=${name})}">
+                                                <i class="ti ti-chevron-right ti-xs"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item last">
+                                            <a class="page-link"
+                                               th:attr="href=@{/bindingObject(page=${totalPages - 1 }, name=${name})}">
+                                                <i class="ti ti-chevrons-right ti-xs"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- / Content -->
 
@@ -199,15 +206,25 @@
 <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
 
 <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+<script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+<script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
 
 <script src="../../assets/vendor/js/menu.js"></script>
 <!-- endbuild -->
 
 <!-- Vendors JS -->
+<script src="../../assets/vendor/libs/select2/select2.js"></script>
+<script src="../../assets/vendor/libs/tagify/tagify.js"></script>
+<script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+<script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+<script src="../../assets/vendor/libs/bloodhound/bloodhound.js"></script>
 
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
 
 <!-- Page JS -->
+<script src="../../assets/js/forms-selects.js"></script>
+<script src="../../assets/js/forms-tagify.js"></script>
+<script src="../../assets/js/forms-typeahead.js"></script>
 </body>
 </html>

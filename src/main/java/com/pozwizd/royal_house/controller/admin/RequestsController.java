@@ -32,23 +32,35 @@ public class RequestsController {
                              @RequestParam(required = false) String name,
                              @RequestParam(required = false) String email,
                              @RequestParam(required = false) String phoneNumber,
+//                             @RequestParam(required = false) Integer status,
                              @RequestParam(defaultValue = "4") int size,
                              Model model) {
 
         model.addAttribute("pageActive", "requests");
 
         Pageable pageable = PageRequest.of(page, size);
-
+//        StatusRequests statusEnum = null;
+//        if (status != null) {
+//            if (status == 1) {
+//                statusEnum = StatusRequests.Новый;
+//            } else if (status == 0) {
+//                statusEnum = StatusRequests.Отвечено;
+//            }
+//        }
 
         Page<Requests> requests;
 
-        if(name != null || email != null || phoneNumber != null) {
-            StatusRequests statusEnum = null;
+        if(name != null
+                || email != null
+                || phoneNumber != null
+//                || status != null
+        ) {
 
              requests = requestsService
                     .findByRequest(name,
                             phoneNumber,
                             email,
+//                            statusEnum,
                             pageable);
         } else {
              requests = requestsService.findAll(pageable);

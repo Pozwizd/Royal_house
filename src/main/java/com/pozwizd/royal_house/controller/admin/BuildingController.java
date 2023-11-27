@@ -46,7 +46,6 @@ public class BuildingController {
     public ModelAndView list(@RequestParam(defaultValue = "0") int page,
                              @RequestParam(required = false) String name,
                              @RequestParam(required = false) String address,
-                             @RequestParam(required = false) StatusBuilding status,
                              @RequestParam(defaultValue = "4") int size,
                              Model model) {
 
@@ -54,7 +53,12 @@ public class BuildingController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        Page<Building> buildings = buildingService.findByRequest(name, address, status, pageable);
+        Page<Building> buildings;
+        if (name != null || address != null) {
+            buildings = buildingService.findByRequest(name, address, pageable);
+        } else {
+            buildings = buildingService.findAll(pageable);
+        }
 
         long totalPages = buildings.getTotalPages();
         long totalElements = buildings.getTotalElements();
@@ -120,14 +124,6 @@ public class BuildingController {
                 e.printStackTrace();
             }
         }
-
-        /*
-        1. Переупаковка в другой массив
-        2. Проверка на наличие изображений в бд
-        3. Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
-        4. После этого записываем новые
-
-         */
 
         List<InfographicPage> infographicPageList = new ArrayList<>();
         List<InfographicBuilding> infographicBuildings = new ArrayList<>();

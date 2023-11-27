@@ -82,7 +82,7 @@
               <small class="text-muted float-end"> Главная | <span>Настройки</span></small>
             </div>
             <hr class="my-5"/>
-            <form>
+            <form th:action="@{/setting/contactEdit}" method="post">
               <div class="col-xxl">
 
                 <div class="card mb-4">
@@ -94,20 +94,25 @@
                                 type="text"
                                 id="phoneNumber"
                                 class="form-control phone-mask"
-                                placeholder="658 799 8941"
-                                aria-label="658 799 8941"
+                                placeholder="+38 (999) 999-9999"
+                                name="phoneNumber"
+                                th:value="${user.getPhoneNumber()}"
                         />
+
                       </div>
                       <div class="col-md-3">
                         <label class="form-label" for="email">Viber</label>
                         <div class="input-group input-group-merge">
+
                           <input
                                   class="form-control"
                                   type="text"
                                   id="viber"
-                                  name="email"
                                   placeholder="Viber"
+                                  th:value="${user.getViber()}"
+                                  name="viber"
                           />
+
                         </div>
                       </div>
                       <div class="col-md-3">
@@ -117,7 +122,7 @@
                                 id="telegram"
                                 name="telegram"
                                 class="form-control phone-mask"
-                                placeholder="Имя пользователя"
+                                th:value="${user.getTelegram()}"
                         />
                       </div>
                       <div class="col-md-3">
@@ -130,7 +135,7 @@
                                   name="email"
                                   placeholder="email"
                                   aria-label="email"
-                                  aria-describedby="email3"
+                                  th:value="${user.getEmail()}"
                           />
                           <span class="input-group-text" id="email3">@example.com</span>
                         </div>
@@ -144,6 +149,7 @@
                                   id="instagram"
                                   name="instagram"
                                   placeholder="instagram"
+                                  th:value="${user.getInstagram()}"
                           />
                         </div>
                       </div>
@@ -156,6 +162,7 @@
                                   id="facebook"
                                   name="facebook"
                                   placeholder="facebook"
+                                  th:value="${user.getFacebook()}"
                           />
                         </div>
                       </div>
@@ -167,7 +174,7 @@
                                   type="text"
                                   id="address"
                                   name="address"
-                                  placeholder="address"
+                                  th:value="${user.getAddress()}"
                           />
                         </div>
                       </div>
@@ -182,15 +189,16 @@
                     <div class="card-body">
                       <div class="form-repeater">
                         <div data-repeater-list="InfographicBuildingPage">
-                          <div data-repeater-item>
+                          <div data-repeater-item th:each="item : ${user.getAdditionalEmails()}">
                             <div class="row">
                               <div class="mb-3 col-md-8">
                                 <label class="form-label">Email</label>
                                 <input
                                         class="form-control"
                                         type="text"
-                                        name="address"
+                                        name="additionalAddress[]"
                                         placeholder="Email"
+                                        th:value="${item.getEmail()}"
                                 />
                               </div>
                               <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
@@ -227,6 +235,7 @@
                         <input
                                 type="text"
                                 id="oldPassword"
+                                name="oldPassword"
                                 class="form-control phone-mask"
                         />
                       </div>
@@ -238,7 +247,7 @@
                                     class="form-control"
                                     type="text"
                                     id="newPassword"
-                                    name="#"
+                                    name="newPassword"
                                     placeholder="Пароль"
                             />
                           </div>
@@ -248,7 +257,7 @@
                           <input
                                   type="text"
                                   id="repeatNewPassword"
-                                  name="#"
+                                  name="repeatNewPassword"
                                   class="form-control phone-mask"
                           />
                         </div>

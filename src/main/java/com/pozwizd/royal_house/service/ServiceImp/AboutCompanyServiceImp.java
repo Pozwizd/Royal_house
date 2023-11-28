@@ -36,4 +36,9 @@ public class AboutCompanyServiceImp implements AboutCompanyService {
     public List<AboutCompany> findAllAboutCompanies() {
         return aboutCompanyRepository.findAll();
     }
+
+    @Override
+    public void updateAboutCompany(AboutCompany aboutCompany) {
+        aboutCompanyRepository.save(aboutCompany);
+    }
 }

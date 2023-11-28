@@ -13,4 +13,6 @@ public interface AboutCompanyService {
     public AboutCompany findAboutCompanyById(long id);
 
     public List<AboutCompany> findAllAboutCompanies();
+
+    void updateAboutCompany(AboutCompany aboutCompany);
 }

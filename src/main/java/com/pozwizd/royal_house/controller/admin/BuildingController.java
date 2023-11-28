@@ -1,8 +1,8 @@
 package com.pozwizd.royal_house.controller.admin;
 
-import ch.qos.logback.classic.Logger;
 import com.pozwizd.royal_house.model.*;
 import com.pozwizd.royal_house.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,16 +28,18 @@ public class BuildingController {
     private final InfographicBuildingService infographicBuildingService;
     private final InfographicInfrastructureService infographicInfrastructureService;
     private final SpecificationBuildingService specificationBuildingService;
-    private final InfrastructureBuildingService infrastructureBuildingService;
     private final InfographicRoomService infographicRoomService;
 
     public BuildingController(BuildingService buildingService,
-                              InfographicBuildingService infographicBuildingService, InfographicInfrastructureService infographicInfrastructureService, SpecificationBuildingService specificationBuildingService, InfrastructureBuildingService infrastructureBuildingService, InfographicRoomService infographicRoomService) {
+                              InfographicBuildingService infographicBuildingService,
+                              InfographicInfrastructureService infographicInfrastructureService,
+                              SpecificationBuildingService specificationBuildingService,
+                              InfrastructureBuildingService infrastructureBuildingService,
+                              InfographicRoomService infographicRoomService) {
         this.buildingService = buildingService;
         this.infographicBuildingService = infographicBuildingService;
         this.infographicInfrastructureService = infographicInfrastructureService;
         this.specificationBuildingService = specificationBuildingService;
-        this.infrastructureBuildingService = infrastructureBuildingService;
         this.infographicRoomService = infographicRoomService;
     }
 
@@ -81,6 +83,23 @@ public class BuildingController {
         return new ModelAndView("admin/buildingCard");
     }
 
+    @GetMapping("/changeStatus/{id}")
+    public String changeStatusRequestId(@PathVariable("id") Long buildingId, HttpServletRequest request, Model model) {
+
+
+        Building building1 = buildingService.findById(buildingId);
+        if (building1.getStatusBuilding().toString().equals("Отключен")) {
+            building1.setStatusBuilding(StatusBuilding.Активен);
+        } else {
+            building1.setStatusBuilding(StatusBuilding.Отключен);
+        }
+        buildingService.update(building1);
+
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
+
+    }
 
     @PostMapping("/edit-basic/{id}")
     public ModelAndView editBasicBuilding(@RequestParam("buildingId") String id,
@@ -150,7 +169,6 @@ public class BuildingController {
                 }
             }
 
-            // После этого записываем новые в бд и зановисив в новую коллекцию
             for (InfographicPage infographicPage : infographicPageList) {
                 InfographicBuilding infographicBuilding = new InfographicBuilding();
                 String uuidFile = UUID.randomUUID().toString();
@@ -170,7 +188,6 @@ public class BuildingController {
             }
         }
 
-        // Обновляем значения
         building.setInfographicBuildings(infographicBuildings);
         infographicBuildingService.saveAll(infographicBuildings);
         buildingService.update(building);
@@ -577,6 +594,7 @@ public class BuildingController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            buildingService.update(building);
         }
 
         return new ModelAndView("redirect:/buildings/get/" + id);

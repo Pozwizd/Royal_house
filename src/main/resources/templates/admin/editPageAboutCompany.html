@@ -107,10 +107,9 @@
                             <div class="col-md-4 col-lg-4">
                                 <div class="card text-center mb-3">
                                     <div class="card-body">
-                                        <img src="#"
-                                             alt="#"
+                                        <img th:src="${aboutCompany.urlBanner}"
                                              style="max-width: 250px;
-                                                             max-height: 200px;">
+                                                             max-height: 200px;" alt="">
                                         <hr/>
                                         <label class="form-label">
                                             <input
@@ -118,7 +117,6 @@
                                                     name="urlBanner"
                                                     class="form-control"
                                                     accept="image/png, image/jpeg"
-                                                    th:src="${aboutCompany.getUrlBanner()}"
                                             />
                                         </label>
                                     </div>
@@ -131,6 +129,7 @@
                                         <input
                                                 type="text"
                                                 id="textBanner"
+                                                name="textBanner"
                                                 class="form-control phone-mask"
                                                 th:value="${aboutCompany.getBannerText()}"
                                         />
@@ -153,11 +152,11 @@
                         <div class="col-12">
                             <div class="card mb-4">
                                 <div class="card-body">
-                                    <div data-quill-editor id="full-editor" th:text="${aboutCompany.getText()}">
+                                    <div data-quill-editor id="full-editor" th:utext="${aboutCompany.getText()}">
 
                                     </div>
-                                    <label for="textareaAboutCompany">
-                                        <textarea id="textareaAboutCompany"
+                                    <label for="editorDataInfrastructureBuilding">
+                                        <textarea id="editorDataInfrastructureBuilding"
                                                   class="visually-hidden"
                                                   name="editorDataInfrastructureBuilding">
                                         </textarea>
@@ -179,8 +178,8 @@
                 function transferText() {
                     let container = document.querySelector('[data-quill-editor]')
                     let quill = new Quill(container);
-                    document.querySelector("#textareaAboutCompany").textContent = quill.root.innerHTML;
-                }
+                    document.querySelector("#editorDataInfrastructureBuilding").textContent = quill.root.innerHTML;
+                };
 
 
             </script>

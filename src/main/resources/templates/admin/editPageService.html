@@ -78,84 +78,78 @@
 
 
                 <!-- Content -->
-
-                <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h2 class="mb-0">Услуги</h2>
-                        <small class="text-muted float-end">Главная | <span>Услуги</span></small>
-                    </div>
-                    <hr class="my-5"/>
-                    <div class="col-xxl">
-                        <div class="card mb-4">
-                            <div class="card-header d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Редактирование страницы "Услуги"</h5>
-                            </div>
-                            <form method="post" enctype="multipart/form-data">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="card-body text-center">
-                                                <img src="#"
-                                                     alt="#"
-                                                     style="max-width: 250px;
-                                                                     max-height: 200px;">
-                                                <hr/>
-                                                <label class="form-label">
-                                                    <input
-                                                            type="file"
-                                                            name="mainBanner"
-                                                            class="form-control"
-                                                            accept="image/png, image/jpeg"/>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card-body">
-                                                <div class="col">
-                                                    <label class="form-label">Действующий пароль</label>
-                                                    <input
-                                                            type="text"
-                                                            id="oldPassword"
-                                                            class="form-control phone-mask"
-                                                    />
+                <form action="/setting/editPageService" method="post"
+                      enctype="multipart/form-data">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h2 class="mb-0">Услуги</h2>
+                            <small class="text-muted float-end">Главная | <span>Услуги</span></small>
+                        </div>
+                        <hr class="my-5"/>
+                        <div class="col-xxl">
+                            <div class="card mb-4">
+                                <div class="card-header d-flex align-items-center justify-content-between">
+                                    <h5 class="mb-0">Редактирование страницы "Услуги"</h5>
+                                </div>
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card-body text-center">
+                                                    <img
+                                                         th:src="${serviceBanner.getUrlImage()}"
+                                                         th:alt="${serviceBanner.urlImage}"
+                                                         style="max-width: 250px;
+                                                                max-height: 200px;">
+                                                    <hr/>
+                                                    <label class="form-label">
+                                                        <input
+                                                                type="file"
+                                                                name="urlBanner"
+                                                                class="form-control"
+                                                                accept="image/png, image/jpeg"/>
+                                                    </label>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label class="form-label">Новый пароль</label>
+                                            </div>
+                                            <div class="col">
+                                                <div class="card-body">
+                                                    <div class="col">
+                                                        <label class="form-label">Текст на баннере</label>
+                                                        <input
+                                                                type="text"
+                                                                id="textBanner"
+                                                                name="textBanner"
+                                                                class="form-control phone-mask"
+                                                                th:value="${serviceBanner.text}"
+                                                        />
+                                                    </div>
+                                                    <div class="col">
+                                                        <label class="form-label">Заголовок</label>
                                                         <div class="input-group input-group-merge">
                                                             <input
                                                                     class="form-control"
                                                                     type="text"
                                                                     id="newPassword"
-                                                                    name="#"
-                                                                    placeholder="Пароль"
+                                                                    name="titleText"
+                                                                    th:value="${serviceBanner.title}"
                                                             />
                                                         </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label class="form-label">Повторить пароль</label>
-                                                        <input
-                                                                type="text"
-                                                                id="repeatNewPassword"
-                                                                name="#"
-                                                                class="form-control phone-mask"
-                                                        />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="mt-2 pagination-lg d-flex justify-content-end mx-4">
-                                    <button type="reset" class="btn btn-label-secondary">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
+                                    <div class="mt-2 pagination-lg d-flex justify-content-end mx-4">
+                                        <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
 
-                            </form>
+                                </form>
 
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
                 <!-- / Content -->
 
                 <!-- Footer -->

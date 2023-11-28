@@ -1,7 +1,6 @@
 package com.pozwizd.royal_house.Specification;
 
 import com.pozwizd.royal_house.model.Requests;
-import com.pozwizd.royal_house.model.StatusRequests;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;

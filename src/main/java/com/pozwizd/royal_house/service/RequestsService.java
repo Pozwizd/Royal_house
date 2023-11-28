@@ -1,7 +1,6 @@
 package com.pozwizd.royal_house.service;
 
 import com.pozwizd.royal_house.model.Requests;
-import com.pozwizd.royal_house.model.StatusRequests;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

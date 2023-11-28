@@ -94,14 +94,15 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-repeater">
-                                        <div data-repeater-list-specification-building>
-                                            <div data-repeater-item-specification-building
-                                                 class="flex flex-column justify-content-center align-items-center">
+                                        <div data-repeater-list-banner>
+                                            <div data-repeater-item-banner class="flex flex-column justify-content-center align-items-center"
+                                            th:each="secondaryMarket : ${secondaryMarkets}">
+                                            >
                                                 <div class="row">
                                                     <h5 class="card-header">Слайдер</h5>
                                                     <div class="col">
                                                         <div class="card-body text-center">
-                                                            <img src="#"
+                                                            <img th:src="@{${secondaryMarket.urlImage}}"
                                                                  alt="#"
                                                                  style="max-width: 250px;
                                                                      max-height: 200px;">
@@ -123,6 +124,7 @@
                                                                         type="text"
                                                                         id="text"
                                                                         class="form-control phone-mask"
+                                                                        th:value="@{${secondaryMarket.text}}"
                                                                 />
                                                             </div>
                                                             <div class="col">
@@ -130,7 +132,9 @@
                                                                 <input
                                                                         type="text"
                                                                         id="url"
+                                                                        name="url"
                                                                         class="form-control phone-mask"
+                                                                        th:value="@{${secondaryMarket.url}}"
                                                                 />
                                                             </div>
 
@@ -154,6 +158,7 @@
                                         <div class="mb-0">
                                             <button class="btn btn-primary"
                                                     data-repeater-create-banner
+                                                    onclick="addNewItemBanner()"
                                                     type="button">
                                                 <i class="ti ti-plus me-1"></i>
                                                 <span class="align-middle">Add</span>
@@ -232,7 +237,7 @@
                                                 <hr/>
                                             </div>`;
 
-                                document.querySelector('[data-repeater-list-Banner]').insertAdjacentHTML('beforeend', itemHtmlBanner);
+                                document.querySelector('[data-repeater-list-banner]').insertAdjacentHTML('beforeend', itemHtmlBanner);
 
                                 const newItemBanner = {
                                     id: nextIdSpecification++,

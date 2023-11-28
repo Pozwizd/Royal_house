@@ -91,12 +91,10 @@ public class RequestsController {
             requests.setStatusRequests(StatusRequests.Новый);
         }
         requestsService.updateRequests(requests);
+
         String referer = request.getHeader("Referer");
-        if (referer != null) {
-            return "redirect:" + referer;
-        } else {
-            return "redirect:/";
-        }
+        return "redirect:" + referer;
+
     }
 
 

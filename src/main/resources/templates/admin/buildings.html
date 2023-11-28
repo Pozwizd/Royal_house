@@ -105,11 +105,7 @@
                                 <tr>
                                     <form method="get" action="/buildings">
                                         <td class="fit-width">
-                                            <input name="Id"
-                                                   type="text"
-                                                   class="form-control"
-                                                   placeholder=""
-                                            />
+
                                         </td>
                                         <td>
                                             <input name="name"
@@ -139,7 +135,18 @@
                                     <td th:text="${building.id}"></td>
                                     <td th:text="${building.name}"></td>
                                     <td th:text="${building.address}"></td>
-                                    <td th:text="${building.statusBuilding}"></td>
+                                    <td >
+                                        <a th:if="${building.statusBuilding.toString() == 'Активен'}"
+                                           class="btn btn-success"
+                                           th:href="@{/buildings/changeStatus/{id}(id=${building.id})}"
+                                           th:text="${building.statusBuilding}">
+                                        </a>
+                                        <a th:if="${building.statusBuilding.toString() == 'Отключен'}"
+                                           class="btn btn-warning"
+                                           th:href="@{/buildings/changeStatus/{id}(id=${building.id})}"
+                                           th:text="${building.statusBuilding}">
+                                        </a>
+                                    </td>
                                     <td>
                                         <a style="max-width: 24px; " th:href="@{/buildings/get/{id}(id=${building.id})}" class="btn btn-primary">
                                             <i class="ti ti-edit"></i>

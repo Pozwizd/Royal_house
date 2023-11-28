@@ -2,7 +2,6 @@ package com.pozwizd.royal_house.service.ServiceImp;
 
 import com.pozwizd.royal_house.Specification.RequestSpecification;
 import com.pozwizd.royal_house.model.Requests;
-import com.pozwizd.royal_house.model.StatusRequests;
 import com.pozwizd.royal_house.repository.RequestsRepository;
 import com.pozwizd.royal_house.service.RequestsService;
 import org.springframework.data.domain.Page;

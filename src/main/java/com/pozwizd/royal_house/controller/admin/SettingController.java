@@ -1,10 +1,9 @@
 package com.pozwizd.royal_house.controller.admin;
 
-import com.pozwizd.royal_house.model.AboutCompany;
-import com.pozwizd.royal_house.model.AdditionalEmail;
-import com.pozwizd.royal_house.model.Building;
-import com.pozwizd.royal_house.model.User;
+import com.pozwizd.royal_house.model.*;
+import com.pozwizd.royal_house.repository.ServiceBannerRepository;
 import com.pozwizd.royal_house.service.*;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/setting")
 public class SettingController {
 
@@ -34,20 +34,10 @@ public class SettingController {
     private final SpecificationBuildingService specificationBuildingService;
     private final InfrastructureBuildingService infrastructureBuildingService;
     private final InfographicRoomService infographicRoomService;
-
     private final AboutCompanyService aboutCompanyService;
     private final UserService userService;
-
-    public SettingController(BuildingService buildingService, InfographicBuildingService infographicBuildingService, InfographicInfrastructureService infographicInfrastructureService, SpecificationBuildingService specificationBuildingService, InfrastructureBuildingService infrastructureBuildingService, InfographicRoomService infographicRoomService, AboutCompanyService aboutCompanyService, UserService userService) {
-        this.buildingService = buildingService;
-        this.infographicBuildingService = infographicBuildingService;
-        this.infographicInfrastructureService = infographicInfrastructureService;
-        this.specificationBuildingService = specificationBuildingService;
-        this.infrastructureBuildingService = infrastructureBuildingService;
-        this.infographicRoomService = infographicRoomService;
-        this.aboutCompanyService = aboutCompanyService;
-        this.userService = userService;
-    }
+    private final ServiceBannerService serviceBannerService;
+    private final SecondaryMarketService secondaryMarketService;
 
     @GetMapping("/contact")
     public ModelAndView contact(Model model) {
@@ -167,19 +157,84 @@ public class SettingController {
 
 
     @GetMapping("/secondaryMarket")
-    public ModelAndView secondaryMarket() {
+    public ModelAndView secondaryMarket(Model model) {
+
+        List<SecondaryMarket> secondaryMarket = secondaryMarketService.getAllSecondaryMarkets();
+        model.addAttribute("secondaryMarkets", secondaryMarket);
 
         return new ModelAndView("admin/secondaryMarket");
     }
 
-    @GetMapping("/editPageService")
-    public ModelAndView editPageService() {
+    @PostMapping("/secondaryMarket")
+    public ModelAndView editSecondaryMarket() {
+
+
+
+        return new ModelAndView("redirect:admin/secondaryMarket");
+    }
+
+
+
+
+
+    @GetMapping("/pageService")
+    public ModelAndView pageService(Model  model) {
+
+        ServiceBanner serviceBanner = serviceBannerService.getServiceBanner(1L);
+        model.addAttribute("serviceBanner", serviceBanner);
 
         return new ModelAndView("admin/editPageService");
     }
 
 
-    @GetMapping("/editPageAboutCompany")
+    @PostMapping("/editPageService")
+    public ModelAndView editPageService(@RequestParam(name = "urlBanner", required = false) MultipartFile urlBanner,
+                                        @RequestParam(name = "textBanner", required = false) String textBanner,
+                                        @RequestParam(name = "titleText", required = false) String titleText,
+                                        Model model) {
+
+
+
+        long serviceBannerId = 1L;
+        ServiceBanner serviceBanner = serviceBannerService.getServiceBanner(serviceBannerId);
+
+        if (serviceBanner == null) {
+            serviceBanner = new ServiceBanner();
+            serviceBanner.setId(serviceBannerId);
+            serviceBanner.setText(textBanner);
+            serviceBanner.setTitle(titleText);
+        } else {
+            serviceBanner.setText(textBanner);
+            serviceBanner.setTitle(titleText);
+        }
+        if (!urlBanner.isEmpty()) {
+            String oldUrlBanner = serviceBanner.getUrlImage();
+            if (oldUrlBanner != null && !urlBanner.isEmpty()) {
+                String filePath = Paths.get("").toFile().getAbsolutePath() + oldUrlBanner;
+                File file = new File(filePath);
+                file.delete();
+            }
+
+            try {
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + urlBanner.getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                urlBanner.transferTo(dest);
+                serviceBanner.setUrlImage("/images/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        serviceBannerService.updateServiceBanner(serviceBanner);
+
+        return new ModelAndView("redirect:/setting/pageService");
+    }
+
+    @GetMapping("/pageAboutCompany")
     public ModelAndView PageAboutCompany(Model model) {
         AboutCompany aboutCompany = aboutCompanyService.findAboutCompanyById(1L);
         model.addAttribute("aboutCompany", aboutCompany);
@@ -193,7 +248,7 @@ public class SettingController {
     public ModelAndView editPageAboutCompany(@RequestParam(name = "urlBanner", required = false) MultipartFile urlBanner,
                                              @RequestParam(name = "textBanner", required = false) String textBanner,
                                              @RequestParam(name = "titleText", required = false) String titleText,
-                                             @RequestParam(name = "textareaAboutCompany", required = false) String textareaAboutCompany,
+                                             @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String textareaAboutCompany,
                                              Model model)  {
 
         long aboutCompanyId = 1L;
@@ -207,7 +262,7 @@ public class SettingController {
         } else {
             aboutCompany.setBannerText(textBanner);
             aboutCompany.setTitle(titleText);
-
+            aboutCompany.setText(textareaAboutCompany);
         }
         if (!urlBanner.isEmpty()) {
             String oldUrlBanner = aboutCompany.getUrlBanner();
@@ -231,8 +286,8 @@ public class SettingController {
         }
 
 
-        aboutCompanyService.saveAboutCompany(aboutCompany);
-        return new ModelAndView("admin/editPageAboutCompany");
+        aboutCompanyService.updateAboutCompany(aboutCompany);
+        return new ModelAndView("redirect:/setting/pageAboutCompany");
     }
 
 }

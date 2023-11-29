@@ -11,10 +11,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BuildingRepository extends CrudRepository<Building, Long> {
     
     Page<Building> findAll(Specification<Building> spec, Pageable pageable);
 
     Page<Building> findAll(Pageable pageable);
+
+    List<Building> findAll();
 }

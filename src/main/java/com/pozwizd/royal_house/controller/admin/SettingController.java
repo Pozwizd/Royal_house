@@ -9,10 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -139,18 +136,18 @@ public class SettingController {
     }
 
     @PostMapping("/bindingObjectEdit")
-    public ModelAndView bindingObjectEdit(@RequestParam(name = "buildingName[]", required = false) List<Building> buildingName,
-                                          @RequestParam(name = "selectedUser[]", required = false) List<User> selectedUser,
-                                          Model model) {
+    public ModelAndView bindingObjectEdit(@ModelAttribute("selectedUser") ArrayList<User> selectedUser, Model model
+            ) {
 
-        for (int i = 0; i < buildingName.size(); i++) {
-            buildingName.get(i).setUser(selectedUser.get(i));
-            buildingService.save(buildingName.get(i));
-            selectedUser.get(i).setBuilding(buildingName.get(i));
-            userService.saveUser(selectedUser.get(i));
+        List<Building> allBuilding = buildingService.findAll();
 
-            return new ModelAndView("redirect:/setting/bindingObject");
+        for (int i = 0; i < allBuilding.size(); i++) {
+            User user = userService.getUserById((long) i);
+            Building building = allBuilding.get(i);
+            building.setUser(user);
+            buildingService.update(building);
         }
+
 
         return new ModelAndView("redirect:/setting/bindingObject");
     }
@@ -165,17 +162,49 @@ public class SettingController {
         return new ModelAndView("admin/secondaryMarket");
     }
 
-    @PostMapping("/secondaryMarket")
-    public ModelAndView editSecondaryMarket() {
+    @PostMapping("/editSecondaryMarket")
+    public ModelAndView editSecondaryMarket(@RequestParam(name = "urlImage[]", required = true) List<MultipartFile> urlImage,
+                                            @RequestParam(name = "text[]", required = true) List<String> text,
+                                            @RequestParam(name = "url[]", required = true) List<String> urlList) {
+
+        for (int i = 0; i < urlImage.size(); i++) {
+            SecondaryMarket secondaryMarket = secondaryMarketService.getSecondaryMarket(i + 1L);
+            if (secondaryMarket == null) {
+                secondaryMarket = new SecondaryMarket();
+                secondaryMarket.setId(i + 1L);
+                secondaryMarket.setText(text.get(i));
+                secondaryMarket.setUrl(urlList.get(i));
+            } else {
+                secondaryMarket.setText(text.get(i));
+                secondaryMarket.setUrl(urlList.get(i));
+            }
+
+            if (!urlImage.get(i).isEmpty()) {
+                String oldUrlImage = secondaryMarket.getUrlImage();
+                if (oldUrlImage != null && !urlImage.get(i).isEmpty()) {
+                    String filePath = Paths.get("").toFile().getAbsolutePath() + oldUrlImage;
+                    File file = new File(filePath);
+                    file.delete();
+                }
+
+                String uuidFile = UUID.randomUUID().toString();
+                String uploadDir = Paths.get("images").toFile().getAbsolutePath() + "/";
+                String fileName = uuidFile + "." + urlImage.get(i).getOriginalFilename();
+                String filePath = uploadDir + fileName;
+                File dest = new File(filePath);
+                try {
+                    urlImage.get(i).transferTo(dest);
+                    secondaryMarket.setUrlImage("/images/" + fileName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            secondaryMarketService.updateSecondaryMarket(secondaryMarket);
+        }
 
 
-
-        return new ModelAndView("redirect:admin/secondaryMarket");
+        return new ModelAndView("redirect:/setting/secondaryMarket");
     }
-
-
-
-
 
     @GetMapping("/pageService")
     public ModelAndView pageService(Model  model) {

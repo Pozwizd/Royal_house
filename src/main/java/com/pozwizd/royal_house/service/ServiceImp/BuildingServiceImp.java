@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class BuildingServiceImp implements BuildingService {
 
@@ -41,7 +43,7 @@ public class BuildingServiceImp implements BuildingService {
     }
 
     @Override
-    public Iterable<Building> findAll() {
+    public List<Building> findAll() {
         return buildingRepository.findAll();
     }
 

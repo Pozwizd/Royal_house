@@ -18,10 +18,10 @@ public class SecondaryMarket {
     @Column(name = "url_image")
     private String urlImage;
 
-    @Column(name = "title")
-    private String title;
-
     @Column(name = "text")
     private String text;
+
+    @Column(name = "url")
+    private String url;
 
 }

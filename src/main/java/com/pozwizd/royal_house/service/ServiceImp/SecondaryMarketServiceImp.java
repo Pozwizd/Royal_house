@@ -4,9 +4,11 @@ import com.pozwizd.royal_house.model.SecondaryMarket;
 import com.pozwizd.royal_house.repository.SecondaryMarketRepository;
 import com.pozwizd.royal_house.service.SecondaryMarketService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 @AllArgsConstructor
 public class SecondaryMarketServiceImp implements SecondaryMarketService {
 

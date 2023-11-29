@@ -9,7 +9,7 @@
         data-template="vertical-menu-template-starter"
 >
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
@@ -17,32 +17,32 @@
 
     <title>Royal House</title>
 
-    <meta name="description" content="" />
+    <meta name="description" content=""/>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico"/>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
             rel="stylesheet"
     />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css"/>
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../../assets/css/demo.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css"/>
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css"/>
+    <link rel="stylesheet" href="../../assets/css/demo.css"/>
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css"/>
 
     <!-- Page CSS -->
 
@@ -76,9 +76,8 @@
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
-                <form action="/buildings/edit-specification/{id}" method="post"
-                      enctype="multipart/form-data"
-                      th:fragment="specificationBuildingForm" onsubmit="transferTextSpecification()">
+                <form action="/setting/editSecondaryMarket" method="post"
+                      enctype="multipart/form-data">
                     <div class="container-xxl flex-grow-1 container-p-y">
 
                         <div class="card-header d-flex align-items-center justify-content-between">
@@ -95,22 +94,22 @@
                                 <div class="card-body">
                                     <div class="form-repeater">
                                         <div data-repeater-list-banner>
-                                            <div data-repeater-item-banner class="flex flex-column justify-content-center align-items-center"
-                                            th:each="secondaryMarket : ${secondaryMarkets}">
-                                            >
+                                            <div data-repeater-item-banner
+                                                 class="flex flex-column justify-content-center align-items-center"
+                                                 th:each="secondaryMarket, i : ${secondaryMarkets}">
                                                 <div class="row">
-                                                    <h5 class="card-header">Слайдер</h5>
+                                                    <h5 class="card-header">Слайдер [[${i.count}]]</h5>
                                                     <div class="col">
                                                         <div class="card-body text-center">
                                                             <img th:src="@{${secondaryMarket.urlImage}}"
-                                                                 alt="#"
+                                                                 th:alt="@{${secondaryMarket.urlImage}}"
                                                                  style="max-width: 250px;
                                                                      max-height: 200px;">
                                                             <hr/>
                                                             <label class="form-label">
                                                                 <input
                                                                         type="file"
-                                                                        name="mainBanner"
+                                                                        name="urlImage[]"
                                                                         class="form-control"
                                                                         accept="image/png, image/jpeg"/>
                                                             </label>
@@ -123,6 +122,7 @@
                                                                 <input
                                                                         type="text"
                                                                         id="text"
+                                                                        name="text[]"
                                                                         class="form-control phone-mask"
                                                                         th:value="@{${secondaryMarket.text}}"
                                                                 />
@@ -132,7 +132,7 @@
                                                                 <input
                                                                         type="text"
                                                                         id="url"
-                                                                        name="url"
+                                                                        name="url[]"
                                                                         class="form-control phone-mask"
                                                                         th:value="@{${secondaryMarket.url}}"
                                                                 />
@@ -144,7 +144,7 @@
                                                         <div class="d-flex align-items-center mb-0">
                                                             <button class="btn btn-label-danger mt-4"
                                                                     data-repeater-delete type="button"
-                                                                    onclick="handleDelete()">
+                                                                    onclick="handleDeleteBanner()">
                                                                 <i class="ti ti-x ti-xs me-1"></i>
                                                                 <span class="align-middle">Delete</span>
                                                             </button>
@@ -178,69 +178,67 @@
                             addDeleteHandlerBanner();
 
                             let itemsBanner = [];
-                            let nextIdBanner = document.getElementsByName("editorDataSpecificationBuilding[]").length;
+                            let nextIdBanner = document.getElementsByName("editorDataSpecificationBuilding[]").length + 1;
                             const btnAddBanner = document.querySelector('[data-repeater-create-banner]');
 
                             function addNewItemBanner() {
-                                let itemHtmlBanner = `<div data-repeater-item-banner
-                                 class="flex flex-column justify-content-center align-items-center">
+                                let itemHtmlBanner = `
+                            <div data-repeater-item-banner data-id="${nextIdBanner}" class="flex
+                                flex-column  align-items-center">
                                 <div class="row">
-                                    <h5 class="card-header">Слайдер</h5>
-                                    <div class="col">
-                                        <div class="card-body text-center">
-                                            <img src="#"
-                                                 alt="#"
-                                                 style="max-width: 250px;
-                                                     max-height: 200px;">
-                                            <hr/>
-                                            <label class="form-label">
-                                                <input
-                                                        type="file"
-                                                        name="mainBanner"
-                                                        class="form-control"
-                                                        accept="image/png, image/jpeg"/>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card-body">
-                                            <div class="col">
-                                                <label class="form-label">Текст</label>
-                                                <input
-                                                        type="text"
-                                                        id="text"
-                                                        class="form-control phone-mask"
-                                                />
-                                            </div>
-                                            <div class="col">
-                                                <label class="form-label">Ссылка</label>
-                                                <input
-                                                        type="text"
-                                                        id="url"
-                                                        class="form-control phone-mask"
-                                                />
-                                            </div>
+                                                    <h5 class="card-header">Слайдер ${nextIdBanner}</h5>
+                                                    <div class="col">
+                                                        <div class="card-body text-center">
+                                                            <label class="form-label">
+                                                                <input
+                                                                        type="file"
+                                                                        name="urlImage[]"
+                                                                        class="form-control"
+                                                                        accept="image/png, image/jpeg"/>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="card-body">
+                                                            <div class="col">
+                                                                <label class="form-label">Текст</label>
+                                                                <input
+                                                                        type="text"
+                                                                        id="text"
+                                                                        name="text[]"
+                                                                        class="form-control phone-mask"
+                                                                />
+                                                            </div>
+                                                            <div class="col">
+                                                                <label class="form-label">Ссылка</label>
+                                                                <input
+                                                                        type="text"
+                                                                        id="url"
+                                                                        name="url[]"
+                                                                        class="form-control phone-mask"
+                                                                />
+                                                            </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="d-flex align-items-center mb-0">
-                                            <button class="btn btn-label-danger mt-4"
-                                                    data-repeater-delete type="button"
-                                                    onclick="handleDelete()">
-                                                <i class="ti ti-x ti-xs me-1"></i>
-                                                <span class="align-middle">Delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="d-flex align-items-center mb-0">
+                                                            <button class="btn btn-label-danger mt-4"
+                                                                    data-repeater-delete type="button"
+                                                                    onclick="handleDeleteBanner()">
+                                                                <i class="ti ti-x ti-xs me-1"></i>
+                                                                <span class="align-middle">Delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <hr/>
-                                            </div>`;
+                            </div>`;
 
                                 document.querySelector('[data-repeater-list-banner]').insertAdjacentHTML('beforeend', itemHtmlBanner);
 
                                 const newItemBanner = {
-                                    id: nextIdSpecification++,
+                                    id: nextIdBanner++,
                                 };
                                 itemsBanner.push(newItemBanner);
 
@@ -248,27 +246,26 @@
                             }
 
                             function addDeleteHandlerBanner() {
-                                const deleteBtnsSpecification = document.querySelectorAll('[data-repeater-delete]');
-                                deleteBtnsSpecification.forEach(btn => {
-                                    btn.addEventListener('click', handleDeleteSpecification);
+                                const deleteBtns = document.querySelectorAll('[data-repeater-delete]');
+                                deleteBtns.forEach(btn => {
+                                    btn.addEventListener('click', handleDeleteBanner);
                                 });
                             }
 
                             function handleDeleteBanner() {
-                                const itemBlockSpecification = this.closest('[data-repeater-item-banner]');
+                                const itemBlockBanner = this.closest('[data-repeater-item-banner]');
 
-                                const itemIndexSpecification = itemsSpecification.findIndex(item => {
-                                    return item.id === parseInt(itemBlockSpecification.dataset.id);
+                                const itemIndexBanner = itemsBanner.findIndex(item => {
+                                    return item.id === parseInt(itemBlockBanner.dataset.id);
                                 });
-                                itemsSpecification.splice(itemIndexSpecification, 1);
-                                itemBlockSpecification.remove();
-                                addDeleteHandlerSpecification();
+                                itemsBanner.splice(itemIndexBanner, 1);
+                                itemBlockBanner.remove();
+                                addDeleteHandlerBanner();
                             }
 
-                            btnAddSpecification.addEventListener('click', addNewItemSpecification);
+                            btnAddSpecification.addEventListener('click', addNewItemBanner);
                         </script>
                     </div>
-
                 </form>
 
                 <!-- / Content -->
@@ -283,7 +280,8 @@
                                 ©
                                 <script>
                                     document.write(new Date().getFullYear());
-                                </script>, Разработано SpaceLab
+                                </script>
+                                , Разработано SpaceLab
                             </div>
                             <div>
                                 <a

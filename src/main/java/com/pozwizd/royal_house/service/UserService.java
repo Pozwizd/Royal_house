@@ -3,14 +3,19 @@ package com.pozwizd.royal_house.service;
 import com.pozwizd.royal_house.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    public void saveUser(User user);
-    public List<User> getAllUsers();
-    public User getUserById(long id);
-    public void deleteUser(long id);
+    List<User> selectAllUsers();
+    Optional<User> selectUserById(Long userId);
+    void insertUser(User customer);
 
-    public void updateUser(User user);
+    boolean existsUserWithEmail(String email);
+    boolean existsUserById(Long userId);
+    void deleteUserById(Long userId);
+    void updateUser(User update);
+    Optional<User> findByName(String username);
+    Optional<User> selectUserByEmail(String email);
 
 }

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -39,7 +40,7 @@ public class SettingController {
     @GetMapping("/contact")
     public ModelAndView contact(Model model) {
 
-        User user = userService.getUserById(1L);
+        Optional<User> user = userService.selectUserById(1L);
 
         model.addAttribute("user", user);
 
@@ -60,28 +61,28 @@ public class SettingController {
                                     @RequestParam(name = "repeatNewPassword", required = false) String repeatNewPassword,
                                     Model model) {
 
-        User user = userService.getUserById(1L);
+        Optional<User> user = userService.selectUserById(1L);
 
         if (phoneNumber != null) {
-            user.setPhoneNumber(phoneNumber);
+            user.get().setPhoneNumber(phoneNumber);
         }
         if (viber != null) {
-            user.setViber(viber);
+            user.get().setViber(viber);
         }
         if (telegram != null) {
-            user.setTelegram(telegram);
+            user.get().setTelegram(telegram);
         }
         if (email != null) {
-            user.setEmail(email);
+            user.get().setEmail(email);
         }
         if (instagram != null) {
-            user.setInstagram(instagram);
+            user.get().setInstagram(instagram);
         }
         if (facebook != null) {
-            user.setFacebook(facebook);
+            user.get().setFacebook(facebook);
         }
         if (address != null) {
-            user.setAddress(address);
+            user.get().setAddress(address);
         }
         if (additionalAddress != null) {
             List<AdditionalEmail> additionalEmails = new ArrayList<>();
@@ -90,17 +91,17 @@ public class SettingController {
                 additionalEmail.setEmail(s);
                 additionalEmails.add(additionalEmail);
             }
-            user.setAdditionalEmails(additionalEmails);
+            user.get().setAdditionalEmails(additionalEmails);
         }
 
 
-        if (user.getPassword() == oldPassword) {
+        if (user.get().getPassword() == oldPassword) {
             if (newPassword.equals(repeatNewPassword)) {
-                user.setPassword(newPassword);
+                user.get().setPassword(newPassword);
             }
         }
 
-        userService.updateUser(user);
+        userService.updateUser(user.get());
 
         return new ModelAndView("redirect:/setting/contact");
     }
@@ -130,7 +131,7 @@ public class SettingController {
         model.addAttribute("buildings", buildings);
         model.addAttribute("currentPage", page);
 
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userService.selectAllUsers());
 
         return new ModelAndView("admin/bindingObject");
     }
@@ -142,9 +143,9 @@ public class SettingController {
         List<Building> allBuilding = buildingService.findAll();
 
         for (int i = 0; i < allBuilding.size(); i++) {
-            User user = userService.getUserById((long) i);
+            Optional<User> user = userService.selectUserById((long) i);
             Building building = allBuilding.get(i);
-            building.setUser(user);
+            building.setUser(user.get());
             buildingService.update(building);
         }
 

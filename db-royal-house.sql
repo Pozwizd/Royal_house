@@ -194,6 +194,7 @@ where name like '% %'
   and status = ' ';
 
 
+
 USE db_royal_house;
 INSERT INTO requests (name, phone_number, email, comment, date, status)
 VALUES ('John Doe', '+380501234567', 'john@example.com', 'Need help with order', NOW(), 'Новый'),
@@ -231,44 +232,44 @@ VALUES
 
 INSERT INTO building (id, address, latitude, longitude, main_banner, name, status, text_about, text_location, url_panorama, url_slide_1, url_slide_2, url_slide_3)
 VALUES
-    (1, 'Адрес здания 1', '50.123456', '30.123456', 'https://example.com/building1.jpg', 'Название здания 1', 'Активен', 'Описание здания 1', 'Описание местоположения 1', 'https://example.com/panorama1.jpg', 'https://example.com/slide1_1.jpg', 'https://example.com/slide1_2.jpg', 'https://example.com/slide1_3.jpg'),
-    (2, 'Адрес здания 2', '52.123456', '32.123456', 'https://example.com/building2.jpg', 'Название здания 2', 'Отключен', 'Описание здания 2', 'Описание местоположения 2', 'https://example.com/panorama2.jpg', 'https://example.com/slide2_1.jpg', 'https://example.com/slide2_2.jpg', 'https://example.com/slide2_3.jpg');
+    (1, 'Адрес здания 1', '50.123456', '30.123456', '/images/building1.jpg', 'Название здания 1', 'Активен', 'Описание здания 1', 'Описание местоположения 1', 'https://example.com/panorama1.jpg', 'https://example.com/slide1_1.jpg', 'https://example.com/slide1_2.jpg', 'https://example.com/slide1_3.jpg'),
+    (2, 'Адрес здания 2', '52.123456', '32.123456', '/images/building2.jpg', 'Название здания 2', 'Отключен', 'Описание здания 2', 'Описание местоположения 2', 'https://example.com/panorama2.jpg', 'https://example.com/slide2_1.jpg', 'https://example.com/slide2_2.jpg', 'https://example.com/slide2_3.jpg');
 
 INSERT INTO infographic_building (id, description, url_image, building_id)
 VALUES
-    (1, 'Описание инфографики здания 1', 'https://example.com/infographic1.jpg', 1),
-    (2, 'Описание инфографики здания 2', 'https://example.com/infographic2.jpg', 2);
+    (1, 'Описание инфографики здания 1', '/images/infographic1.jpg', 1),
+    (2, 'Описание инфографики здания 2', '/images/infographic2.jpg', 2);
 
 INSERT INTO infrastructure_building (id, text, url_slide_1, url_slide_2, url_slide_3, building_id)
 VALUES
-    (1, 'Текст инфраструктуры здания 1', 'https://example.com/infra1_slide1.jpg', 'https://example.com/infra1_slide2.jpg', 'https://example.com/infra1_slide3.jpg', 1),
-    (2, 'Текст инфраструктуры здания 2', 'https://example.com/infra2_slide1.jpg', 'https://example.com/infra2_slide2.jpg', 'https://example.com/infra2_slide3.jpg', 2);
+    (1, 'Текст инфраструктуры здания 1', '/images/infra1_slide1.jpg', '/images/infra1_slide2.jpg', '/images/infra1_slide3.jpg', 1),
+    (2, 'Текст инфраструктуры здания 2', '/images/infra2_slide1.jpg', '/images/infra2_slide2.jpg', '/images/infra2_slide3.jpg', 2);
 
 INSERT INTO infographic_infrastructure (id, alt_image, description, url_image, infrastructure_building_id)
 VALUES
-    (1, 'Альт инфраструктуры 1', 'Описание инфраструктуры 1', 'https://example.com/infra1.jpg', 1),
-    (2, 'Альт инфраструктуры 2', 'Описание инфраструктуры 2', 'https://example.com/infra2.jpg', 2);
+    (1, 'Альт инфраструктуры 1', 'Описание инфраструктуры 1', '/images/infra1.jpg', 1),
+    (2, 'Альт инфраструктуры 2', 'Описание инфраструктуры 2', '/images/infra2.jpg', 2);
 
 
 INSERT INTO room_building (id, text, url_slide_1, url_slide_2, url_slide_3, building_id)
 VALUES
-    (1, 'Текст помещения здания 1', 'https://example.com/room1_slide1.jpg', 'https://example.com/room1_slide2.jpg', 'https://example.com/room1_slide3.jpg', 1),
-    (2, 'Текст помещения здания 2', 'https://example.com/room2_slide1.jpg', 'https://example.com/room2_slide2.jpg', 'https://example.com/room2_slide3.jpg', 2);
+    (1, 'Текст помещения здания 1', '/images/room1_slide1.jpg', '/images/room1_slide2.jpg', '/images/room1_slide3.jpg', 1),
+    (2, 'Текст помещения здания 2', '/images/room2_slide1.jpg', '/images/room2_slide2.jpg', '/images/room2_slide3.jpg', 2);
 
 INSERT INTO infographic_rooms (id, alt_image, description, url_image, room_id)
 VALUES
-    (1, 'Альт помещения 1', 'Описание помещения 1', 'https://example.com/room1.jpg', 1),
-    (2, 'Альт помещения 2', 'Описание помещения 2', 'https://example.com/room2.jpg', 2);
+    (1, 'Альт помещения 1', 'Описание помещения 1', '/images/room1.jpg', 1),
+    (2, 'Альт помещения 2', 'Описание помещения 2', '/images/room2.jpg', 2);
 
 INSERT INTO service (id, name, text, url_banner, url_preview, visible)
 VALUES
-    (1, 'Название услуги 1', 'Описание услуги 1', 'https://example.com/service1.jpg', 'https://example.com/preview1.jpg', 'Да'),
-    (2, 'Название услуги 2', 'Описание услуги 2', 'https://example.com/service2.jpg', 'https://example.com/preview2.jpg', 'Нет');
+    (1, 'Название услуги 1', 'Описание услуги 1', '/images/service1.jpg', '/images/preview1.jpg', 'Да'),
+    (2, 'Название услуги 2', 'Описание услуги 2', '/images/service2.jpg', '/images/preview2.jpg', 'Нет');
 
 INSERT INTO service_banner (id, text, title, url_image)
 VALUES
-    (1, 'Текст баннера услуг 1', 'Заголовок баннера услуг 1', 'https://example.com/service_banner1.jpg'),
-    (2, 'Текст баннера услуг 2', 'Заголовок баннера услуг 2', 'https://example.com/service_banner2.jpg');
+    (1, 'Текст баннера услуг 1', 'Заголовок баннера услуг 1', '/images/service_banner1.jpg'),
+    (2, 'Текст баннера услуг 2', 'Заголовок баннера услуг 2', '/images/service_banner2.jpg');
 
 INSERT INTO specification_building (id, text, building_id)
 VALUES
@@ -277,8 +278,8 @@ VALUES
 
 INSERT INTO user (id, address, email, facebook, instagram, name, password, phone_number, telegram, viber)
 VALUES
-    (1, 'Адрес пользователя 1', 'user1@example.com', 'facebook1', 'instagram1', 'Имя пользователя 1', 'password1', '+79991112233', 'telegram1', 'viber1'),
-    (2, 'Адрес пользователя 2', 'user2@example.com', 'facebook2', 'instagram2', 'Имя пользователя 2', 'password2', '+79993334455', 'telegram2', 'viber2');
+    (1, 'Адрес пользователя 1', 'user1@example.com', 'facebook1', 'instagram1', 'user1', '$2a$12$ox42yA17cWfydSJ6SX9VFuSW0aKyUpvvFE7MxCrVKlwkVwerEKFH.', '+38099999999', 'telegram1', 'viber1'),
+    (2, 'Адрес пользователя 2', 'user2@example.com', 'facebook2', 'instagram2', 'user2', '$2a$12$ox42yA17cWfydSJ6SX9VFuSW0aKyUpvvFE7MxCrVKlwkVwerEKFH.', '+38099999999', 'telegram2', 'viber2');
 
 INSERT INTO additional_email (id, email, users_id)
 VALUES

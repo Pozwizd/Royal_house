@@ -278,10 +278,14 @@ VALUES
 
 INSERT INTO user (id, address, email, facebook, instagram, name, password, phone_number, telegram, viber)
 VALUES
-    (1, 'Адрес пользователя 1', 'user1@example.com', 'facebook1', 'instagram1', 'user1', '$2a$12$ox42yA17cWfydSJ6SX9VFuSW0aKyUpvvFE7MxCrVKlwkVwerEKFH.', '+38099999999', 'telegram1', 'viber1'),
-    (2, 'Адрес пользователя 2', 'user2@example.com', 'facebook2', 'instagram2', 'user2', '$2a$12$ox42yA17cWfydSJ6SX9VFuSW0aKyUpvvFE7MxCrVKlwkVwerEKFH.', '+38099999999', 'telegram2', 'viber2');
+    (1, 'Адрес пользователя 1', 'user1@example.com', 'facebook1', 'instagram1', 'user1', '{bcrypt}$2a$12$ox42yA17cWfydSJ6SX9VFuSW0aKyUpvvFE7MxCrVKlwkVwerEKFH.', '+38099999999', 'telegram1', 'viber1'),
+    (2, 'Адрес пользователя 2', 'user2@example.com', 'facebook2', 'instagram2', 'user2', '{bcrypt}$2a$12$ox42yA17cWfydSJ6SX9VFuSW0aKyUpvvFE7MxCrVKlwkVwerEKFH.', '+38099999999', 'telegram2', 'viber2');
 
 INSERT INTO additional_email (id, email, users_id)
 VALUES
     (1, 'additional1@example.com', 1),
     (2, 'additional2@example.com', 2);
+
+insert into secondary_market (id, url_image, text, url)
+VALUES
+    (1, '/images/secondary_market1.jpg', 'Описание развлечения 1', '/url/to/event1');

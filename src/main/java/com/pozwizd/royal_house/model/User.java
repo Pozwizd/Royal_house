@@ -50,7 +50,7 @@ public class User implements UserDetails {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private Building building;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<AdditionalEmail> additionalEmails;
 // ==================================================================
     @Override

@@ -83,8 +83,13 @@
             </div>
             <hr class="my-5"/>
             <form th:action="@{/setting/contactEdit}" method="post">
+              <input
+                      type="hidden"
+                      class="form-control hiding"
+                      name="userId"
+                      th:value="${user.getId()}"
+              />
               <div class="col-xxl">
-
                 <div class="card mb-4">
                   <div class="card-body">
                     <div class="row g-6">
@@ -289,7 +294,7 @@
                               <input
                                       class="form-control"
                                       type="text"
-                                      name="address"
+                                      name="additionalAddress[]"
                                       placeholder="Email"
                               />
                             </div>

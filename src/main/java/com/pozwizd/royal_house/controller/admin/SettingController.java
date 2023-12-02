@@ -1,12 +1,14 @@
 package com.pozwizd.royal_house.controller.admin;
 
 import com.pozwizd.royal_house.model.*;
-import com.pozwizd.royal_house.repository.ServiceBannerRepository;
 import com.pozwizd.royal_house.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,8 @@ import java.util.UUID;
 @RequestMapping("/setting")
 public class SettingController {
 
+    private final PasswordEncoder passwordEncoder;
+
     private final BuildingService buildingService;
     private final InfographicBuildingService infographicBuildingService;
     private final InfographicInfrastructureService infographicInfrastructureService;
@@ -36,11 +40,12 @@ public class SettingController {
     private final UserService userService;
     private final ServiceBannerService serviceBannerService;
     private final SecondaryMarketService secondaryMarketService;
+    private final AdditionalEmailService additionalEmailService;
 
     @GetMapping("/contact")
-    public ModelAndView contact(Model model) {
+    public ModelAndView contact(Authentication authentication, Model model) {
 
-        Optional<User> user = userService.selectUserById(1L);
+        User user = (User) authentication.getPrincipal();
 
         model.addAttribute("user", user);
 
@@ -48,7 +53,8 @@ public class SettingController {
     }
 
     @PostMapping("/contactEdit")
-    public ModelAndView contactEdit(@RequestParam(name = "phoneNumber", required = false) String phoneNumber,
+    public ModelAndView contactEdit(@RequestParam(name = "userId", required = false) Long userId,
+                                    @RequestParam(name = "phoneNumber", required = false) String phoneNumber,
                                     @RequestParam(name = "viber", required = false) String viber,
                                     @RequestParam(name = "telegram", required = false) String telegram,
                                     @RequestParam(name = "email", required = false) String email,
@@ -61,47 +67,56 @@ public class SettingController {
                                     @RequestParam(name = "repeatNewPassword", required = false) String repeatNewPassword,
                                     Model model) {
 
-        Optional<User> user = userService.selectUserById(1L);
+        Optional<User> user = userService.selectUserById(userId);
+        User originalUser = user.get();
 
         if (phoneNumber != null) {
-            user.get().setPhoneNumber(phoneNumber);
+            originalUser.setPhoneNumber(phoneNumber);
         }
         if (viber != null) {
-            user.get().setViber(viber);
+            originalUser.setViber(viber);
         }
         if (telegram != null) {
-            user.get().setTelegram(telegram);
+            originalUser.setTelegram(telegram);
         }
         if (email != null) {
-            user.get().setEmail(email);
+            originalUser.setEmail(email);
         }
         if (instagram != null) {
-            user.get().setInstagram(instagram);
+            originalUser.setInstagram(instagram);
         }
         if (facebook != null) {
-            user.get().setFacebook(facebook);
+            originalUser.setFacebook(facebook);
         }
         if (address != null) {
-            user.get().setAddress(address);
+            originalUser.setAddress(address);
         }
         if (additionalAddress != null) {
             List<AdditionalEmail> additionalEmails = new ArrayList<>();
-            for (String s : additionalAddress) {
-                AdditionalEmail additionalEmail = new AdditionalEmail();
-                additionalEmail.setEmail(s);
-                additionalEmails.add(additionalEmail);
+            additionalEmailService.deleteAllByUser(originalUser);
+            for (String additionalEmail : additionalAddress) {
+                AdditionalEmail additionalEmail1 = new AdditionalEmail();
+                additionalEmail1.setEmail(additionalEmail);
+                additionalEmail1.setUser(originalUser);
+                additionalEmails.add(additionalEmail1);
+                additionalEmailService.saveAdditionalEmail(additionalEmail1);
+
             }
-            user.get().setAdditionalEmails(additionalEmails);
+            originalUser.setAdditionalEmails(additionalEmails);
+        } else {
+            additionalEmailService.deleteAllByUser(originalUser);
+            originalUser.setAdditionalEmails(null);
         }
 
 
-        if (user.get().getPassword() == oldPassword) {
+        if (passwordEncoder.matches(passwordEncoder.encode(oldPassword), originalUser.getPassword())) {
             if (newPassword.equals(repeatNewPassword)) {
-                user.get().setPassword(newPassword);
+                String encodedPassword = passwordEncoder.encode(newPassword);
+                originalUser.setPassword(encodedPassword);
             }
         }
 
-        userService.updateUser(user.get());
+        userService.updateUser(originalUser);
 
         return new ModelAndView("redirect:/setting/contact");
     }

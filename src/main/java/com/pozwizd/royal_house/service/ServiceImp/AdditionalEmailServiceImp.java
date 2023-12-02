@@ -1,6 +1,7 @@
 package com.pozwizd.royal_house.service.ServiceImp;
 
 import com.pozwizd.royal_house.model.AdditionalEmail;
+import com.pozwizd.royal_house.model.User;
 import com.pozwizd.royal_house.repository.AdditionalEmailRepository;
 import com.pozwizd.royal_house.service.AdditionalEmailService;
 import org.springframework.stereotype.Repository;
@@ -41,4 +42,13 @@ public class AdditionalEmailServiceImp implements AdditionalEmailService {
     public List<AdditionalEmail> getAllAdditionalEmails() {
         return additionalEmailRepository.findAll();
     }
+
+    @Override
+    public void deleteAllByUser(User user) {
+        List<AdditionalEmail> additionalEmails = (List<AdditionalEmail>) additionalEmailRepository.findAllByUser(user);
+        for (AdditionalEmail additionalEmail : additionalEmails) {
+            additionalEmailRepository.deleteById(additionalEmail.getId());
+        }
+    }
+
 }

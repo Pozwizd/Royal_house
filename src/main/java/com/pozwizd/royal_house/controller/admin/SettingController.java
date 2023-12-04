@@ -109,10 +109,12 @@ public class SettingController {
         }
 
 
-        if (passwordEncoder.matches(passwordEncoder.encode(oldPassword), originalUser.getPassword())) {
+
+        if(passwordEncoder.matches(oldPassword, originalUser.getPassword())) {
             if (newPassword.equals(repeatNewPassword)) {
-                String encodedPassword = passwordEncoder.encode(newPassword);
-                originalUser.setPassword(encodedPassword);
+                String encodedNewPassword = passwordEncoder.encode(newPassword);
+                originalUser.setPassword(encodedNewPassword);
+                userService.updateUser(originalUser);
             }
         }
 

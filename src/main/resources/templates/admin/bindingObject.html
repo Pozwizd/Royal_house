@@ -108,8 +108,11 @@
                                         </td>
                                         <td>
                                             <label>
-                                                <select name="selectedUser[]"  class="form-select" th:field="*{users}" >
-                                                    <option th:each="user : ${users}" th:text="${user.name}" th:value="${user.id}"></option>
+                                                <select name="selectedUser[]"  class="form-select" >
+                                                    <option th:each="user : ${users}" th:text="${user.name}" th:value="${user.name}"
+                                                            th:classappend="${building.user.id == user.id ? 'selected' : ''}">
+
+                                                    </option>
                                                 </select>
                                             </label>
                                         </td>

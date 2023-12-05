@@ -276,10 +276,10 @@ VALUES
     (1, 'Спецификация здания 1', 1),
     (2, 'Спецификация здания 2', 2);
 
-INSERT INTO user (id, address, email, facebook, instagram, name, password, phone_number, telegram, viber)
+INSERT INTO user (id, address, email, facebook, instagram, name, password, phone_number, telegram, viber, building_id)
 VALUES
-    (1, 'Адрес пользователя 1', 'user1@example.com', 'facebook1', 'instagram1', 'user1', '{bcrypt}$2a$12$ox42yA17cWfydSJ6SX9VFuSW0aKyUpvvFE7MxCrVKlwkVwerEKFH.', '+38099999999', 'telegram1', 'viber1'),
-    (2, 'Адрес пользователя 2', 'user2@example.com', 'facebook2', 'instagram2', 'user2', '{bcrypt}$2a$12$ox42yA17cWfydSJ6SX9VFuSW0aKyUpvvFE7MxCrVKlwkVwerEKFH.', '+38099999999', 'telegram2', 'viber2');
+    (1, 'Адрес пользователя 1', 'user1@example.com', 'facebook1', 'instagram1', 'user1', '$2a$10$tBs464npVGww.e5RhfkLKOHmIi1FjzCHYy7XfD4M3KPgJewAC2kVq', '+38099999999', 'telegram1', 'viber1', 1),
+    (2, 'Адрес пользователя 2', 'user2@example.com', 'facebook2', 'instagram2', 'user2', '$2a$10$tBs464npVGww.e5RhfkLKOHmIi1FjzCHYy7XfD4M3KPgJewAC2kVq', '+38099999999', 'telegram2', 'viber2', 2);
 
 INSERT INTO additional_email (id, email, users_id)
 VALUES

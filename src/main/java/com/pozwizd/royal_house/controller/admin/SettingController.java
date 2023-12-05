@@ -109,8 +109,7 @@ public class SettingController {
         }
 
 
-
-        if(passwordEncoder.matches(oldPassword, originalUser.getPassword())) {
+        if (passwordEncoder.matches(oldPassword, originalUser.getPassword())) {
             if (newPassword.equals(repeatNewPassword)) {
                 String encodedNewPassword = passwordEncoder.encode(newPassword);
                 originalUser.setPassword(encodedNewPassword);
@@ -122,7 +121,6 @@ public class SettingController {
 
         return new ModelAndView("redirect:/setting/contact");
     }
-
 
 
     @GetMapping("/bindingObject")
@@ -154,18 +152,38 @@ public class SettingController {
     }
 
     @PostMapping("/bindingObjectEdit")
-    public ModelAndView bindingObjectEdit(@ModelAttribute("selectedUser") ArrayList<User> selectedUser, Model model
-            ) {
+    public ModelAndView bindingObjectEdit(@RequestParam(name = "selectedUser[]", required = false) ArrayList<String> selectedUser,
+                                          Model model) {
 
         List<Building> allBuilding = buildingService.findAll();
 
+//        for (int i = 0; i < allBuilding.size(); i++) {
+//            Optional<User> user = userService.findByName(selectedUser.get(i));
+//            User originalUser = user.get();
+//            Building building = allBuilding.get(i);
+//            originalUser.setBuilding(building);
+//            building.setUser(originalUser);
+//
+//            userService.updateUser(originalUser);
+//            buildingService.update(building);
+//        }
+
         for (int i = 0; i < allBuilding.size(); i++) {
-            Optional<User> user = userService.selectUserById((long) i);
+            Optional<User> user = userService.findByName(selectedUser.get(i));
+            User originalUser = user.get();
             Building building = allBuilding.get(i);
-            building.setUser(user.get());
+            originalUser.setBuilding(null);
+            building.setUser(null);
+
+            userService.updateUser(originalUser);
+            buildingService.update(building);
+
+            originalUser.setBuilding(building);
+            building.setUser(originalUser);
+
+            userService.updateUser(originalUser);
             buildingService.update(building);
         }
-
 
         return new ModelAndView("redirect:/setting/bindingObject");
     }
@@ -225,7 +243,7 @@ public class SettingController {
     }
 
     @GetMapping("/pageService")
-    public ModelAndView pageService(Model  model) {
+    public ModelAndView pageService(Model model) {
 
         ServiceBanner serviceBanner = serviceBannerService.getServiceBanner(1L);
         model.addAttribute("serviceBanner", serviceBanner);
@@ -239,7 +257,6 @@ public class SettingController {
                                         @RequestParam(name = "textBanner", required = false) String textBanner,
                                         @RequestParam(name = "titleText", required = false) String titleText,
                                         Model model) {
-
 
 
         long serviceBannerId = 1L;
@@ -296,7 +313,7 @@ public class SettingController {
                                              @RequestParam(name = "textBanner", required = false) String textBanner,
                                              @RequestParam(name = "titleText", required = false) String titleText,
                                              @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String textareaAboutCompany,
-                                             Model model)  {
+                                             Model model) {
 
         long aboutCompanyId = 1L;
         AboutCompany aboutCompany = aboutCompanyService.findAboutCompanyById(aboutCompanyId);

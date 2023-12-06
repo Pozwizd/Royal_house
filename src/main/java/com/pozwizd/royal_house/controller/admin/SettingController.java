@@ -122,7 +122,7 @@ public class SettingController {
         return new ModelAndView("redirect:/setting/contact");
     }
 
-
+// TODO: Нужно добавить предупреждение о привязке 1 к 1
     @GetMapping("/bindingObject")
     public ModelAndView bindingObject(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(required = false) String name,
@@ -174,9 +174,17 @@ public class SettingController {
             Building building = allBuilding.get(i);
             originalUser.setBuilding(null);
             building.setUser(null);
-
             userService.updateUser(originalUser);
             buildingService.update(building);
+        }
+
+
+        for (int i = 0; i < allBuilding.size(); i++) {
+            Optional<User> user = userService.findByName(selectedUser.get(i));
+            User originalUser = user.get();
+            Building building = allBuilding.get(i);
+
+
 
             originalUser.setBuilding(building);
             building.setUser(originalUser);

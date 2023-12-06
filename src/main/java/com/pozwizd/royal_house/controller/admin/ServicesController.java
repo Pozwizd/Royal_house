@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/services")
+@RequestMapping("/admin/services")
 public class ServicesController {
 
     private final ServicesService servicesService;

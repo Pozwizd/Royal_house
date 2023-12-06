@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/requests")
+@RequestMapping("/admin/requests")
 public class RequestsController {
 
     private final RequestsService requestsService;

@@ -110,14 +110,14 @@
                                         <td>
                                             <button th:if="${requests.statusRequests.toString() == 'Отвечено'}"
                                                class="btn btn-success"
-                                               th:href="@{/requests/changeStatus/{id}(id=${requests.id})}"
+                                               th:href="@{/admin/requests/changeStatus/{id}(id=${requests.id})}"
                                                th:text="${requests.statusRequests}">
                                                 Success
                                             </button>
                                             <button th:if="${requests.statusRequests.toString() == 'Новый'}"
                                                class="btn btn-warning"
 
-                                               th:href="@{/requests/changeStatus/{id}(id=${requests.id})}"
+                                               th:href="@{/admin/requests/changeStatus/{id}(id=${requests.id})}"
                                                th:text="${requests.statusRequests}">
                                                 Warning
                                             </button>

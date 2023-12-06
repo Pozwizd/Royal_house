@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/buildings")
+@RequestMapping("/admin/buildings")
 public class BuildingController {
 
     private final BuildingService buildingService;
@@ -191,14 +191,18 @@ public class BuildingController {
         building.setInfographicBuildings(infographicBuildings);
         infographicBuildingService.saveAll(infographicBuildings);
         buildingService.update(building);
-        return new ModelAndView("redirect:/buildings/get/" + building.getId());
+
+        return new ModelAndView("redirect:ar/buildings/get/" + building.getId());
     }
 
 
     @PostMapping("/edit-about-project/{id}")
     public ModelAndView editAboutProjectBuilding(@RequestParam(name = "buildingId", required = true) String id,
                                                  @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
-                                                 @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2, @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3, @RequestParam(name = "editorDataAboutProject", required = false) Object TextAboutProject,
+                                                 @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
+                                                 @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
+                                                 @RequestParam(name = "editorDataAboutProject", required = false) Object TextAboutProject,
+                                                 HttpServletRequest request,
                                                  Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
@@ -269,20 +273,25 @@ public class BuildingController {
 
         building.setTextAbout(TextAboutProject.toString());
         buildingService.update(building);
-        return new ModelAndView("redirect:/buildings/get/" + building.getId());
+
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer + building.getId());
     }
 
     @PostMapping("/edit-location/{id}")
     public ModelAndView editLocationBuilding(@RequestParam(name = "buildingId", required = true) String id,
                                              @RequestParam(name = "LocationLongitudeBuilding", required = true) String longitude,
                                              @RequestParam(name = "LocationLatitudeBuilding", required = true) String latitude,
+                                             HttpServletRequest request,
                                              Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
         building.setLongitude(longitude);
         building.setLatitude(latitude);
         buildingService.update(building);
-        return new ModelAndView("redirect:/buildings/get/" + building.getId());
+
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer + building.getId());
     }
 
     @PostMapping("/edit-infrastructure-building/{id}")
@@ -293,6 +302,7 @@ public class BuildingController {
                                                    @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String TextInfrastructureBuilding,
                                                    @RequestParam(name = "imagesInfographicInfrastructure[]", required = false) List<MultipartFile> imagesInfographicInfrastructure,
                                                    @RequestParam(name = "descriptionImageInfographicInfrastructure[]", required = false) List<String> descriptionImageInfographicInfrastructure,
+                                                   HttpServletRequest request,
                                                    Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
@@ -426,14 +436,20 @@ public class BuildingController {
         // Обновляем значения
         building.getInfrastructureBuilding().setInfographicInfrastructures(infographicInfrastructures);
         buildingService.update(building);
-        return new ModelAndView("redirect:/buildings/get/" + building.getId());
+
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer + building.getId());
     }
 
     @PostMapping("/edit-rooms-building/{id}")
     public ModelAndView editRoomsBuilding(@RequestParam(name = "buildingId", required = true) String id,
-                                                   @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
-                                                   @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2, @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3, @RequestParam(name = "editorDataRoomsBuilding", required = false) String textRoomsBuilding, @RequestParam(name = "imagesRoomInfographic[]", required = false) List<MultipartFile> imagesRoomInfographic, @RequestParam(name = "descriptionImageRoomInfographic[]", required = false) List<String> descriptionImageRoomInfographic,
-                                                   Model model) {
+                                          @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
+                                          @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
+                                          @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
+                                          @RequestParam(name = "editorDataRoomsBuilding", required = false) String textRoomsBuilding,
+                                          @RequestParam(name = "imagesRoomInfographic[]", required = false) List<MultipartFile> imagesRoomInfographic,
+                                          @RequestParam(name = "descriptionImageRoomInfographic[]", required = false) List<String> descriptionImageRoomInfographic,
+                                          HttpServletRequest request) {
 
         Building building = buildingService.findById(Long.parseLong(id));
 
@@ -564,14 +580,16 @@ public class BuildingController {
         // Обновляем значения
         building.getRoomBuilding().setInfographicRooms(infographicRooms);
         buildingService.update(building);
-        return new ModelAndView("redirect:/buildings/get/" + building.getId());
+
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer + building.getId());
     }
 
 
     @PostMapping("/edit-panorama/{id}")
     public ModelAndView editPanoramaBuilding(@RequestParam(name = "buildingId", required = true) String id,
                                              @RequestParam(name = "panoramaBuilding", required = false) MultipartFile panoramaBuilding,
-                                             Model model) {
+                                             HttpServletRequest request) {
 
         Building building = buildingService.findById(Long.parseLong(id));
 
@@ -597,13 +615,14 @@ public class BuildingController {
             buildingService.update(building);
         }
 
-        return new ModelAndView("redirect:/buildings/get/" + id);
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer + building.getId());
     }
 
     @PostMapping("/edit-specification/{id}")
     public ModelAndView editSpecificationBuilding(@RequestParam(name = "buildingId", required = true) String id,
                                                   @RequestParam(name = "editorDataSpecificationBuilding[]", required = false) List<String> specificationBuildingsText,
-                                                  Model model) {
+                                                  HttpServletRequest request) {
 
         Building building = buildingService.findById(Long.parseLong(id));
 
@@ -623,7 +642,8 @@ public class BuildingController {
 
         buildingService.update(building);
 
-        return new ModelAndView("redirect:/buildings/get/" + id);
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer + building.getId());
     }
 
 

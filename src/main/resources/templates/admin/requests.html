@@ -106,7 +106,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <form method="get" action="/requests">
+                                    <form method="get" action="/admin/requests">
                                         <td>
                                             <input name="name"
                                                    id="name"
@@ -134,13 +134,13 @@
                                         <td></td>
                                         <td></td>
                                         <td>
-<!--                                            TODO: Проблема с Enum-->
-<!--                                            <select name="status"-->
-<!--                                                    class="form-select color-dropdown">-->
-<!--                                                <option value=""></option>-->
-<!--                                                <option value="1">Новый</option>-->
-<!--                                                <option value="0">Отвечено</option>-->
-<!--                                            </select>-->
+                                            <!--                                            TODO: Проблема с Enum-->
+                                            <!--                                            <select name="status"-->
+                                            <!--                                                    class="form-select color-dropdown">-->
+                                            <!--                                                <option value=""></option>-->
+                                            <!--                                                <option value="1">Новый</option>-->
+                                            <!--                                                <option value="0">Отвечено</option>-->
+                                            <!--                                            </select>-->
                                         </td>
                                         <td>
                                             <button type="submit" class="btn btn-primary">
@@ -159,20 +159,24 @@
                                     <td class="flex flex-column justify-content-center">
                                         <a th:if="${inquiry.getStatusRequests.toString() == 'Отвечено'}"
                                            class="btn btn-success "
-                                           th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
+                                           th:href="@{/admin/requests/changeStatus/{id}(id=${inquiry.id})}"
                                            th:text="${inquiry.getStatusRequests}">
                                         </a>
                                         <a th:if="${inquiry.getStatusRequests.toString() == 'Новый'}"
                                            class="btn btn-warning"
-                                           th:href="@{/requests/changeStatus/{id}(id=${inquiry.id})}"
+                                           th:href="@{/admin/requests/changeStatus/{id}(id=${inquiry.id})}"
                                            th:text="${inquiry.getStatusRequests}">
                                         </a>
                                     </td>
                                     <td>
-                                        <a style="max-width: 24px; " th:href="@{/requests/get/{id}(id=${inquiry.id})}" class="btn btn-primary">
+                                        <a style="max-width: 24px; "
+                                           th:href="@{/admin/requests/get/{id}(id=${inquiry.id})}"
+                                           class="btn btn-primary">
                                             <i class="ti ti-eye"></i>
                                         </a>
-                                        <a style="max-width: 24px; " th:href="@{/requests/delete/{id}(id=${inquiry.id})}" class="btn btn-danger">
+                                        <a style="max-width: 24px; "
+                                           th:href="@{/admin/requests/delete/{id}(id=${inquiry.id})}"
+                                           class="btn btn-danger">
                                             <i class="ti ti-trash"></i>
                                         </a>
                                     </td>
@@ -184,31 +188,32 @@
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item first">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=0, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                           th:attr="href=@{/admin/requests(page=0, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
                                             <i class="ti ti-chevrons-left ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item prev">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, name=${name}, phoneNumber=${phoneNumber} , email=${email})}">
+                                           th:attr="href=@{/admin/requests(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, name=${name}, phoneNumber=${phoneNumber} , email=${email})}">
                                             <i class="ti ti-chevron-left ti-xs"></i>
                                         </a>
                                     </li>
-                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage == i - 1} ? 'active'">
+                                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
+                                        th:classappend="${currentPage == i - 1} ? 'active'">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=${i - 1}, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                           th:attr="href=@{/admin/requests(page=${i - 1}, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
                                             [[${i}]]
                                         </a>
                                     </li>
                                     <li class="page-item next">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                           th:attr="href=@{/admin/requests(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
                                             <i class="ti ti-chevron-right ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item last">
                                         <a class="page-link"
-                                           th:attr="href=@{/requests(page=${totalPages - 1 }, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
+                                           th:attr="href=@{/admin/requests(page=${totalPages - 1 }, name=${name}, phoneNumber=${phoneNumber}, email=${email})}">
                                             <i class="ti ti-chevrons-right ti-xs"></i>
                                         </a>
                                     </li>

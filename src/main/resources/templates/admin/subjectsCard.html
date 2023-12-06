@@ -86,8 +86,8 @@
                     <br/>
                     <div class="card">
                         <div class="card-body">
-                            <div  class="table-responsive text-nowrap">
-                                <table  class="table table-bordered">
+                            <div class="table-responsive text-nowrap">
+                                <table class="table table-bordered">
                                     <tbody>
                                     <tr>
                                         <td>ID</td>
@@ -123,14 +123,15 @@
                                     </tr>
                                     <tr>
                                         <td>Дата добавления</td>
-                                        <td th:text="${#temporals.format(subjects.dateAddition, 'dd.MM.yyyy - HH:mm')}">Date</td>
+                                        <td th:text="${#temporals.format(subjects.dateAddition, 'dd.MM.yyyy - HH:mm')}">
+                                            Date
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
 
 
                     <hr class="my-5"/>

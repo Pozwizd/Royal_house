@@ -25,7 +25,7 @@ import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/setting")
+@RequestMapping("/admin/setting")
 public class SettingController {
 
     private final PasswordEncoder passwordEncoder;

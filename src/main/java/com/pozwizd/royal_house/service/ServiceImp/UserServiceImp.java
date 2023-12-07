@@ -3,9 +3,6 @@ package com.pozwizd.royal_house.service.ServiceImp;
 import com.pozwizd.royal_house.model.User;
 import com.pozwizd.royal_house.repository.UserRepository;
 import com.pozwizd.royal_house.service.UserService;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.Optional;
 
 
 @Repository
-public class UserServiceImp implements UserService, UserDetailsService {
+public class UserServiceImp implements UserService{
 
     private final UserRepository userRepository;
 
@@ -67,8 +64,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userRepository.findUserByEmail(email);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username " + email + " not found"));
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        return userRepository.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username " + email + " not found"));
+//    }
 }

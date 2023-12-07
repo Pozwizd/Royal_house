@@ -7,12 +7,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,8 +29,6 @@ import java.util.UUID;
 @RequestMapping("/admin/setting")
 public class SettingController {
 
-    private final PasswordEncoder passwordEncoder;
-
     private final BuildingService buildingService;
     private final InfographicBuildingService infographicBuildingService;
     private final InfographicInfrastructureService infographicInfrastructureService;
@@ -44,9 +42,9 @@ public class SettingController {
     private final AdditionalEmailService additionalEmailService;
 
     @GetMapping("/contact")
-    public ModelAndView contact(Authentication authentication, Model model) {
+    public ModelAndView contact(Model model) {
 
-        User user = (User) authentication.getPrincipal();
+        User user = userService.selectUserById(1L).get();
 
         model.addAttribute("user", user);
 
@@ -110,14 +108,14 @@ public class SettingController {
             originalUser.setAdditionalEmails(null);
         }
 
-
-        if (passwordEncoder.matches(oldPassword, originalUser.getPassword())) {
-            if (newPassword.equals(repeatNewPassword)) {
-                String encodedNewPassword = passwordEncoder.encode(newPassword);
-                originalUser.setPassword(encodedNewPassword);
-                userService.updateUser(originalUser);
-            }
-        }
+//
+//        if (passwordEncoder.matches(oldPassword, originalUser.getPassword())) {
+//            if (newPassword.equals(repeatNewPassword)) {
+//                String encodedNewPassword = passwordEncoder.encode(newPassword);
+//                originalUser.setPassword(encodedNewPassword);
+//                userService.updateUser(originalUser);
+//            }
+//        }
 
         userService.updateUser(originalUser);
 
@@ -126,7 +124,7 @@ public class SettingController {
         return new ModelAndView("redirect:" + referer);
     }
 
-// TODO: Нужно добавить предупреждение о привязке 1 к 1
+    // TODO: Нужно добавить предупреждение о привязке 1 к 1
     @GetMapping("/bindingObject")
     public ModelAndView bindingObject(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(required = false) String name,
@@ -188,7 +186,6 @@ public class SettingController {
             Optional<User> user = userService.findByName(selectedUser.get(i));
             User originalUser = user.get();
             Building building = allBuilding.get(i);
-
 
 
             originalUser.setBuilding(building);

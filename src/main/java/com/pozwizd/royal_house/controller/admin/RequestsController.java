@@ -109,9 +109,11 @@ public class RequestsController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteRequestId(@PathVariable("id") Long requestsId) {
+    public String deleteRequestId(@PathVariable("id") Long requestsId,
+                                  HttpServletRequest request) {
         requestsService.deleteRequests(requestsId);
-        return "redirect:/requests";
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
 

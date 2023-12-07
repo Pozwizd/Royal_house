@@ -25,15 +25,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig{
 
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/assets/**").permitAll()
-                        .anyRequest().authenticated()
-
+                        .requestMatchers("/admin/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .defaultSuccessUrl("/", true)

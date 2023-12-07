@@ -2,6 +2,7 @@ package com.pozwizd.royal_house.controller.admin;
 
 import com.pozwizd.royal_house.model.*;
 import com.pozwizd.royal_house.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,6 +66,7 @@ public class SettingController {
                                     @RequestParam(name = "oldPassword", required = false) String oldPassword,
                                     @RequestParam(name = "newPassword", required = false) String newPassword,
                                     @RequestParam(name = "repeatNewPassword", required = false) String repeatNewPassword,
+                                    HttpServletRequest request,
                                     Model model) {
 
         Optional<User> user = userService.selectUserById(userId);
@@ -119,7 +121,9 @@ public class SettingController {
 
         userService.updateUser(originalUser);
 
-        return new ModelAndView("redirect:/setting/contact");
+        String referer = request.getHeader("Referer");
+
+        return new ModelAndView("redirect:" + referer);
     }
 
 // TODO: Нужно добавить предупреждение о привязке 1 к 1
@@ -153,6 +157,7 @@ public class SettingController {
 
     @PostMapping("/bindingObjectEdit")
     public ModelAndView bindingObjectEdit(@RequestParam(name = "selectedUser[]", required = false) ArrayList<String> selectedUser,
+                                          HttpServletRequest request,
                                           Model model) {
 
         List<Building> allBuilding = buildingService.findAll();
@@ -193,7 +198,8 @@ public class SettingController {
             buildingService.update(building);
         }
 
-        return new ModelAndView("redirect:/setting/bindingObject");
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer);
     }
 
 
@@ -209,7 +215,8 @@ public class SettingController {
     @PostMapping("/editSecondaryMarket")
     public ModelAndView editSecondaryMarket(@RequestParam(name = "urlImage[]", required = true) List<MultipartFile> urlImage,
                                             @RequestParam(name = "text[]", required = true) List<String> text,
-                                            @RequestParam(name = "url[]", required = true) List<String> urlList) {
+                                            @RequestParam(name = "url[]", required = true) List<String> urlList,
+                                            HttpServletRequest request) {
 
         for (int i = 0; i < urlImage.size(); i++) {
             SecondaryMarket secondaryMarket = secondaryMarketService.getSecondaryMarket(i + 1L);
@@ -246,8 +253,8 @@ public class SettingController {
             secondaryMarketService.updateSecondaryMarket(secondaryMarket);
         }
 
-
-        return new ModelAndView("redirect:/setting/secondaryMarket");
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer);
     }
 
     @GetMapping("/pageService")
@@ -264,6 +271,7 @@ public class SettingController {
     public ModelAndView editPageService(@RequestParam(name = "urlBanner", required = false) MultipartFile urlBanner,
                                         @RequestParam(name = "textBanner", required = false) String textBanner,
                                         @RequestParam(name = "titleText", required = false) String titleText,
+                                        HttpServletRequest request,
                                         Model model) {
 
 
@@ -300,10 +308,10 @@ public class SettingController {
             }
         }
 
-
         serviceBannerService.updateServiceBanner(serviceBanner);
 
-        return new ModelAndView("redirect:/setting/pageService");
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer);
     }
 
     @GetMapping("/pageAboutCompany")
@@ -321,6 +329,7 @@ public class SettingController {
                                              @RequestParam(name = "textBanner", required = false) String textBanner,
                                              @RequestParam(name = "titleText", required = false) String titleText,
                                              @RequestParam(name = "editorDataInfrastructureBuilding", required = false) String textareaAboutCompany,
+                                             HttpServletRequest request,
                                              Model model) {
 
         long aboutCompanyId = 1L;
@@ -359,7 +368,8 @@ public class SettingController {
 
 
         aboutCompanyService.updateAboutCompany(aboutCompany);
-        return new ModelAndView("redirect:/setting/pageAboutCompany");
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer);
     }
 
 }

@@ -4,8 +4,8 @@ package com.pozwizd.royal_house.controller.admin;
 import com.pozwizd.royal_house.model.Requests;
 import com.pozwizd.royal_house.model.StatusRequests;
 import com.pozwizd.royal_house.service.RequestsService;
-import com.pozwizd.royal_house.service.ServiceImp.RequestsServiceImp;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,13 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin/requests")
+@AllArgsConstructor
 public class RequestsController {
 
     private final RequestsService requestsService;
-
-    public RequestsController(RequestsServiceImp requestsService) {
-        this.requestsService = requestsService;
-    }
 
     @GetMapping({"/", ""})
     public ModelAndView list(@RequestParam(defaultValue = "0") int page,
@@ -81,7 +78,7 @@ public class RequestsController {
     }
 
     @GetMapping("/changeStatus/{id}")
-    public String changeStatusRequestId(@PathVariable("id") Long requestsId, HttpServletRequest request, Model model) {
+    public String changeStatusRequestId(@PathVariable("id") Long requestsId, HttpServletRequest request) {
 
 
         Requests requests = requestsService.getRequests(requestsId);
@@ -109,7 +106,7 @@ public class RequestsController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteRequestId(@PathVariable("id") Long requestsId,
+    public String deleteRequestId(@PathVariable(value = "id") Long requestsId,
                                   HttpServletRequest request) {
         requestsService.deleteRequests(requestsId);
         String referer = request.getHeader("Referer");

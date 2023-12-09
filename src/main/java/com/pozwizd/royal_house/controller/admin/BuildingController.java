@@ -3,6 +3,7 @@ package com.pozwizd.royal_house.controller.admin;
 import com.pozwizd.royal_house.model.*;
 import com.pozwizd.royal_house.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/buildings")
+@AllArgsConstructor
 public class BuildingController {
 
     private final BuildingService buildingService;
@@ -29,20 +31,6 @@ public class BuildingController {
     private final InfographicInfrastructureService infographicInfrastructureService;
     private final SpecificationBuildingService specificationBuildingService;
     private final InfographicRoomService infographicRoomService;
-
-    public BuildingController(BuildingService buildingService,
-                              InfographicBuildingService infographicBuildingService,
-                              InfographicInfrastructureService infographicInfrastructureService,
-                              SpecificationBuildingService specificationBuildingService,
-                              InfrastructureBuildingService infrastructureBuildingService,
-                              InfographicRoomService infographicRoomService) {
-        this.buildingService = buildingService;
-        this.infographicBuildingService = infographicBuildingService;
-        this.infographicInfrastructureService = infographicInfrastructureService;
-        this.specificationBuildingService = specificationBuildingService;
-        this.infographicRoomService = infographicRoomService;
-    }
-
 
     @GetMapping({"/", ""})
     public ModelAndView list(@RequestParam(defaultValue = "0") int page,

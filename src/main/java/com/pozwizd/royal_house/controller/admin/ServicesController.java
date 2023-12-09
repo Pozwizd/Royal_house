@@ -4,6 +4,7 @@ import com.pozwizd.royal_house.model.Services;
 import com.pozwizd.royal_house.model.Visible;
 import com.pozwizd.royal_house.service.ServicesService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,13 +21,11 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/services")
+@AllArgsConstructor
 public class ServicesController {
 
     private final ServicesService servicesService;
 
-    public ServicesController(ServicesService servicesService) {
-        this.servicesService = servicesService;
-    }
 
     @GetMapping({"/", ""})
     public ModelAndView list(@RequestParam(defaultValue = "0") int page,
@@ -52,14 +51,15 @@ public class ServicesController {
     }
 
     @GetMapping("/changeStatus/{id}")
-    public String changeStatusRequestId(@PathVariable("id") Long servicesId, HttpServletRequest request, Model model) {
+    public String changeStatusRequestId(@PathVariable("id") Long servicesId,
+                                        HttpServletRequest request) {
 
 
         Services services = servicesService.getServices(servicesId);
         if (services.getVisible().toString().equals("Да")) {
             services.setVisible(Visible.Нет);
         } else {
-            services.setVisible(Visible.Да);;
+            services.setVisible(Visible.Да);
         }
         servicesService.updateServices(services);
         String referer = request.getHeader("Referer");
@@ -87,13 +87,11 @@ public class ServicesController {
     }
 
     @PostMapping("/edit-service/{id}")
-    public ModelAndView editBasicBuilding(@RequestParam("servicesId") String id,
-                                          @RequestParam(name = "urlBanner", required = false) MultipartFile urlBanner,
+    public ModelAndView editBasicBuilding(@RequestParam(name = "urlBanner", required = false) MultipartFile urlBanner,
                                           @RequestParam(name = "urlPreview", required = false) MultipartFile urlPreview,
                                           @RequestParam(name = "servicesName", required = false) String servicesName,
                                           @RequestParam(name = "visibleServices", required = false) boolean visibleServices,
-
-                                          Model model) {
+                                          @PathVariable String id) {
 
         Services services = servicesService.getServices(Long.parseLong(id));
         services.setName(servicesName);
@@ -108,8 +106,8 @@ public class ServicesController {
             String oldUrlBanner = services.getUrlBanner();
             if (oldUrlBanner != null && !urlBanner.isEmpty()) {
                 String filePath = Paths.get("").toFile().getAbsolutePath() + oldUrlBanner;
-                File file = new File(filePath);
-                file.delete();
+                new File(filePath).delete();
+
             }
             try {
                 String uuidFile = UUID.randomUUID().toString();

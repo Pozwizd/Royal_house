@@ -73,6 +73,4 @@ public class Building {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "building")
     private List<InfographicBuilding> infographicBuildings;
 
-
-
 }

@@ -1,15 +1,20 @@
 package com.pozwizd.royal_house.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "subjects")
 public class Subjects {
     @Id
@@ -17,8 +22,8 @@ public class Subjects {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "property_type")
-    private String propertyType;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "area")
     private String area;
@@ -40,5 +45,8 @@ public class Subjects {
 
     @Column(name = "date_addition")
     private LocalDateTime dateAddition;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "subjects")
+    private List<ImageSubject> imageSubjects;
 
 }

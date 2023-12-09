@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html
+        lang="en"
+        class="light-style layout-navbar-fixed layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../../assets/"
+        data-template="vertical-menu-template-no-customizer-starter"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Page 1 - Starter Kit | Vuexy - Bootstrap Admin Template</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/swiper/swiper.css" />
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/ui-carousel.css" />
+    <!-- Helpers -->
+    <script src="../../assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../../assets/js/config.js"></script>
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        <aside th:replace="~{user/fragments :: menu}"></aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+            <div class="card-group mb-5">
+                <div class="card-body">
+                    <div class="divider">
+                        <div class="divider-text">
+                            <h1 class="display-3">ROYAL HOUSE</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+
+<!--                    Новостройки -->
+                    <div class="row" data-masonry='{"percentPosition": true }'>
+
+                        <div class="col-sm-6 col-lg-4 mb-4"  th:each="building : ${buildings}" >
+                            <a th:href="@{/building/{id}(id=${building.id})}">
+                            <div class="card bg-dark border-0 text-white">
+                                <img class="card-img" th:src="${building.mainBanner}" th:alt="${building.mainBanner}" src="" />
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title" th:text="${building.name}">Card title</h5>
+                                    <p class="card-text" th:text="${building.address}">
+                                        This is a wider card with supporting text below as a natural lead-in to additional content. This
+                                        content is a little bit longer.
+                                    </p>
+                                    <p class="card-text">Last updated 3 mins ago</p>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+                        <div class="col" th:each="subject, i : ${subjects}">
+
+                            <div class="card h-100">
+                                <div class="swiper" data-main-swipper>
+                                    <div class="swiper-wrapper">
+
+                                        <div class="swiper-slide" th:style="'background-image: url('+ ${subject.getImageSubjects().get(0).getUrlImage()} +')'">
+                                            Slide 1
+                                        </div>
+                                        <div class="swiper-slide" th:style="'background-image: url('+ ${subject.getImageSubjects().get(1).getUrlImage()} +')'">
+                                            Slide 2
+                                        </div>
+                                        <div class="swiper-slide" th:style="'background-image: url('+ ${subject.getImageSubjects().get(2).getUrlImage()} +')'">
+                                            Slide 3
+                                        </div>
+                                    </div>
+                                    <div class="swiper-button-next swiper-button-white custom-icon"></div>
+                                    <div class="swiper-button-prev swiper-button-white custom-icon"></div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional content.
+                                        This content is a little bit longer.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <script>
+
+                        function swiper () {
+                            const swiperUser = document.querySelectorAll('[data-main-swipper]')
+                            for (let swElement of swiperUser){
+                                new Swiper(swElement, {
+                                    slidesPerView: 'auto'
+                                });
+                            }
+                        }
+                        swiper();
+                        console.log(Swiper)
+                        console.log(document.querySelectorAll('[data-main-swipper]'))
+                    </script>
+
+                </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <footer class="content-footer footer bg-footer-theme">
+                    <div class="container-xxl">
+                        <div
+                                class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column"
+                        >
+                            <div>
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                , made with ❤️ by <a href="https://pixinvent.com" target="_blank" class="fw-semibold">Pixinvent</a>
+                            </div>
+                            <div>
+                                <a
+                                        href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/"
+                                        target="_blank"
+                                        class="footer-link me-4"
+                                >Documentation</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+
+    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+    <div class="drag-target"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+<script src="../../assets/vendor/libs/popper/popper.js"></script>
+<script src="../../assets/vendor/js/bootstrap.js"></script>
+<script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+
+<script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+
+<script src="../../assets/vendor/js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+<script src="../../assets/vendor/libs/masonry/masonry.js"></script>
+<script src="../../assets/vendor/libs/swiper/swiper.js"></script>
+
+<!-- Main JS -->
+<script src="../../assets/js/main.js"></script>
+
+<!-- Page JS -->
+</body>
+</html>

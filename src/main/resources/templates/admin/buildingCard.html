@@ -72,14 +72,14 @@
     <div class="layout-container">
         <!-- Menu -->
 
-        <aside th:replace="~{fragments :: menu}"></aside>
+        <aside th:replace="~{admin/fragments :: menu}"></aside>
         <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page" >
             <!-- Navbar -->
 
-            <nav th:replace="~{fragments :: navbar}"></nav>
+            <nav th:replace="~{admin/fragments :: navbar}"></nav>
             <!-- / Navbar -->
 
 
@@ -188,27 +188,27 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="basic" role="tabpanel">
-                                <form th:replace="~{BasicBuilding :: basicBuildingForm}">
+                                <form th:replace="~{admin/template/BasicBuilding :: basicBuildingForm}">
 
                                 </form>
                             </div >
                             <div class="tab-pane fade" id="about-project" role="tabpanel">
-                                <form th:replace="~{AboutBuilding :: aboutBuilding}"></form>
+                                <form th:replace="~{admin/template/AboutBuilding :: aboutBuilding}"></form>
                             </div>
                             <div class="tab-pane fade" id="location" role="tabpanel">
-                                <form th:replace="~{LocationBuilding :: locationBuildingForm}"></form>
+                                <form th:replace="~{admin/template/LocationBuilding :: locationBuildingForm}"></form>
                             </div>
                             <div class="tab-pane fade" id="infrastructure" role="tabpanel">
-                                <form th:replace="~{InfrastructureBuilding :: infrastructureBuildingForm}"></form>
+                                <form th:replace="~{admin/template/InfrastructureBuilding :: infrastructureBuildingForm}"></form>
                             </div>
                             <div class="tab-pane fade" id="rooms" role="tabpanel">
-                                <form th:replace="~{RoomsBuilding :: roomsBuildingForm}"></form>
+                                <form th:replace="~{admin/template/RoomsBuilding :: roomsBuildingForm}"></form>
                             </div>
                             <div class="tab-pane fade" id="panorama" role="tabpanel">
-                                <form th:replace="~{PanoramaBuilding :: panoramaBuildingForm}"></form>
+                                <form th:replace="~{admin/template/PanoramaBuilding :: panoramaBuildingForm}"></form>
                             </div>
                             <div class="tab-pane fade" id="specification" role="tabpanel">
-                                <form th:replace="~{SpecificationBuilding :: specificationBuildingForm}"></form>
+                                <form th:replace="~{admin/template/SpecificationBuilding :: specificationBuildingForm}"></form>
                             </div>
                         </div>
 

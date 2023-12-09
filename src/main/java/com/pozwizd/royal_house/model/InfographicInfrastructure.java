@@ -1,12 +1,16 @@
 package com.pozwizd.royal_house.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "infographic_infrastructure")
 public class InfographicInfrastructure {
     @Id
@@ -19,9 +23,6 @@ public class InfographicInfrastructure {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "alt_image")
-    private String altImage;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "infrastructure_building_id")

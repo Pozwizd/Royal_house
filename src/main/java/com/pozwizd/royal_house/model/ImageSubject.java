@@ -1,5 +1,6 @@
 package com.pozwizd.royal_house.model;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,26 +12,18 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "about_company")
-public class AboutCompany {
+@Table(name = "image_subject")
+public class ImageSubject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "url_banner")
-    private String urlBanner;
+    @Column(name = "url_image")
+    private String urlImage;
 
-    @Column(name = "title")
-    private String title;
-
-    @Lob
-    @Column(name = "text", length = 65535)
-    private String text;
-
-    @Lob
-    @Column(name = "banner_text",length = 65535)
-    private String bannerText;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject")
+    private Subjects subjects;
 }

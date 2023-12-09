@@ -15,7 +15,7 @@ public interface SubjectsRepository extends JpaRepository<Subjects, Long>, Pagin
 
     @Query("SELECT s FROM Subjects s " +
             "WHERE (:id IS NULL OR s.id = :id) " +
-            "AND (:propertyType IS NULL OR s.propertyType = :propertyType) " +
+            "AND (:propertyType IS NULL OR s.name = :propertyType) " +
             "AND (:rooms IS NULL OR s.rooms = :rooms) " )
     Page<Subjects> findByCriteria(@Param("id") Long id,
                                   @Param("propertyType") String propertyType,

@@ -10,9 +10,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Table(name = "infographic_building")
 public class InfographicBuilding {
     @Id

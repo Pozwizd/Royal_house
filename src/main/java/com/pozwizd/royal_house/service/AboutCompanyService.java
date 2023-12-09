@@ -6,13 +6,14 @@ import java.util.List;
 
 public interface AboutCompanyService {
 
-    public void saveAboutCompany(AboutCompany aboutCompany);
-
-    public void deleteAboutCompany(long id);
+    public void addAboutCompany(AboutCompany aboutCompany);
 
     public AboutCompany findAboutCompanyById(long id);
 
+    public void updateAboutCompany(AboutCompany aboutCompany);
+
+    public void deleteAboutCompany(long id);
+
     public List<AboutCompany> findAllAboutCompanies();
 
-    void updateAboutCompany(AboutCompany aboutCompany);
 }

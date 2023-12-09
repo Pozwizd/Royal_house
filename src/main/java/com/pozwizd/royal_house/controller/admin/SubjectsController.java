@@ -2,6 +2,7 @@ package com.pozwizd.royal_house.controller.admin;
 
 import com.pozwizd.royal_house.model.Subjects;
 import com.pozwizd.royal_house.service.SubjectsService;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,14 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin/subjects")
+@AllArgsConstructor
 public class SubjectsController {
 
     private final SubjectsService subjectsService;
-
-    public SubjectsController(SubjectsService subjectsService) {
-        this.subjectsService = subjectsService;
-    }
-
 
     @GetMapping({"/", ""})
     public ModelAndView list(@RequestParam(defaultValue = "0") int page,

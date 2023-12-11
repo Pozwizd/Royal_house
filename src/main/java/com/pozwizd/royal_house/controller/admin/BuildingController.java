@@ -263,7 +263,7 @@ public class BuildingController {
         buildingService.update(building);
 
         String referer = request.getHeader("Referer");
-        return new ModelAndView("redirect:" + referer + building.getId());
+        return new ModelAndView("redirect:" + referer);
     }
 
     @PostMapping("/edit-location/{id}")
@@ -279,7 +279,7 @@ public class BuildingController {
         buildingService.update(building);
 
         String referer = request.getHeader("Referer");
-        return new ModelAndView("redirect:" + referer + building.getId());
+        return new ModelAndView("redirect:" + referer);
     }
 
     @PostMapping("/edit-infrastructure-building/{id}")
@@ -425,7 +425,7 @@ public class BuildingController {
         buildingService.update(building);
 
         String referer = request.getHeader("Referer");
-        return new ModelAndView("redirect:" + referer + building.getId());
+        return new ModelAndView("redirect:" + referer);
     }
 
     @PostMapping("/edit-rooms-building/{id}")
@@ -568,7 +568,7 @@ public class BuildingController {
         buildingService.update(building);
 
         String referer = request.getHeader("Referer");
-        return new ModelAndView("redirect:" + referer + building.getId());
+        return new ModelAndView("redirect:" + referer);
     }
 
 
@@ -602,7 +602,7 @@ public class BuildingController {
         }
 
         String referer = request.getHeader("Referer");
-        return new ModelAndView("redirect:" + referer + building.getId());
+        return new ModelAndView("redirect:" + referer);
     }
 
     @PostMapping("/edit-specification/{id}")
@@ -629,7 +629,7 @@ public class BuildingController {
         buildingService.update(building);
 
         String referer = request.getHeader("Referer");
-        return new ModelAndView("redirect:" + referer + building.getId());
+        return new ModelAndView("redirect:" + referer);
     }
 }
 

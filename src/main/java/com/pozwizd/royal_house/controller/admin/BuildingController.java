@@ -64,9 +64,7 @@ public class BuildingController {
 
     @GetMapping("/get/{id}")
     public ModelAndView getBuildingId(@PathVariable("id") Long buildingId, Model model) {
-
         model.addAttribute("pageActive", "buildings");
-
         model.addAttribute("building", buildingService.findById(buildingId));
         return new ModelAndView("admin/buildingCard");
     }

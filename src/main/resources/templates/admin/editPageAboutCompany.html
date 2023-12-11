@@ -110,7 +110,8 @@
                                     <div class="card-body">
                                         <img th:src="${aboutCompany.urlBanner}"
                                              style="max-width: 250px;
-                                                             max-height: 200px;" alt="">
+                                                    max-height: 200px;"
+                                             alt="">
                                         <hr/>
                                         <label class="form-label">
                                             <input
@@ -126,7 +127,8 @@
                             <div class="col-md-6 col-lg-6">
                                 <div class="card-body">
                                     <div class="col">
-                                        <label class="form-label">Текст на баннере</label>
+                                        <label class="form-label"
+                                               for="textBanner">Текст на баннере</label>
                                         <input
                                                 type="text"
                                                 id="textBanner"
@@ -136,16 +138,15 @@
                                         />
                                     </div>
                                     <div class="col">
-                                        <label class="form-label">Заголовок</label>
-                                        <div class="input-group input-group-merge">
-                                            <label for="newPassword"></label><input
-                                                    class="form-control"
-                                                    type="text"
-                                                    id="newPassword"
-                                                    name="titleText"
-                                                    th:value="${aboutCompany.getTitle()}"
-                                            />
-                                        </div>
+                                        <label class="form-label"
+                                               for="newPassword">Заголовок</label>
+                                        <input
+                                                class="form-control"
+                                                type="text"
+                                                id="newPassword"
+                                                name="titleText"
+                                                th:value="${aboutCompany.getTitle()}"
+                                        />
                                     </div>
                                 </div>
                             </div>

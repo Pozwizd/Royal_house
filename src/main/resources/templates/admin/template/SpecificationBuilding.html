@@ -6,14 +6,11 @@
 </head>
 <body>
 
-<form action="/admin/buildings/edit-specification/{id}" method="post"
+<form th:action="@{/admin/buildings/edit-specification/{id}(id=${building.id})}"
+      method="post"
       enctype="multipart/form-data"
       th:fragment="specificationBuildingForm" onsubmit="transferTextSpecification()">
     <div class="container-xxl flex-grow-1 container-p-y">
-        <!--Фото и основные данные-->
-        <label style="visibility: hidden">
-            <input type="text" name="buildingId" th:value="${building.id}"/>
-        </label>
         <div class="col-12">
 
                 <div class="card-body">

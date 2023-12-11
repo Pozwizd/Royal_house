@@ -88,13 +88,14 @@ public class BuildingController {
     }
 
     @PostMapping("/edit-basic/{id}")
-    public ModelAndView editBasicBuilding(@RequestParam("buildingId") String id,
+    public ModelAndView editBasicBuilding(@PathVariable String id,
                                           @RequestParam(name = "mainBanner", required = false) MultipartFile mainBanner,
                                           @RequestParam(name = "buildingName", required = false) String buildingName,
                                           @RequestParam(name = "statusBuilding", required = false) boolean statusBuilding,
                                           @RequestParam(name = "address", required = false) String address,
                                           @RequestParam(name = "imagesInfographic[]", required = false) List<MultipartFile> imagesInfographic,
                                           @RequestParam(name = "descriptionImageInfographic[]", required = false) List<String> descriptionImageInfographic,
+                                          HttpServletRequest request,
                                           Model model) {
 
         Building building = buildingService.findById(Long.parseLong(id));
@@ -178,12 +179,13 @@ public class BuildingController {
         infographicBuildingService.saveAll(infographicBuildings);
         buildingService.update(building);
 
-        return new ModelAndView("redirect:ar/buildings/get/" + building.getId());
+        String referer = request.getHeader("Referer");
+        return new ModelAndView("redirect:" + referer);
     }
 
 
     @PostMapping("/edit-about-project/{id}")
-    public ModelAndView editAboutProjectBuilding(@RequestParam(name = "buildingId", required = true) String id,
+    public ModelAndView editAboutProjectBuilding(@PathVariable String id,
                                                  @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
                                                  @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
                                                  @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
@@ -265,7 +267,7 @@ public class BuildingController {
     }
 
     @PostMapping("/edit-location/{id}")
-    public ModelAndView editLocationBuilding(@RequestParam(name = "buildingId", required = true) String id,
+    public ModelAndView editLocationBuilding(@PathVariable String id,
                                              @RequestParam(name = "LocationLongitudeBuilding", required = true) String longitude,
                                              @RequestParam(name = "LocationLatitudeBuilding", required = true) String latitude,
                                              HttpServletRequest request,
@@ -281,7 +283,7 @@ public class BuildingController {
     }
 
     @PostMapping("/edit-infrastructure-building/{id}")
-    public ModelAndView editInfrastructureBuilding(@RequestParam(name = "buildingId", required = true) String id,
+    public ModelAndView editInfrastructureBuilding(@PathVariable String id,
                                                    @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
                                                    @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
                                                    @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
@@ -360,7 +362,6 @@ public class BuildingController {
         // Обработка текста
 
 
-
         // Обработка инфографики
 
           /*
@@ -428,7 +429,7 @@ public class BuildingController {
     }
 
     @PostMapping("/edit-rooms-building/{id}")
-    public ModelAndView editRoomsBuilding(@RequestParam(name = "buildingId", required = true) String id,
+    public ModelAndView editRoomsBuilding(@PathVariable String id,
                                           @RequestParam(name = "urlSlide1", required = false) MultipartFile urlSlide1,
                                           @RequestParam(name = "urlSlide2", required = false) MultipartFile urlSlide2,
                                           @RequestParam(name = "urlSlide3", required = false) MultipartFile urlSlide3,
@@ -514,7 +515,6 @@ public class BuildingController {
         2. Проверка на наличие изображений в бд
         3. Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
         4. После этого записываем новые
-
          */
 
         List<InfographicPage> infographicPageList = new ArrayList<>();
@@ -573,7 +573,7 @@ public class BuildingController {
 
 
     @PostMapping("/edit-panorama/{id}")
-    public ModelAndView editPanoramaBuilding(@RequestParam(name = "buildingId", required = true) String id,
+    public ModelAndView editPanoramaBuilding(@PathVariable String id,
                                              @RequestParam(name = "panoramaBuilding", required = false) MultipartFile panoramaBuilding,
                                              HttpServletRequest request) {
 
@@ -606,7 +606,7 @@ public class BuildingController {
     }
 
     @PostMapping("/edit-specification/{id}")
-    public ModelAndView editSpecificationBuilding(@RequestParam(name = "buildingId", required = true) String id,
+    public ModelAndView editSpecificationBuilding(@PathVariable String id,
                                                   @RequestParam(name = "editorDataSpecificationBuilding[]", required = false) List<String> specificationBuildingsText,
                                                   HttpServletRequest request) {
 
@@ -631,8 +631,5 @@ public class BuildingController {
         String referer = request.getHeader("Referer");
         return new ModelAndView("redirect:" + referer + building.getId());
     }
-
-
-
 }
 

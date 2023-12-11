@@ -6,12 +6,11 @@
 </head>
 <body>
     <div class="tab-pane fade show active" id="basic" role="tabpanel">
-        <form action="/admin/buildings/edit-basic/{id}" method="post" enctype="multipart/form-data"
+        <form th:action="@{/admin/buildings/edit-basic/{id}(id=${building.id})}"
+              method="post"
+              enctype="multipart/form-data"
               th:fragment="basicBuildingForm">
             <div class="container-xxl flex-grow-1 container-p-y">
-                <label style="visibility: hidden">
-                    <input type="text" name="buildingId" th:value="${building.id}"/>
-                </label>
                 <div class="row">
                     <div class="col-md-6 col-lg-6">
                         <div class="card text-center mb-3">

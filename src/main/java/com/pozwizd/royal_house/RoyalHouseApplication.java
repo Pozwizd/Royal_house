@@ -9,5 +9,6 @@ public class RoyalHouseApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RoyalHouseApplication.class, args);
+        System.out.println();
     }
 }

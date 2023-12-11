@@ -6,7 +6,8 @@
 </head>
 <body>
 
-<form action="/admin/buildings/edit-infrastructure-building/{id}" method="post"
+<form th:action="@{/admin/buildings/edit-infrastructure-building/{id}(id=${building.id})}"
+      method="post"
       enctype="multipart/form-data"
       th:fragment="infrastructureBuildingForm"
       onsubmit="transferTextInfrastructure()">

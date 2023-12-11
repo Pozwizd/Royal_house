@@ -6,7 +6,8 @@
 </head>
 <body>
 
-<form action="/admin/buildings/edit-rooms-building/{id}" method="post"
+<form th:action="@{/admin/buildings/edit-rooms-building/{id}(id=${building.id})}"
+      method="post"
       enctype="multipart/form-data"
       th:fragment="roomsBuildingForm"
       onsubmit="transferTextRoom()">

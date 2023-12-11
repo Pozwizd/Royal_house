@@ -85,7 +85,8 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <form th:action="@{/admin/services/edit-service/{id}(id=${services.id})}" method="post"
+                    <form th:action="@{/admin/services/edit-service/{id}(id=${services.id})}"
+                          method="post"
                           enctype="multipart/form-data"
                           onclick="">
                         <div class="row mb-5">
@@ -130,28 +131,26 @@
                         </div>
                         <div class="col-md-12">
                             <!--Фото и основные данные-->
-                            <label style="visibility: hidden">
-                                <input type="hidden" name="servicesId" th:value="${services.id}"/>
-                            </label>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card mb-">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="mb-3 col-md-4">
-                                                    <label class="form-label"></label>
-                                                    <input
 
-                                                            class="form-control"
-                                                            type="text"
-                                                            th:value="${services.name}"
-                                                            name="servicesName"
-                                                            placeholder="Название"
-                                                            autofocus
-                                                    />
+                                                    <label>
+                                                        <input
+
+                                                                class="form-control"
+                                                                type="text"
+                                                                th:value="${services.name}"
+                                                                name="servicesName"
+                                                                placeholder="Название"
+                                                                autofocus
+                                                        />
+                                                    </label>
                                                 </div>
                                                 <div class="mb-3 col-md-4">
-                                                    <label class="form-label"></label>
                                                     <div class="form-check mb-4">
                                                         <label class="form-check-label"
                                                         >
@@ -177,8 +176,7 @@
                         <div class="col-12">
                             <div class="card mb-4">
                                 <div class="card-body">
-                                    <div data-quill-editor th:utext="${services.text}" id="editor-serviceCard">
-
+                                    <div data-quill-editor th:utext="${services.text}" id="full-editor">
                                     </div>
                                     <label for="textareaServiceCard">
                                         <textarea id="textareaServiceCard"
@@ -197,7 +195,7 @@
 
                     <script>
                         function transferTextServiceCard() {
-                            const content = $('#editor-serviceCard').html();
+                            const content = $('#full-editor').html();
                             $('#textareaServiceCard').val(content);
                             return true;
                         }

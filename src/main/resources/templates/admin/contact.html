@@ -95,7 +95,7 @@
                                 <div class="card-body">
                                     <div class="row g-6">
                                         <div class="col-md-3">
-                                            <label class="form-label">Телефон</label>
+                                            <label class="form-label" for="phoneNumber">Телефон</label>
                                             <input
                                                     type="text"
                                                     id="phoneNumber"
@@ -104,33 +104,27 @@
                                                     name="phoneNumber"
                                                     th:value="${user.getPhoneNumber()}"
                                             />
-
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="form-label" for="email">Viber</label>
-                                            <div class="input-group input-group-merge">
-
-                                                <input
-                                                        class="form-control"
-                                                        type="text"
-                                                        id="viber"
-                                                        placeholder="Viber"
-                                                        th:value="${user.getViber()}"
-                                                        name="viber"
-                                                />
-
-                                            </div>
+                                            <label class="form-label" for="viber">Viber</label>
+                                            <input
+                                                    class="form-control"
+                                                    type="text"
+                                                    id="viber"
+                                                    placeholder="Viber"
+                                                    th:value="${user.getViber()}"
+                                                    name="viber"
+                                            />
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="form-label" for="telegram">Telegram
-                                                <input
-                                                        type="text"
-                                                        id="telegram"
-                                                        name="telegram"
-                                                        class="form-control phone-mask"
-                                                        th:value="${user.getTelegram()}"
-                                                />
-                                            </label>
+                                            <label class="form-label" for="telegram">Telegram</label>
+                                            <input
+                                                    type="text"
+                                                    id="telegram"
+                                                    name="telegram"
+                                                    class="form-control phone-mask"
+                                                    th:value="${user.getTelegram()}"
+                                            />
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label" for="email">Email</label>
@@ -144,7 +138,6 @@
                                                         aria-label="email"
                                                         th:value="${user.getEmail()}"
                                                 />
-                                                <span class="input-group-text" id="email3">@example.com</span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">

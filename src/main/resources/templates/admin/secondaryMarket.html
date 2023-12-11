@@ -102,8 +102,8 @@
                                                     <h5 class="card-header">Слайдер [[${i.count}]]</h5>
                                                     <div class="col">
                                                         <div class="card-body text-center">
-                                                            <img th:src="@{${secondaryMarket.urlImage}}"
-                                                                 th:alt="@{${secondaryMarket.urlImage}}"
+                                                            <img th:src="${secondaryMarket.urlImage}"
+                                                                 th:alt="${secondaryMarket.urlImage}"
                                                                  style="max-width: 250px;
                                                                      max-height: 200px;">
                                                             <hr/>
@@ -125,7 +125,7 @@
                                                                         id="text"
                                                                         name="text[]"
                                                                         class="form-control phone-mask"
-                                                                        th:value="@{${secondaryMarket.text}}"
+                                                                        th:value="${secondaryMarket.text}"
                                                                 />
                                                             </div>
                                                             <div class="col">
@@ -135,7 +135,7 @@
                                                                         id="url"
                                                                         name="url[]"
                                                                         class="form-control phone-mask"
-                                                                        th:value="@{${secondaryMarket.url}}"
+                                                                        th:value="${secondaryMarket.url}"
                                                                 />
                                                             </div>
 

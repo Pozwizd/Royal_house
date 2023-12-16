@@ -9,7 +9,8 @@
 <form th:action="@{/admin/buildings/edit-location/{id}(id=${building.id})}"
       method="post"
       enctype="multipart/form-data"
-th:fragment="locationBuildingForm">
+      onsubmit="transferTextLocation()"
+      th:fragment="locationBuildingForm">
     <div class="container-xxl flex-grow-1 container-p-y">
         <label style="visibility: hidden">
             <input type="hidden" name="buildingId" th:value="${building.id}"/>
@@ -53,12 +54,27 @@ th:fragment="locationBuildingForm">
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-body">
-                <div data-quill-editor>
+                <div data-quill-editor th:utext="${building.textLocation}" id="editorLocation">
 
                 </div>
+                <label for="textareaLocation">
+                                                    <textarea id="textareaLocation" class="visually-hidden"
+                                                              name="editorDataLocation">
+
+                                                    </textarea>
+                </label>
             </div>
         </div>
     </div>
+    <script>
+        function transferTextLocation() {
+            let container = document.querySelector('#editorLocation')
+            let quill = new Quill(container);
+            document.querySelector("#textareaLocation").textContent = quill.root.innerHTML;
+        }
+
+
+    </script>
     <div class="mt-2 d-flex justify-content-end mx-4">
         <button type="reset" class="btn btn-label-secondary">Cancel</button>
         <button type="submit" class="btn btn-primary">Save changes</button>

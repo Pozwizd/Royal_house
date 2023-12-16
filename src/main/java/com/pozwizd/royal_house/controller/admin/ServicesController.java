@@ -51,7 +51,7 @@ public class ServicesController {
     }
 
     @GetMapping("/changeStatus/{id}")
-    public String changeStatusRequestId(@PathVariable("id") Long servicesId,
+    public ModelAndView changeStatusRequestId(@PathVariable("id") Long servicesId,
                                         HttpServletRequest request) {
 
 
@@ -64,9 +64,9 @@ public class ServicesController {
         servicesService.updateServices(services);
         String referer = request.getHeader("Referer");
         if (referer != null) {
-            return "redirect:" + referer;
+            return new ModelAndView("redirect:" + referer);
         } else {
-            return "redirect:/";
+            return new ModelAndView("redirect:/");
         }
     }
 
@@ -81,9 +81,15 @@ public class ServicesController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteRequestId(@PathVariable("id") Long servicesId) {
+    public ModelAndView deleteRequestId(@PathVariable("id") Long servicesId,
+                                  HttpServletRequest request) {
         servicesService.deleteServices(servicesId);
-        return "redirect:/services";
+        String referer = request.getHeader("Referer");
+        if (referer != null) {
+            return new ModelAndView("redirect:" + referer);
+        } else {
+            return new ModelAndView("redirect:/");
+        }
     }
 
     @PostMapping("/edit-service/{id}")
@@ -91,7 +97,8 @@ public class ServicesController {
                                           @RequestParam(name = "urlPreview", required = false) MultipartFile urlPreview,
                                           @RequestParam(name = "servicesName", required = false) String servicesName,
                                           @RequestParam(name = "visibleServices", required = false) boolean visibleServices,
-                                          @PathVariable String id) {
+                                          @PathVariable String id,
+                                          HttpServletRequest request) {
 
         Services services = servicesService.getServices(Long.parseLong(id));
         services.setName(servicesName);
@@ -147,7 +154,13 @@ public class ServicesController {
         services.setName(servicesName);
 //        services.setText(visibleServices);
         servicesService.updateServices(services);
-        return new ModelAndView("redirect:/services/get/" + services.getId());
+
+        String referer = request.getHeader("Referer");
+        if (referer != null) {
+            return new ModelAndView("redirect:" + referer);
+        } else {
+            return new ModelAndView("redirect:/");
+        }
     }
 
 }

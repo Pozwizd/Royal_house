@@ -148,7 +148,7 @@ public class BuildingController {
             // Проверка на наличие изображений в бд
             // Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
             if (!infographicPageList.isEmpty()) {
-                for (InfographicBuilding buildingInfographic : infographicBuildingService.findAllInfographicBuildings()) {
+                for (InfographicBuilding buildingInfographic : infographicBuildingService.findAllInfographicBuildingsByBuilding(Long.parseLong(id))) {
                     String filePath = Paths.get("").toFile().getAbsolutePath() + buildingInfographic.getUrlImage();
                     File file = new File(filePath);
                     file.delete();
@@ -268,6 +268,7 @@ public class BuildingController {
 
     @PostMapping("/edit-location/{id}")
     public ModelAndView editLocationBuilding(@PathVariable String id,
+                                             @RequestParam(name = "editorDataLocation", required = true) String textLocation,
                                              @RequestParam(name = "LocationLongitudeBuilding", required = true) String longitude,
                                              @RequestParam(name = "LocationLatitudeBuilding", required = true) String latitude,
                                              HttpServletRequest request,
@@ -276,6 +277,7 @@ public class BuildingController {
         Building building = buildingService.findById(Long.parseLong(id));
         building.setLongitude(longitude);
         building.setLatitude(latitude);
+        building.setTextLocation(textLocation);
         buildingService.update(building);
 
         String referer = request.getHeader("Referer");
@@ -560,6 +562,7 @@ public class BuildingController {
             infographicRoom.setUrlImage("/images/" + fileName);
             infographicRoom.setDescription(infographicPage.getDescriptionImage());
             infographicRoom.setRoomBuilding(building.getRoomBuilding());
+            infographicRoomService.saveInfographicRoom(infographicRoom);
             infographicRooms.add(infographicRoom);
         }
 

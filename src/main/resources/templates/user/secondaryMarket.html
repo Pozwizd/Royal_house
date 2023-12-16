@@ -16,7 +16,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>ROYAL HOUSE | Главная</title>
+    <title>Вторичный рынок</title>
 
     <meta name="description" content="" />
 
@@ -37,8 +37,8 @@
     <link rel="stylesheet" href="/assets/vendor/fonts/flag-icons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets/vendor/css/rtl/core.css" />
-    <link rel="stylesheet" href="/assets/vendor/css/rtl/theme-default.css" />
+    <link rel="stylesheet" href="/assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
@@ -87,35 +87,43 @@
 
                 <div class="container-xxl flex-grow-1 container-p-y">
 
-<!--                    Новостройки -->
-                    <div class="row" data-masonry='{"percentPosition": true }'>
-
-                        <div class="col-sm-6 col-lg-4 mb-4"  th:each="building : ${buildings}" >
-                            <a th:href="@{/building/{id}(id=${building.id})}">
-                            <div class="card bg-dark border-0 text-white">
-                                <img class="card-img" th:src="${building.mainBanner}" th:alt="${building.mainBanner}" src="" />
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title" th:text="${building.name}">Card title</h5>
-                                    <p class="card-text" th:text="${building.address}">
-                                        This is a wider card with supporting text below as a natural lead-in to additional content. This
-                                        content is a little bit longer.
-                                    </p>
-                                    <p class="card-text">Last updated 3 mins ago</p>
+                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item " th:each="image, i : ${secondaryMarkets}" th:classappend="${'active'}">
+                                <img class="d-block w-100"
+                                     id="${i}"
+                                     src="../../assets/img/elements/10.jpg"
+                                     th:src="${image.urlImage}"
+                                     th:alt="${image.urlImage}"/>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h4>First slide</h4>
+                                    <p>Eos mutat malis maluisset et, agam ancillae quo te, in vim congue pertinacia.</p>
                                 </div>
                             </div>
-                            </a>
                         </div>
+                        <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
                     </div>
 
-
+                    <hr/>
                     <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
                         <div class="col" th:each="subject, i : ${subjects}">
                             <div class="card h-100" >
-                                <img class="card-img-top" th:src="${subject.getImageSubjects().get(0).getUrlImage()}"
+                                <img class="card-img-top" th:src="${subject.imageSubjects.get(1).urlImage}"
                                      th:alt="${subject.imageSubjects.get(1).urlImage}"
-                                />
+                                      />
                                 <div class="card-body">
-                                    <h5 class="card-title" th:text="${subject.name}">Card title</h5>
+                                    <h5 class="card-title">Card title</h5>
                                     <p class="card-text" th:text="${subject.address}">
                                         Адрес
                                     </p>
@@ -132,19 +140,6 @@
                         </div>
 
                     </div>
-                    <script>
-
-                        function swiper () {
-                            const swiperUser = document.querySelectorAll('[data-main-swipper]')
-                            for (let swElement of swiperUser){
-                                new Swiper(swElement, {
-                                    slidesPerView: 'auto'
-                                });
-                            }
-                        }
-                        swiper();
-
-                    </script>
 
                 </div>
                 <!-- / Content -->
@@ -193,24 +188,26 @@
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
-<script src="/assets/vendor/libs/jquery/jquery.js"></script>
+<script src="./assets/vendor/libs/jquery/jquery.js"></script>
 <script src="/assets/vendor/libs/popper/popper.js"></script>
 <script src="/assets/vendor/js/bootstrap.js"></script>
 <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 <script src="/assets/vendor/libs/node-waves/node-waves.js"></script>
 
 <script src="/assets/vendor/libs/hammer/hammer.js"></script>
+<script src="/assets/vendor/libs/i18n/i18n.js"></script>
+<script src="/assets/vendor/libs/typeahead-js/typeahead.js"></script>
 
 <script src="/assets/vendor/js/menu.js"></script>
 <!-- endbuild -->
 
 <!-- Vendors JS -->
-<script src="/assets/vendor/libs/masonry/masonry.js"></script>
 <script src="/assets/vendor/libs/swiper/swiper.js"></script>
 
 <!-- Main JS -->
 <script src="/assets/js/main.js"></script>
 
 <!-- Page JS -->
+<script src="/assets/js/ui-carousel.js"></script>
 </body>
 </html>

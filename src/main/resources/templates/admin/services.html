@@ -124,7 +124,7 @@
                                     <td th:text="${service.name}"></td>
                                     <td th:text="${service.text}"></td>
                                     <td th:text="${#temporals.format(service.date, 'dd.MM.yyyy - HH:mm')}"></td>
-                                    <td>
+                                    <td class="d-flex justify-content-center align-items-center">
                                         <a th:if="${service.getVisible().toString() == 'Да'}"
                                            class="btn btn-success"
 

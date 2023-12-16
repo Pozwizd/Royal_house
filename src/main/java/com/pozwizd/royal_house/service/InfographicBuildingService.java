@@ -16,6 +16,9 @@ public interface InfographicBuildingService {
 
     public List<InfographicBuilding> findAllInfographicBuildings();
 
+    public List<InfographicBuilding> findAllInfographicBuildingsByBuilding(long buildingId);
+
+
     public void saveAll(List<InfographicBuilding> infographicBuildings);
 
     public void allDelete(List<InfographicBuilding> infographicBuildings);

@@ -42,6 +42,11 @@ public class InfographicBuildingServiceImp implements InfographicBuildingService
     }
 
     @Override
+    public List<InfographicBuilding> findAllInfographicBuildingsByBuilding(long buildingId) {
+        return infographicBuildingRepository.findAllByBuildingId(buildingId);
+    }
+
+    @Override
     public void saveAll(List<InfographicBuilding> infographicBuildings) {
         infographicBuildingRepository.saveAll(infographicBuildings);
     }

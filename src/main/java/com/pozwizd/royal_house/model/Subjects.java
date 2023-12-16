@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,6 +44,10 @@ public class Subjects {
 
     @Column(name = "date_addition")
     private LocalDateTime dateAddition;
+
+    @Column(name = "address")
+    private String address;
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "subjects")
     private List<ImageSubject> imageSubjects;

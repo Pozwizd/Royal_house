@@ -135,7 +135,7 @@
                                     <td th:text="${building.id}"></td>
                                     <td th:text="${building.name}"></td>
                                     <td th:text="${building.address}"></td>
-                                    <td >
+                                    <td class="d-flex justify-content-center align-items-center">
                                         <a th:if="${building.statusBuilding.toString() == 'Активен'}"
                                            class="btn btn-success"
                                            th:href="@{/admin/buildings/changeStatus/{id}(id=${building.id})}"
@@ -163,31 +163,31 @@
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item first">
                                         <a class="page-link"
-                                           th:attr="href=@{/admin/subjects(page=0, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/admin/buildings(page=0, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             <i class="ti ti-chevrons-left ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item prev">
                                         <a class="page-link"
-                                           th:attr="href=@{/admin/subjects(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/admin/buildings(page=${currentPage != null && currentPage > 0 ? currentPage - 1 : 0}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             <i class="ti ti-chevron-left ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage == i - 1} ? 'active'">
                                         <a class="page-link"
-                                           th:attr="href=@{/admin/subjects(page=${i - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/admin/buildings(page=${i - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             [[${i}]]
                                         </a>
                                     </li>
                                     <li class="page-item next">
                                         <a class="page-link"
-                                           th:attr="href=@{/admin/subjects(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/admin/buildings(page=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             <i class="ti ti-chevron-right ti-xs"></i>
                                         </a>
                                     </li>
                                     <li class="page-item last">
                                         <a class="page-link"
-                                           th:attr="href=@{/admin/subjects(page=${totalPages - 1 }, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
+                                           th:attr="href=@{/admin/buildings(page=${totalPages - 1 }, id=${id}, propertyType=${propertyType}, rooms=${rooms})}">
                                             <i class="ti ti-chevrons-right ti-xs"></i>
                                         </a>
                                     </li>

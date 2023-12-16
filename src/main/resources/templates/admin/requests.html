@@ -161,16 +161,12 @@
                                     <td th:text="${inquiry.email}"></td>
                                     <td th:text="${inquiry.comment}"></td>
                                     <td th:text="${#temporals.format(inquiry.date, 'dd.MM.yyyy - HH:mm')}"></td>
-                                    <td class="flex flex-column justify-content-center">
-                                        <a th:if="${inquiry.getStatusRequests.toString() == 'Отвечено'}"
-                                           class="btn btn-success "
-                                           th:href="@{/admin/requests/changeStatus/{id}(id=${inquiry.id})}"
-                                           th:text="${inquiry.getStatusRequests}">
+                                    <td class="d-flex justify-content-center align-items-center">
+                                        <a th:if="${inquiry.getStatusRequests.toString() == 'Отвечено'}" class="btn btn-success"
+                                           th:href="@{/admin/requests/changeStatus/{id}(id=${inquiry.id})}" th:text="${inquiry.getStatusRequests}">
                                         </a>
-                                        <a th:if="${inquiry.getStatusRequests.toString() == 'Новый'}"
-                                           class="btn btn-warning"
-                                           th:href="@{/admin/requests/changeStatus/{id}(id=${inquiry.id})}"
-                                           th:text="${inquiry.getStatusRequests}">
+                                        <a th:if="${inquiry.getStatusRequests.toString() == 'Новый'}" class="btn btn-warning"
+                                           th:href="@{/admin/requests/changeStatus/{id}(id=${inquiry.id})}" th:text="${inquiry.getStatusRequests}">
                                         </a>
                                     </td>
                                     <td>

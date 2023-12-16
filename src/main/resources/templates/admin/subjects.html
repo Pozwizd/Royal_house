@@ -152,7 +152,7 @@
                                     <td th:text="${subjectElement.floor}"></td>
                                     <td th:text="${subjectElement.floorArea}"></td>
                                     <td th:text="${#temporals.format(subjectElement.dateAddition, 'dd.MM.yyyy - HH:mm')}"></td>
-                                    <td class="flex flex-content justify-content-center">
+                                    <td class="d-flex justify-content-center align-items-center">
                                         <a style="max-width: 24px;"
                                            th:href="@{/admin/subjects/get/{id}(id=${subjectElement.id})}"
                                            class="btn btn-primary flex justify-content-center">

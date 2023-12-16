@@ -48,7 +48,8 @@ public class Building {
     @Column(name = "latitude")
     private String latitude;
 
-    @Column(name = "text_location")
+    @Lob
+    @Column(name = "text_location", length = 65535)
     private String textLocation;
 
     @Column(name = "url_panorama")

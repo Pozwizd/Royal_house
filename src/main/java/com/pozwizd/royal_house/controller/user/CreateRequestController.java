@@ -1,5 +1,6 @@
 package com.pozwizd.royal_house.controller.user;
 
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,14 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @AllArgsConstructor
-public class ExampleController {
+public class CreateRequestController {
 
 
-    @GetMapping("/example")
-    public ModelAndView SecondaryMarket(Model model) {
+    @GetMapping("/request")
+    public ModelAndView CreateUserRequest(Model model) {
 
 
-        return new ModelAndView("/Example");
+        return new ModelAndView("user/leaveRequest");
     }
 
 }
+

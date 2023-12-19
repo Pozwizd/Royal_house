@@ -94,13 +94,18 @@
                             <a th:href="@{/building/{id}(id=${building.id})}">
                             <div class="card bg-dark border-0 text-white">
                                 <img class="card-img" th:src="${building.mainBanner}" th:alt="${building.mainBanner}" src="" />
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title" th:text="${building.name}">Card title</h5>
-                                    <p class="card-text" th:text="${building.address}">
-                                        This is a wider card with supporting text below as a natural lead-in to additional content. This
-                                        content is a little bit longer.
+                                <div class="card-img-overlay d-flex flex-column justify-content-center ">
+                                    <p class="card-text text-center align-items-center">
+                                        Текст 1
                                     </p>
-                                    <p class="card-text">Last updated 3 mins ago</p>
+                                    <div class="mt-auto">
+                                        <p class="card-text text-center">
+                                            Текст 2-1
+                                        </p>
+                                        <p class="card-text text-center">
+                                            Текст 2-2
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             </a>

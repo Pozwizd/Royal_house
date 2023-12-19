@@ -8,14 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @AllArgsConstructor
-public class ExampleController {
+public class AboutCompanyController {
 
 
-    @GetMapping("/example")
-    public ModelAndView SecondaryMarket(Model model) {
+    @GetMapping("/aboutCompany")
+    public ModelAndView aboutCompany(Model model) {
 
 
-        return new ModelAndView("/Example");
+        return new ModelAndView("user/aboutCompany");
     }
 
 }
+

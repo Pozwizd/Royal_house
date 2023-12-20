@@ -53,7 +53,7 @@
     <div class="menu-inner-shadow"></div>
 
     <div class="d-flex flex-column justify-content-between flex-grow-1">
-        <ul class="menu-inner py-1">
+        <ul class="menu-inner py-1" style="justify-content: flex-start !important;">
             <!-- Первый список -->
             <!-- Page -->
             <li class="menu-item">
@@ -88,50 +88,50 @@
             </li>
         </ul>
 
-        <ul class="menu-inner py-2 fontsize-ensurer" style="">
+        <ul class="list-unstyled" style="justify-content: flex-end !important; margin-left: 15px;">
             <!-- Page -->
-            <li class="menu-item">
+            <li class="mb-2 ml-2">
                 <a href="index.html" class="menu-link">
                     <i class="fa-solid fa-phone"></i>
-                    <div style="margin-left: 10px;">+38 (095) 55 43 555</div>
+                    <div class="small" style="margin-left: 10px;">+38 (095) 55 43 555</div>
                 </a>
             </li>
-            <li class="menu-item">
+            <li class="mb-2 ml-2">
                 <a href="page-2.html" class="menu-link">
                     <i class="fa-brands fa-viber"></i>
                     <span> </span>
-                    <div style="margin-left: 10px;">+38 (095) 55 43 555</div>
+                    <div class="small" style="margin-left: 10px;">+38 (095) 55 43 555</div>
                 </a>
             </li>
-            <li class="menu-item">
+            <li class="mb-2 ml-2">
                 <a href="page-2.html" class="menu-link">
                     <i class="fa-brands fa-telegram"></i>
                     <span> </span>
-                    <div style="margin-left: 10px;">@RoyalHouse</div>
+                    <div class="small" style="margin-left: 10px;">@RoyalHouse</div>
                 </a>
             </li>
-            <li class="menu-item">
+            <li class="mb-2 ml-2">
                 <a href="page-2.html" class="menu-link">
                     <i class="fa-brands fa-facebook"></i>
-                    <div style="margin-left: 10px;">Facebook</div>
+                    <div class="small" style="margin-left: 10px;">Facebook</div>
                 </a>
             </li>
-            <li class="menu-item">
+            <li class="mb-2 ml-2">
                 <a href="page-2.html" class="menu-link">
                     <i class="fa-brands fa-instagram"></i>
-                    <div style="margin-left: 10px;">Instagram</div>
+                    <div class="small" style="margin-left: 10px;">Instagram</div>
                 </a>
             </li>
-            <li class="menu-item">
+            <li class="mb-2 ml-2">
                 <a href="page-2.html" class="menu-link">
                     <i class="fa-regular fa-envelope"></i>
-                    <div style="margin-left: 10px;">office@royalhouse.od.ua</div>
+                    <div class="small" style="margin-left: 10px;">office@royalhouse.od.ua</div>
                 </a>
             </li>
-            <li class="menu-item">
+            <li class="mb-2 ml-2">
                 <a href="page-2.html" class="menu-link">
                     <i class="fa-solid fa-location-dot"></i>
-                    <div style="margin-left: 10px;">Украина, Одесская область.
+                    <div class="small" style="margin-left: 10px;">Украина, Одесская область.
                         с.Усатово
                         пер. Военный, 9
                     </div>
@@ -143,60 +143,16 @@
 
 </aside>
 
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-     id="layout-navbar"
-     th:fragment="navbar">
-    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-            <i class="ti ti-menu-2 ti-sm"></i>
-        </a>
-    </div>
-
-    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <div class="navbar-nav align-items-center">
-            <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
-                <i class="ti ti-sm"></i>
-            </a>
+<nav th:fragment="navbar">
+    <div class="card-group">
+        <div class="card-body">
+            <div class="divider">
+                <div class="divider-text">
+                    <h3 class="display-4">ROYAL HOUSE</h3>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur</p>
+                </div>
+            </div>
         </div>
-
-        <ul class="navbar-nav flex-row align-items-center ms-auto">
-            <!-- User -->
-            <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                        <img src="/assets/img/avatars/1.png" alt class="h-auto rounded-circle"/>
-                    </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
-                                        <img src="/assets/img/avatars/1.png" alt class="h-auto rounded-circle"/>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item" href="/logout">
-                            <i class="ti ti-logout me-2 ti-sm"></i>
-                            <span class="align-middle">Log Out</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <!--/ User -->
-        </ul>
     </div>
 </nav>
 

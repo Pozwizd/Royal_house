@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -31,5 +32,16 @@ public class SubjectsUserController {
 
         return new ModelAndView("user/secondaryMarket");
     }
+
+
+    @GetMapping("/subjects/{id}")
+    public ModelAndView getSubject(Model model, @PathVariable String id) {
+
+        model.addAttribute("subject", subjectsService.getSubjects(Long.parseLong(id)));
+
+        return new ModelAndView("user/subjectCard");
+    }
+
+
 
 }

@@ -26,11 +26,11 @@ public class AboutCompany {
     private String title;
 
     @Lob
-    @Column(name = "text", length = 65535)
+    @Column(name = "text", length = 1000000000)
     private String text;
 
     @Lob
-    @Column(name = "banner_text",length = 65535)
+    @Column(name = "banner_text",length = 1000000000)
     private String bannerText;
 
 }

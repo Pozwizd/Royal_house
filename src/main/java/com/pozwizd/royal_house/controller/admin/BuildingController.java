@@ -538,7 +538,7 @@ public class BuildingController {
         // Проверка на наличие изображений в бд
         // Если на вход приходит хотябы 1 изображение, то удаляем из бд и папки images все изображения последовательно
         if (!infographicPageList.isEmpty()) {
-            for (InfographicRoom infographicRoom : infographicRoomService.findAllInfographicRooms()) {
+            for (InfographicRoom infographicRoom : infographicRoomService.findAllByRoomBuilding(building.getRoomBuilding())) {
                 String filePath = Paths.get("").toFile().getAbsolutePath() + infographicRoom.getUrlImage();
                 File file = new File(filePath);
                 file.delete();

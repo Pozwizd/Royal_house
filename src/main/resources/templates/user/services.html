@@ -9,41 +9,41 @@
         data-template="vertical-menu-template-no-customizer"
 >
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Without navbar - Layouts | Vuexy - Bootstrap Admin Template</title>
+    <title>Услуги</title>
 
-    <meta name="description" content="" />
+    <meta name="description" content=""/>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico"/>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
             rel="stylesheet"
     />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css"/>
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" />
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" />
-    <link rel="stylesheet" href="../../assets/css/demo.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css"/>
+    <link rel="stylesheet" href="../../assets/css/demo.css"/>
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css"/>
+    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css"/>
 
     <!-- Page CSS -->
 
@@ -75,46 +75,57 @@
                     <!-- Layout Demo -->
                     <img class="d-block w-100"
                          th:src="${serviceBanners.urlImage}"
-                         th:alt="${serviceBanners.urlImage}" />
-                    <!--/ Layout Demo -->
+                         th:alt="${serviceBanners.urlImage}"/>
+                    <br>
+                    <div class="text-center">
+                        <h2 th:text="${serviceBanners.title}">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING
+                        </h2>
+                    </div>
+                    <div class="row mb-5"
+                         th:each="service : ${services}" >
+                        <br>
+                        <div class="col-md">
+                            <div class="card mb-3">
+                                <div class="row g-0 d-flex align-items-center justify-content-center">
+                                    <div class="col-md-4">
+                                        <img class="card-img card-img-left"
+                                             th:src="${service.urlPreview}"
+                                             src="../../assets/img/elements/9.jpg"
+                                             alt="Card image"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title" th:text="${service.name}">
+                                                Card title
+                                            </h5>
+                                            <p class="card-text" th:utext="${service.text}">
+                                                This is a wider card with supporting text below as a natural lead-in to
+                                                additional content.
+                                                This content is a little bit longer.
+                                            </p>
+                                            <p class="card-text"><small class="text-muted">Last updated 3 mins
+                                                ago</small></p>
+                                            <div class="mt-auto d-flex align-items-end justify-content-end">
+                                                <a class="card-text"
+                                                   th:href="@{/service/{id}(id=${service.id})}">
+                                                    <small class="text-muted">
+                                                        Read more
+                                                    </small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <!-- / Content -->
 
                 <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl">
-                        <div
-                                class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column"
-                        >
-                            <div>
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                , made with ❤️ by <a href="https://pixinvent.com" target="_blank" class="fw-semibold">Pixinvent</a>
-                            </div>
-                            <div>
-                                <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank"
-                                >License</a
-                                >
-                                <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4"
-                                >More Themes</a
-                                >
-
-                                <a
-                                        href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/"
-                                        target="_blank"
-                                        class="footer-link me-4"
-                                >Documentation</a
-                                >
-
-                                <a href="https://pixinvent.ticksy.com/" target="_blank" class="footer-link d-none d-sm-inline-block"
-                                >Support</a
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                <footer th:replace="~{user/fragments:: footer}"></footer>
                 <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>

@@ -31,7 +31,7 @@ public class CreateRequestController {
     public ModelAndView CreateUserRequest(@RequestParam(name = "name") String name,
                                           @RequestParam(name = "phone") String phone,
                                           @RequestParam(name = "email") String email,
-                                          @RequestParam(name = "textRequest") String textRequest,
+                                          @RequestParam(name = "textRequest", required = false) String textRequest,
                                           HttpServletRequest request) {
 
         Requests requests = new Requests();

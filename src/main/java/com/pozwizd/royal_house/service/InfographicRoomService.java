@@ -1,6 +1,7 @@
 package com.pozwizd.royal_house.service;
 
 import com.pozwizd.royal_house.model.InfographicRoom;
+import com.pozwizd.royal_house.model.RoomBuilding;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface InfographicRoomService {
 
     public List<InfographicRoom> findAllInfographicRooms();
 
+    List<InfographicRoom> findAllByRoomBuilding(RoomBuilding roomBuilding);
 }

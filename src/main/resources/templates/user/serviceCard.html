@@ -15,7 +15,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title th:text="${building.name}"></title>
+    <title th:text="${service.name}"></title>
 
     <meta name="description" content=""/>
 
@@ -71,149 +71,24 @@
             <div class="content-wrapper">
                 <!-- Content -->
 
+                <div class="">
+                    <h3 class="text-center" th:text="${service.name}">Title</h3>
+                </div>
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <!-- Building main-->
-                    <div>
-                        <img class="card-img-top" th:src="${building.getMainBanner()}"
+                    <div class="d-flex justify-content-center">
+                        <img class="card-img-top" th:src="${service.urlBanner}"
                              src="//../images/panorama-1861658_960_720.jpg"
-                             alt="Card image cap" style="max-height: 50%"/>
-                        <hr/>
-                        <div class="card-group mb-5 flex justify-content-evenly" style="max-width: 100%">
-                            <div class="container">
-                                <div class="row justify-content-around">
-                                    <div class="col-4 col-md-2 d-flex align-items-center flex-column"
-                                         th:each="infographicBuilding : ${building.getInfographicBuildings()}">
-                                        <div class="element">
-                                            <img th:src="${infographicBuilding.getUrlImage()}" alt="Card image cap"
-                                                 style="max-height: 50px; max-width: 50px"/>
-                                        </div>
-                                        <div class="quote text-center">
-                                            <p class="card-text" th:text="${infographicBuilding.getDescription()}"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                             alt="Card image cap" style="max-height: 75vh; max-width: 75vh"/>
                     </div>
-                    <!-- About project-->
-                    <div>
-                        <div class="text-center">
-                            <h3>О ПРОЕКТЕ</h3>
-                        </div>
-                        <div th:utext="${building.textAbout}">
-                        </div>
-                        <img class="card-img-top" th:src="${building.urlSlide1}"
-                             src="//../images/panorama-1861658_960_720.jpg"
-                             alt="Card image cap" style="max-height: 50%"/>
-                        <hr/>
+                    <br/>
+                    <div th:utext="${service.text}">
                     </div>
-                    <!-- Location project-->
-                    <div>
-                        <div class="text-center">
-                            <h3>МЕСТОРАСПОЛОЖЕНИЕ</h3>
-                        </div>
-                        <div th:utext="${building.textLocation}">
-                        </div>
-
-                        <img class="card-img-top"
-                             style="max-height: 50%"
-                             src="../../../../../images/1265739-red-pin-in-zeigt-ort-auf-gps-navigator-karte-kostenlos-vektor.jpg"/>
-
-                        <hr/>
-                    </div>
-                    <!-- Location project-->
-                    <div>
-                        <div class="text-center">
-                            <h3>ИНФРАСТРУКТУРА</h3>
-                        </div>
-                        <div th:utext="${building.infrastructureBuilding.getText()}">
-                        </div>
-
-                        <img class="card-img-top"
-                             style="max-height: 50%"
-                             th:src="${building.infrastructureBuilding.urlSlide1}"
-                             th:alt="${building.infrastructureBuilding.urlSlide1}"
-                             src="../../../../../images/1265739-red-pin-in-zeigt-ort-auf-gps-navigator-karte-kostenlos-vektor.jpg"/>
-                        <br/>
-                        <br/>
-                        <div class="card-group mb-5 flex justify-content-evenly" style="max-width: 100%">
-                            <div class="container">
-                                <div class="row justify-content-around">
-                                    <div class="col-4 col-md-2 d-flex align-items-center flex-column"
-                                         th:each="infographicInfrastructure : ${building.infrastructureBuilding.infographicInfrastructures}">
-                                        <div class="element">
-                                            <img th:src="${infographicInfrastructure.urlImage}" alt="Card image cap"
-                                                 style="max-height: 50px; max-width: 50px"/>
-                                        </div>
-                                        <div class="quote text-center">
-                                            <p class="card-text" th:text="${infographicInfrastructure.description}"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                    </div>
-                    <!-- Room building project-->
-                    <div>
-                        <div class="text-center">
-                            <h3>КВАРТИРЫ ОТ ЗАСТРОЙЩИКА</h3>
-                        </div>
-                        <div th:utext="${building.roomBuilding.text}">
-                        </div>
-
-                        <img class="card-img-top"
-                             style="max-height: 50%"
-                             th:src="${building.roomBuilding.urlSlide1}"
-                             th:alt="${building.roomBuilding.urlSlide1}"
-                             src="../../../../../images/1265739-red-pin-in-zeigt-ort-auf-gps-navigator-karte-kostenlos-vektor.jpg"/>
-                        <br/>
-                        <br/>
-                        <div class="card-group mb-5 flex justify-content-evenly" style="max-width: 100%">
-                            <div class="container">
-                                <div class="row justify-content-around">
-                                    <div class="col-4 col-md-2 d-flex align-items-center flex-column"
-                                         th:each="infographicRooms : ${building.roomBuilding.infographicRooms}">
-                                        <div class="element">
-                                            <img th:src="${infographicRooms.urlImage}" alt="Card image cap"
-                                                 style="max-height: 50px; max-width: 50px"/>
-                                        </div>
-                                        <div class="quote text-center">
-                                            <p class="card-text" th:text="${infographicRooms.description}"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                    </div>
+                    <hr/>
                 </div>
                 <!-- / Content -->
 
                 <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl">
-                        <div
-                                class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column"
-                        >
-                            <div>
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                , made with ❤️ by <a href="https://pixinvent.com" target="_blank" class="fw-semibold">Pixinvent</a>
-                            </div>
-                            <div>
-                                <a
-                                        href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/"
-                                        target="_blank"
-                                        class="footer-link me-4"
-                                >Documentation</a
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                <footer th:replace="~{user/fragments:: footer}"></footer>
                 <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>

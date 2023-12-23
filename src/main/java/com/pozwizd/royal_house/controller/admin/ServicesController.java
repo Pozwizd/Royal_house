@@ -96,6 +96,7 @@ public class ServicesController {
     public ModelAndView editBasicBuilding(@RequestParam(name = "urlBanner", required = false) MultipartFile urlBanner,
                                           @RequestParam(name = "urlPreview", required = false) MultipartFile urlPreview,
                                           @RequestParam(name = "servicesName", required = false) String servicesName,
+                                          @RequestParam(name = "editorServiceCard", required = false) String editorServiceCard,
                                           @RequestParam(name = "visibleServices", required = false) boolean visibleServices,
                                           @PathVariable String id,
                                           HttpServletRequest request) {
@@ -152,7 +153,7 @@ public class ServicesController {
 
         // Обновляем значения
         services.setName(servicesName);
-//        services.setText(visibleServices);
+        services.setText(editorServiceCard);
         servicesService.updateServices(services);
 
         String referer = request.getHeader("Referer");

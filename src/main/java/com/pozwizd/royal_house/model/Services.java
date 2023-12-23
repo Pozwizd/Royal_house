@@ -29,7 +29,8 @@ public class Services {
     @Column(name = "url_preview")
     private String urlPreview;
 
-    @Column(name = "text")
+    @Lob
+    @Column(name = "text", length = 65535)
     private String text;
 
     @Column(name = "date")

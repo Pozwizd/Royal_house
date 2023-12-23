@@ -1,6 +1,7 @@
 package com.pozwizd.royal_house.service.ServiceImp;
 
 import com.pozwizd.royal_house.model.InfographicRoom;
+import com.pozwizd.royal_house.model.RoomBuilding;
 import com.pozwizd.royal_house.repository.InfographicRoomRepository;
 import com.pozwizd.royal_house.service.InfographicRoomService;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,7 @@ public class InfographicRoomServiceImp implements InfographicRoomService {
     public InfographicRoomServiceImp(InfographicRoomRepository infographicRoomRepository) {
         this.infographicRoomRepository = infographicRoomRepository;
     }
+
 
     @Override
     public void saveInfographicRoom(InfographicRoom infographicRoom) {
@@ -39,5 +41,10 @@ public class InfographicRoomServiceImp implements InfographicRoomService {
     @Override
     public List<InfographicRoom> findAllInfographicRooms() {
         return infographicRoomRepository.findAll();
+    }
+
+    @Override
+    public List<InfographicRoom> findAllByRoomBuilding(RoomBuilding roomBuilding){
+        return infographicRoomRepository.findAllByRoomBuilding(roomBuilding);
     }
 }

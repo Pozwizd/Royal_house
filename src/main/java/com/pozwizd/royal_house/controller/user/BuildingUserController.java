@@ -5,6 +5,7 @@ import com.pozwizd.royal_house.model.Building;
 import com.pozwizd.royal_house.model.Subjects;
 import com.pozwizd.royal_house.service.BuildingService;
 import com.pozwizd.royal_house.service.SubjectsService;
+import com.pozwizd.royal_house.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class BuildingUserController {
+
+    private final UserService userService;
 
     private final BuildingService buildingService;
     private final SubjectsService subjectsService;
